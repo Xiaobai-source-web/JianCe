@@ -1,0 +1,21 @@
+<svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sky" x1="24" y1="18" x2="137" y2="145" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#60A5FA"/>
+      <stop offset="1" stop-color="#1D4ED8"/>
+    </linearGradient>
+    <linearGradient id="beam" x1="41" y1="111" x2="122" y2="50" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#BFDBFE"/>
+      <stop offset="1" stop-color="#F8FAFC"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="152" height="152" rx="42" fill="#0F2747"/>
+  <circle cx="80" cy="80" r="59" fill="url(#sky)" opacity=".18"/>
+  <path d="M35 116.5 80 88l45 28.5v12H35v-12Z" fill="#F8FAFC"/>
+  <path d="M45 111V69l35-22 35 22v42" stroke="#F8FAFC" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M59 111V83h15v28M86 111V71h15v40" fill="url(#beam)"/>
+  <path d="M80 47V26M80 26l29 17" stroke="#FBBF24" stroke-width="5" stroke-linecap="round"/>
+  <path d="M109 43v12" stroke="#FBBF24" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="109" cy="61" r="5" fill="#FBBF24"/>
+  <path d="M26 132h108" stroke="#60A5FA" stroke-width="4" stroke-linecap="round"/>
+</svg>

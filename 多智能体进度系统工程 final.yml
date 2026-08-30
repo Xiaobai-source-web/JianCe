@@ -1,0 +1,4160 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: advanced-chat
+  name: 多智能体进度系统工程 final
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.2.15@1df8bd27d67c149e6db3c210830ef6e3857c5a9df5e8edbe9e785b995f337ef5
+    version: null
+kind: app
+version: 0.7.0
+workflow:
+  conversation_variables:
+  - description: ''
+    id: de16065b-db8b-427a-8f30-21cd51e18f8f
+    name: blackboard
+    selector:
+    - conversation
+    - blackboard
+    value: ''
+    value_type: string
+  - description: ''
+    id: eefa4ae0-0cf7-4bdc-bfbd-aaf2334a99aa
+    name: plan
+    selector:
+    - conversation
+    - plan
+    value: '1234'
+    value_type: string
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      - document
+      allowed_file_upload_methods:
+      - remote_url
+      - local_file
+      enabled: true
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 50
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        knowledge_file_size_limit: 50
+        single_chunk_attachment_limit: 10
+        skill_file_size_limit: 50
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: true
+      model:
+        completion_params:
+          echo: false
+          frequency_penalty: 0
+          max_tokens: 0
+          presence_penalty: 0
+          stop: []
+          temperature: 0.7
+          top_p: 0
+        mode: chat
+        name: qwen3.6-plus
+        provider: langgenius/tongyi/tongyi
+      prompt: 您可以进一步提出边界条件修改，或您建议的优化方案
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: code
+      id: 1781059908414-source-1781068964519-target
+      selected: false
+      source: '1781059908414'
+      sourceHandle: source
+      target: '1781068964519'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: code
+      id: 1781067264708-source-1781068964519-target
+      selected: false
+      source: '1781067264708'
+      sourceHandle: source
+      target: '1781068964519'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: document-extractor
+        targetType: llm
+      id: 1781057854868-source-1781071824120-target
+      selected: false
+      source: '1781057854868'
+      sourceHandle: source
+      target: '1781071824120'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1781073113751-true-1781072408989-target
+      selected: false
+      source: '1781073113751'
+      sourceHandle: 'true'
+      target: '1781072408989'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1781073113751-false-1781066487130-target
+      selected: false
+      source: '1781073113751'
+      sourceHandle: 'false'
+      target: '1781066487130'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: llm
+      id: 1781068964519-source-1781067140466-target
+      selected: false
+      source: '1781068964519'
+      sourceHandle: source
+      target: '1781067140466'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: loop
+      id: 1781067625341-source-1781088711155-target
+      selected: false
+      source: '1781067625341'
+      sourceHandle: source
+      target: '1781088711155'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1781088711155'
+        sourceType: llm
+        targetType: if-else
+      id: 1781088857843-source-1781089061233-target
+      selected: false
+      source: '1781088857843'
+      sourceHandle: source
+      target: '1781089061233'
+      targetHandle: target
+      type: custom
+      zIndex: 1001
+    - data:
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1781088711155'
+        sourceType: if-else
+        targetType: llm
+      id: 1781089061233-false-1781089126044-target
+      selected: false
+      source: '1781089061233'
+      sourceHandle: 'false'
+      target: '1781089126044'
+      targetHandle: target
+      type: custom
+      zIndex: 1001
+    - data:
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1781088711155'
+        sourceType: if-else
+        targetType: loop-end
+      id: 1781089061233-true-1781089120207-target
+      selected: false
+      source: '1781089061233'
+      sourceHandle: 'true'
+      target: '1781089120207'
+      targetHandle: target
+      type: custom
+      zIndex: 1001
+    - data:
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1781088711155'
+        sourceType: loop-start
+        targetType: llm
+      id: 1781088711155start-source-1781088857843-target
+      selected: false
+      source: 1781088711155start
+      sourceHandle: source
+      target: '1781088857843'
+      targetHandle: target
+      type: custom
+      zIndex: 1001
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1781059078017-source-1781090555030-target
+      selected: false
+      source: '1781059078017'
+      sourceHandle: source
+      target: '1781090555030'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: llm
+      id: 1781090682877-source-1781067140466-target
+      selected: false
+      source: '1781090682877'
+      sourceHandle: source
+      target: '1781067140466'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1781059779423-source-1781067264708-target
+      selected: false
+      source: '1781059779423'
+      sourceHandle: source
+      target: '1781067264708'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1781067140466-source-1781067625341-target
+      selected: false
+      source: '1781067140466'
+      sourceHandle: source
+      target: '1781067625341'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1781090555030-source-1781618792912-target
+      selected: false
+      source: '1781090555030'
+      sourceHandle: source
+      target: '1781618792912'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1781618792912-source-1781059779423-target
+      selected: false
+      source: '1781618792912'
+      sourceHandle: source
+      target: '1781059779423'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1781618792912-source-1781067264708-target
+      selected: false
+      source: '1781618792912'
+      sourceHandle: source
+      target: '1781067264708'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1781618792912-source-1781059908414-target
+      selected: false
+      source: '1781618792912'
+      sourceHandle: source
+      target: '1781059908414'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: document-extractor
+      id: 1781057487990-source-1781057854868-target
+      selected: false
+      source: '1781057487990'
+      sourceHandle: source
+      target: '1781057854868'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1781072408989-source-1781072794244-target
+      selected: false
+      source: '1781072408989'
+      sourceHandle: source
+      target: '1781072794244'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1781072794244-source-17810879415940-target
+      selected: false
+      source: '1781072794244'
+      sourceHandle: source
+      target: '17810879415940'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1781066487130-source-1781059078017-target
+      selected: false
+      source: '1781066487130'
+      sourceHandle: source
+      target: '1781059078017'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1781066487130-source-1781630160444-target
+      selected: false
+      source: '1781066487130'
+      sourceHandle: source
+      target: '1781630160444'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: assigner
+      id: 1781630160444-source-1781090682877-target
+      selected: false
+      source: '1781630160444'
+      sourceHandle: source
+      target: '1781090682877'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1781059779423-source-1781630160444-target
+      selected: false
+      source: '1781059779423'
+      sourceHandle: source
+      target: '1781630160444'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1781088711155'
+        sourceType: llm
+        targetType: assigner
+      id: 1781089126044-source-1781089424209-target
+      selected: false
+      source: '1781089126044'
+      sourceHandle: source
+      target: '1781089424209'
+      targetHandle: target
+      type: custom
+      zIndex: 1001
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1781071824120-source-llm-target
+      selected: false
+      source: '1781071824120'
+      sourceHandle: source
+      target: llm
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: if-else
+      id: llm-source-1781073113751-target
+      selected: false
+      source: llm
+      sourceHandle: source
+      target: '1781073113751'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1786242898627-source-1786244582900-target
+      source: '1786242898627'
+      sourceHandle: source
+      target: '1786244582900'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: assigner
+      id: 17810879415940-source-1787109691038-target
+      source: '17810879415940'
+      sourceHandle: source
+      target: '1787109691038'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: answer
+      id: 1786695583542-source-1781087993120-target
+      source: '1786695583542'
+      sourceHandle: source
+      target: '1781087993120'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: answer
+      id: 1786696840788-source-1784370286297-target
+      source: '1786696840788'
+      sourceHandle: source
+      target: '1784370286297'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: loop
+        targetType: assigner
+      id: 1781088711155-source-1787109691037-target
+      source: '1781088711155'
+      sourceHandle: source
+      target: '1787109691037'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: llm
+      id: 1787109691037-source-1787000000001-target
+      source: '1787109691037'
+      sourceHandle: source
+      target: '1787000000001'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: code
+      id: 1787109691037-source-1786696840788-target
+      source: '1787109691037'
+      sourceHandle: source
+      target: '1786696840788'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1787000000001-source-1786696840788-target
+      source: '1787000000001'
+      sourceHandle: source
+      target: '1786696840788'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: llm
+      id: 1787109691038-source-1787000000002-target
+      source: '1787109691038'
+      sourceHandle: source
+      target: '1787000000002'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: code
+      id: 1787109691038-source-1786695583542-target
+      source: '1787109691038'
+      sourceHandle: source
+      target: '1786695583542'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1787000000002-source-1786695583542-target
+      source: '1787000000002'
+      sourceHandle: source
+      target: '1786695583542'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1781073113751-42fbf1f3-2018-4e38-ad4e-d1fd4262a24b-1787474532338-target
+      source: '1781073113751'
+      sourceHandle: 42fbf1f3-2018-4e38-ad4e-d1fd4262a24b
+      target: '1787474532338'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1787474532338-source-1786242898627-target
+      source: '1787474532338'
+      sourceHandle: source
+      target: '1786242898627'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables: []
+      height: 72
+      id: '1781057487990'
+      position:
+        x: -765.0229302422058
+        y: -248.90832864993686
+      positionAbsolute:
+        x: -765.0229302422058
+        y: -248.90832864993686
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1781057854868'
+          - text
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: bd53dc0c-d506-42a2-bc6b-5034b2dd9614
+          role: system
+          text: "{{#1781057854868.text#}}\n{{#sys.query#}}\n以上是你能用到的信息\n你是一个专业的项目文档参数提取助手。你的任务是从用户提供的相关文档中，提取结构化参数，并严格按照下面的\
+            \ JSON Schema 输出。\n\n### 输入\n用户会粘贴或上传项目文档内容（可能是部分或全部）。你需要从中提取所有你能找到的参数，不要编造。\n\
+            \n### 输出格式\n必须输出一个合法的 JSON 对象，结构如下（如果某个字段在文档中未出现，则填 null 或省略该字段）：\n{\n\
+            \  \"project_basic_info\": {\n    \"project_name\": \"工程名称（字符串）\",\n \
+            \   \"location\": \"建设地点（字符串）\",\n    \"total_building_area\": \"总建筑面积（数值+单位，如\
+            \ 301354.26㎡）\",\n    \"land_area\": \"占地面积（数值+单位）\",\n    \"building_composition\"\
+            : \"建筑组成简述（字符串或数组）\",\n    \"structure_type\": \"结构形式（字符串）\",\n    \"\
+            floor_and_height\": \"层数与高度（字符串或对象）\",\n    \"total_duration_days\": \"\
+            总工期（数字，单位天）\",\n    \"planned_start_date\": \"计划开工日期（字符串）\",\n    \"planned_end_date\"\
+            : \"计划竣工日期（字符串）\",\n    \"quality_target\": \"质量目标（字符串）\",\n    \"safety_target\"\
+            : \"安全目标（字符串）\",\n    \"geographic_environment\": \"地理环境描述（字符串）\",\n \
+            \   \"climate_conditions\": \"气候条件（字符串）\"\n  },\n  \"technical_constraints\"\
+            : {\n    \"excavation_support\": \"基坑支护工艺（字符串）\",\n    \"pile_foundation_tech\"\
+            : \"桩基工艺（字符串）\",\n    \"special_techniques\": \"特殊工艺（数组或字符串）\",\n    \"\
+            main_structure_tech\": \"主体结构工艺（字符串）\",\n    \"process_logic_sequence\"\
+            : [\n        { \n          \"pre\": \"第n道工序（字符串）\", \n          \"post\"\
+            : \"第n+1道工序（字符串）\", \n          \"relation\": \"活动依赖关系（字符串，合法值为'FS'或'FF'或'SS'或'SF'）\"\
+            , \n          \"lag\": \"工序间时间（字符串，含单位）\" \n        }\n    ],\n    \"\
+            construction_zones\": [\n        {\n          \"id\": \"分区名称（字符串）\", \n\
+            \          \"relative_scale\": \"相对比例（数值，设总建设面积为1.0）\"\n        }\n  \
+            \  ]\n  },\n  \"resource_constraints\": {\n    \"human_resources\": {\n\
+            \      \"peak_labor_count\": \"总劳动力峰值（数字）\",\n      \"main_trades\": \"\
+            主要工种及人数（数组，每项含工种和人数）\",\n      \"weekly_work_hours\": \"每周工时（字符串，含单位，默认30小时）\"\
+            \n    },\n    \"material_resources\": [\n        {\n          \"material_name\"\
+            : \"材料名称（字符串）\",\n          \"required_quantity\": \"需求量（字符串，含单位）\",\n\
+            \          \"supply_lead_time\": \"供应期（字符串）\"\n        }\n    ],\n   \
+            \ \"equipment\": [\n        {\n          \"equipment_name\": \"设备名称（字符串）\"\
+            ,\n          \"quantity\": \"数量（字符串，含单位）\"\n        }\n    ],\n    \"\
+            temporary_materials\": [\n        {\n          \"temporary_material_name\"\
+            : \"临时材料名称（字符串）\",\n          \"required_quantity\": \"需求量（字符串，含单位）\"\n\
+            \        }\n    ]\n  },\n  \"organization_and_management\": {\n    \"\
+            general_contractor\": \"总承包单位（字符串）\",\n    \"project_manager\": \"项目负责人（字符串及资质）\"\
+            ,\n    \"tech_lead\": \"技术负责人（字符串及职称）\",\n    \"funding_terms\": \"资金条件（字符串）\"\
+            \n  },\n  \"external_constraints\": {\n    \"government_regulations\"\
+            : {\n      \"night_work_restriction\": \"夜间施工规定（字符串）\",\n      \"muck_truck_time\"\
+            : \"渣土运输时间（字符串）\",\n      \"exam_silence_periods\": \"考试管制（字符串）\",\n \
+            \     \"environmental_limits\": \"环保要求（字符串）\"\n    },\n    \"mandatory_milestones\"\
+            : [\n        {\n          \"name\": \"名称（字符串）\",\n          \"date\":\
+            \ \"日期（字符串）\",\n          \"description\": \"描述（字符串）\",\n          \"\
+            allow_delay\": \"是否允许延迟（布尔值）\"\n        }\n    ],\n    \"spatial_occupancy_rules\"\
+            : [\n        {\n          \"occupied_zone_id\": \"被占用的分区名称（字符串）\",\n \
+            \         \"occupier\": \"占用用途（字符串）\",\n          \"occupancy_period_trigger\"\
+            : \"触发占用时间（字符串）\",\n          \"affected_zones\": \"影响分区名称（数组）\",\n  \
+            \        \"constraint_type\": \"限制类型（字符串）\",\n          \"logic_impact\"\
+            : \"工序影响描述（字符串）\"\n        }\n    ],\n    \"neighborhood_relations\":\
+            \ \"周边关系与保护要求（字符串）\",\n    \"other\": \"其它限制（字符串）\"\n  },\n  \"schedule_adjustment_cases\"\
+            : [\n    {\n      \"case_name\": \"用例名称（字符串，如：岩溶发育区溶洞处理量超预期）\",\n    \
+            \  \"trigger_condition\": \"触发条件（字符串）\",\n      \"deviation_parameters\"\
+            : \"偏差参数（字符串）\",\n      \"impact_scope\": \"影响范围（字符串）\",\n      \"adjustment_options\"\
+            : \"资源调整选项（数组或字符串）\",\n      \"expected_target\": \"预期调整目标（字符串）\"\n  \
+            \  }\n  ]\n}\n\n### 提取规则\n1. 只提取文档中明确写出的内容。严禁在文档缺失时编造数据。\n2. 如果某个字段在文档中没有出现，对应值设为\
+            \ null 或直接省略该键。\n3. 数值单位尽量保留原文（如 ㎡、吨、天、m³）。\n4. 对于每一个包含数组的项，你必须提取文档中存在的所有符合要求的对象，严禁汇总、整合。\n\
+            5. 输出必须是纯 JSON，不要包含任何解释或 markdown 标记。\n\n\n"
+        selected: false
+        structured_output:
+          schema:
+            additionalProperties: false
+            properties: {}
+            required: []
+            type: object
+        structured_output_enabled: true
+        title: 1.1综合参数提取
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: llm
+      position:
+        x: -765.0229302422058
+        y: 57.5124460440623
+      positionAbsolute:
+        x: -765.0229302422058
+        y: 57.5124460440623
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        is_array_file: true
+        selected: false
+        title: 文档提取器
+        type: document-extractor
+        variable_selector:
+        - sys
+        - files
+      height: 103
+      id: '1781057854868'
+      position:
+        x: -765.0229302422058
+        y: -163.73077256392156
+      positionAbsolute:
+        x: -765.0229302422058
+        y: -163.73077256392156
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - llm
+          - text
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: ba11330d-8fbb-469c-b623-fb105646d447
+          role: system
+          text: '你是一位资深的建筑工程项目管理专家，擅长根据项目关键参数生成标准的工作分解结构（WBS）。
+
+
+            ### 任务
+
+            根据用户提供的项目参数（JSON 格式），生成该项目的完整 WBS。WBS 应包含以下特征：
+
+            1.你是一位建筑工程项目 WBS 分解专家。任务是根据项目参数，生成**二级 WBS**（只包含阶段和二级工作包，不展开到三级任务）。
+
+            3. WBS 中应体现文档中提到的特殊工艺（如溶洞处理、地连墙、装配式、铝模、爬架等）、关键工期节点（如有）、以及外部约束（如高考停工、夜间施工限制等，可在管理类工作包中体现）。
+
+            4. 输出格式：使用树状文本或层级列表（用数字编号和缩进），确保清晰易读。
+
+
+
+
+            ### 输出要求
+
+            直接输出 WBS 文本，不要添加额外的解释或前言。
+
+
+            现在，请根据以下输入参数生成 WBS。
+
+            {{#1781057854868.text#}}
+
+            {{#llm.text#}}
+
+            {{#1781066487130.text#}}'
+        selected: false
+        structured_output:
+          schema:
+            properties:
+              phases:
+                items:
+                  properties:
+                    phase_id:
+                      type: string
+                    phase_name:
+                      type: string
+                    work_packages:
+                      items:
+                        properties:
+                          id:
+                            type: string
+                          name:
+                            type: string
+                        required:
+                        - id
+                        - name
+                        type: object
+                      type: array
+                  required:
+                  - phase_id
+                  - phase_name
+                  - work_packages
+                  type: object
+                type: array
+              project_name:
+                type: string
+            required:
+            - project_name
+            - phases
+            type: object
+        structured_output_enabled: true
+        title: 1.3WBS一二级+粗颗粒逻辑
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1781059078017'
+      position:
+        x: -382.6096833036394
+        y: 219.64290968087337
+      positionAbsolute:
+        x: -382.6096833036394
+        y: 219.64290968087337
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1781090555030'
+          - structured_output
+        model:
+          completion_params:
+            temperature: 0.2
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: c7af29a4-1ee8-4b88-b4bd-86ecf260cf76
+          role: system
+          text: "你是一位建筑工程项目进度管理专家。你的任务是根据 WBS 和施工工艺逻辑，生成工序之间的依赖关系。\n\n### 输入说明\n-\
+            \ `wbs`：包含 `phases[].work_packages[].sub_packages[]` 结构的 WBS，其中 `sub_packages`\
+            \ 是**叶子节点（三级任务）**，每个叶子节点有唯一的 `id`（格式如 `1.1.1`、`2.1.1`）。\n- `工艺逻辑参考`：施工准备\
+            \ → 溶洞处理 → 桩基工程 → 基坑支护 → 土方开挖 → 地下室结构 → 主体结构 → 二次结构 → 机电安装 → 装饰装修 → 室外工程\
+            \ → 竣工验收\n{{#1781618792912.structured_output#}}\n### 输出要求\n**必须使用叶子节点（三级）ID**，如\
+            \ `1.1.1`、`2.1.1`，不能使用二级 ID（如 `1.1`、`2.1`）。\n\n输出格式：\n```json\n{\n  \"\
+            dependencies\": [\n    {\n      \"predecessor\": \"叶子节点ID\",\n      \"\
+            successor\": \"叶子节点ID\",\n      \"type\": \"FS | SS | FF | SF\",\n   \
+            \   \"lag_days\": 整数\n    }\n  ]\n}"
+        selected: false
+        structured_output:
+          schema:
+            $schema: http://json-schema.org/draft-07/schema#
+            additionalProperties: false
+            properties:
+              dependencies:
+                description: 工序依赖关系列表
+                items:
+                  additionalProperties: false
+                  properties:
+                    lag_days:
+                      description: 滞后/提前天数（正数为滞后，负数为提前，通常为0或正数）
+                      minimum: 0
+                      type: integer
+                    predecessor:
+                      description: 前驱任务ID，必须是三级叶子节点ID，如 '1.1.1'
+                      pattern: ^\d+\.\d+\.\d+$
+                      type: string
+                    successor:
+                      description: 后继任务ID，必须是三级叶子节点ID，如 '1.2.1'
+                      pattern: ^\d+\.\d+\.\d+$
+                      type: string
+                    type:
+                      description: 依赖关系类型：FS(完成-开始)、SS(开始-开始)、FF(完成-完成)、SF(开始-完成)
+                      enum:
+                      - FS
+                      - SS
+                      - FF
+                      - SF
+                      type: string
+                  required:
+                  - predecessor
+                  - successor
+                  - type
+                  - lag_days
+                  type: object
+                type: array
+            required:
+            - dependencies
+            type: object
+        structured_output_enabled: true
+        title: 2.1工序依赖关系
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1781059779423'
+      position:
+        x: -382.6096833036394
+        y: 516.2464488560165
+      positionAbsolute:
+        x: -382.6096833036394
+        y: 516.2464488560165
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        code: "\"\"\"\n节点名称：资源定额计算（基于 WBS + 物理产能 + 多资源匹配）\n输入变量：\n  - wbs（Object）：WBS\
+          \ 对象\n  - extracted_params（Object，可选）：项目参数\n  - boundary_conditions（Object，可选）：边界条件\n\
+          输出变量：\n  - resource_demand（Object）\n\"\"\"\n\nimport json\nimport math\n\
+          from typing import Dict, Any, Optional, List\n\n# ==================== 关键词→资源映射\
+          \ ====================\nRESOURCE_MAPPING = {\n    # ----- 施工准备 -----\n \
+          \   \"场地平整\": {\"resources\": [\"推土机\", \"压路机\", \"普工\"], \"work_type\"\
+          : \"土建临建\"},\n    \"场地清理\": {\"resources\": [\"推土机\", \"压路机\", \"普工\"],\
+          \ \"work_type\": \"土建临建\"},\n    \"临时道路\": {\"resources\": [\"普工\"], \"\
+          work_type\": \"土建临建\"},\n    \"临时水电\": {\"resources\": [\"电工\", \"管道工\"\
+          ], \"work_type\": \"机电安装\"},  # 临时水电应匹配电工和管道工，而非“土建临建”\n    \"临时设施\": {\"\
+          resources\": [\"普工\"], \"work_type\": \"土建临建\"},\n    \"办公临建\": {\"resources\"\
+          : [\"普工\"], \"work_type\": \"土建临建\"},\n    \"生活临建\": {\"resources\": [\"\
+          普工\"], \"work_type\": \"土建临建\"},\n    \"控制网\": {\"resources\": [\"测量工\"\
+          ], \"work_type\": \"测量工程\"},\n    \"定位放线\": {\"resources\": [\"测量工\"], \"\
+          work_type\": \"测量工程\"},\n    \"施工许可证\": {\"resources\": [], \"work_type\"\
+          : \"行政管理\"},\n    \"管线探测\": {\"resources\": [\"普工\"], \"work_type\": \"\
+          保护措施\"},\n    \"管线保护\": {\"resources\": [\"普工\"], \"work_type\": \"保护措施\"\
+          },\n\n    # ----- 地基处理 -----\n    \"袖阀管钻孔\": {\"resources\": [\"注浆泵\", \"\
+          普工\"], \"work_type\": \"地基处理\"},\n    \"注浆加固\": {\"resources\": [\"注浆泵\"\
+          , \"普工\"], \"work_type\": \"地基处理\"},\n    \"注浆效果\": {\"resources\": [\"\
+          普工\"], \"work_type\": \"检测工程\"},\n\n    # ----- 桩基工程 -----\n    \"PRC管桩\"\
+          : {\"resources\": [\"静压桩机\", \"吊车\", \"桩机工\"], \"work_type\": \"桩基工程\"},\n\
+          \    \"管桩静压\": {\"resources\": [\"静压桩机\", \"吊车\", \"桩机工\"], \"work_type\"\
+          : \"桩基工程\"},\n    \"截桩\": {\"resources\": [\"普工\", \"桩机工\"], \"work_type\"\
+          : \"桩基工程\"},\n    \"接桩\": {\"resources\": [\"普工\", \"桩机工\"], \"work_type\"\
+          : \"桩基工程\"},\n    \"桩基检测\": {\"resources\": [\"普工\"], \"work_type\": \"\
+          检测工程\"},\n    \"静载试验\": {\"resources\": [\"普工\"], \"work_type\": \"检测工程\"\
+          },\n    \"低应变\": {\"resources\": [\"普工\"], \"work_type\": \"检测工程\"},\n\n\
+          \    # ----- 基坑支护 -----\n    \"地下连续墙\": {\"resources\": [\"成槽机\", \"混凝土工\"\
+          , \"钢筋工\", \"履带吊\"], \"work_type\": \"支护工程\"},\n    \"咬合桩\": {\"resources\"\
+          : [\"旋挖钻机\", \"混凝土工\", \"桩机工\"], \"work_type\": \"支护工程\"},\n    \"灌注桩\"\
+          : {\"resources\": [\"旋挖钻机\", \"混凝土工\", \"桩机工\"], \"work_type\": \"支护工程\"\
+          },\n    \"内支撑\": {\"resources\": [\"钢筋工\", \"混凝土工\", \"普工\"], \"work_type\"\
+          : \"钢筋混凝土工程\"},\n    \"锚索\": {\"resources\": [\"普工\"], \"work_type\": \"\
+          支护工程\"},\n    \"冠梁\": {\"resources\": [\"钢筋工\", \"混凝土工\"], \"work_type\"\
+          : \"钢筋混凝土工程\"},\n    \"腰梁\": {\"resources\": [\"钢筋工\", \"混凝土工\"], \"work_type\"\
+          : \"钢筋混凝土工程\"},\n    \"基坑监测\": {\"resources\": [\"普工\"], \"work_type\":\
+          \ \"监测工程\"},\n    \"水位监测\": {\"resources\": [\"普工\"], \"work_type\": \"\
+          监测工程\"},\n    \"降水运行\": {\"resources\": [\"普工\"], \"work_type\": \"监测工程\"\
+          },\n\n    # ----- 止水工程 -----\n    \"水泥搅拌桩\": {\"resources\": [\"搅拌桩机\",\
+          \ \"水泥工\"], \"work_type\": \"止水工程\"},\n    \"搅拌桩\": {\"resources\": [\"\
+          搅拌桩机\", \"水泥工\"], \"work_type\": \"止水工程\"},\n    \"止水帷幕\": {\"resources\"\
+          : [\"搅拌桩机\", \"水泥工\"], \"work_type\": \"止水工程\"},\n    \"三轴搅拌桩\": {\"resources\"\
+          : [\"搅拌桩机\", \"水泥工\"], \"work_type\": \"止水工程\"},\n\n    # ----- 土方工程 -----\n\
+          \    \"土方开挖\": {\"resources\": [\"挖掘机\", \"自卸汽车\", \"普工\"], \"work_type\"\
+          : \"土方工程\"},\n    \"土方外运\": {\"resources\": [\"自卸汽车\", \"普工\"], \"work_type\"\
+          : \"土方工程\"},\n    \"清槽\": {\"resources\": [\"普工\"], \"work_type\": \"土方工程\"\
+          },\n    \"回填土\": {\"resources\": [\"装载机\", \"压路机\", \"普工\"], \"work_type\"\
+          : \"土方工程\"},\n\n    # ----- 地下结构 -----\n    \"底板钢筋\": {\"resources\": [\"\
+          钢筋工\"], \"work_type\": \"钢筋工程\"},\n    \"墙柱钢筋\": {\"resources\": [\"钢筋工\"\
+          ], \"work_type\": \"钢筋工程\"},\n    \"顶板钢筋\": {\"resources\": [\"钢筋工\"], \"\
+          work_type\": \"钢筋工程\"},\n    \"梁板钢筋\": {\"resources\": [\"钢筋工\"], \"work_type\"\
+          : \"钢筋工程\"},\n    \"底板模板\": {\"resources\": [\"模板工\"], \"work_type\": \"\
+          模板工程\"},\n    \"墙柱模板\": {\"resources\": [\"模板工\"], \"work_type\": \"模板工程\"\
+          },\n    \"顶板模板\": {\"resources\": [\"模板工\"], \"work_type\": \"模板工程\"},\n\
+          \    \"梁板模板\": {\"resources\": [\"模板工\"], \"work_type\": \"模板工程\"},\n  \
+          \  \"底板混凝土\": {\"resources\": [\"混凝土工\", \"泵车\"], \"work_type\": \"混凝土工程\"\
+          },\n    \"墙柱混凝土\": {\"resources\": [\"混凝土工\", \"泵车\"], \"work_type\": \"\
+          混凝土工程\"},\n    \"顶板混凝土\": {\"resources\": [\"混凝土工\", \"泵车\"], \"work_type\"\
+          : \"混凝土工程\"},\n    \"梁板混凝土\": {\"resources\": [\"混凝土工\", \"泵车\"], \"work_type\"\
+          : \"混凝土工程\"},\n    \"底板防水\": {\"resources\": [\"防水工\"], \"work_type\": \"\
+          防水工程\"},\n    \"侧墙防水\": {\"resources\": [\"防水工\"], \"work_type\": \"防水工程\"\
+          },\n    \"顶板防水\": {\"resources\": [\"防水工\"], \"work_type\": \"防水工程\"},\n\
+          \    \"后浇带\": {\"resources\": [\"混凝土工\", \"普工\"], \"work_type\": \"混凝土工程\"\
+          },\n\n    # ----- 主体结构 -----\n    \"铝模安装\": {\"resources\": [\"模板工\"], \"\
+          work_type\": \"模板工程\"},\n    \"铝模拆除\": {\"resources\": [\"模板工\"], \"work_type\"\
+          : \"模板工程\"},\n    \"爬架提升\": {\"resources\": [\"架子工\"], \"work_type\": \"\
+          脚手架工程\"},\n    \"爬架组装\": {\"resources\": [\"架子工\"], \"work_type\": \"脚手架工程\"\
+          },\n    \"爬架拆除\": {\"resources\": [\"架子工\"], \"work_type\": \"脚手架工程\"},\n\
+          \    \"预制构件\": {\"resources\": [\"装配式安装工\", \"塔吊\"], \"work_type\": \"吊装工程\"\
+          },\n    \"套筒灌浆\": {\"resources\": [\"灌浆工\"], \"work_type\": \"灌浆工程\"},\n\
+          \    \"主体钢筋\": {\"resources\": [\"钢筋工\"], \"work_type\": \"钢筋工程\"},\n  \
+          \  \"主体混凝土\": {\"resources\": [\"混凝土工\", \"泵车\"], \"work_type\": \"混凝土工程\"\
+          },\n    \"混凝土养护\": {\"resources\": [\"普工\"], \"work_type\": \"养护工程\"},\n\
+          \n    # ----- 二次结构（砌筑工程优先） -----\n    \"ALC墙板\": {\"resources\": [\"安装工\"\
+          ], \"work_type\": \"砌筑工程\"},\n    \"砌筑\": {\"resources\": [\"瓦工\"], \"work_type\"\
+          : \"砌筑工程\"},\n    \"砌块\": {\"resources\": [\"瓦工\"], \"work_type\": \"砌筑工程\"\
+          },\n    \"拉结筋\": {\"resources\": [\"瓦工\"], \"work_type\": \"砌筑工程\"},\n \
+          \   \"植筋\": {\"resources\": [\"瓦工\"], \"work_type\": \"砌筑工程\"},\n    \"\
+          构造柱\": {\"resources\": [\"混凝土工\", \"普工\"], \"work_type\": \"混凝土工程\"},\n\
+          \    \"圈梁\": {\"resources\": [\"混凝土工\", \"普工\"], \"work_type\": \"混凝土工程\"\
+          },\n    \"过梁\": {\"resources\": [\"混凝土工\", \"普工\"], \"work_type\": \"混凝土工程\"\
+          },\n\n    # ----- 机电安装 -----\n    \"给水管道\": {\"resources\": [\"管道工\"], \"\
+          work_type\": \"机电安装\"},\n    \"排水管道\": {\"resources\": [\"管道工\"], \"work_type\"\
+          : \"机电安装\"},\n    \"消防管道\": {\"resources\": [\"管道工\"], \"work_type\": \"\
+          机电安装\"},\n    \"电气管线\": {\"resources\": [\"电工\"], \"work_type\": \"电气安装\"\
+          },\n    \"配电箱\": {\"resources\": [\"电工\"], \"work_type\": \"电气安装\"},\n \
+          \   \"通风管道\": {\"resources\": [\"通风工\"], \"work_type\": \"暖通安装\"},\n   \
+          \ \"风管\": {\"resources\": [\"通风工\"], \"work_type\": \"暖通安装\"},\n    \"空调机组\"\
+          : {\"resources\": [\"通风工\"], \"work_type\": \"暖通安装\"},\n    \"设备调试\": {\"\
+          resources\": [\"普工\"], \"work_type\": \"清理调试\"},\n\n    # ----- 装饰装修 -----\n\
+          \    \"墙面抹灰\": {\"resources\": [\"抹灰工\"], \"work_type\": \"粗装修\"},\n   \
+          \ \"地面找平\": {\"resources\": [\"泥工\"], \"work_type\": \"粗装修\"},\n    \"外墙保温\"\
+          : {\"resources\": [\"保温工\"], \"work_type\": \"保温工程\"},\n    \"外墙涂料\": {\"\
+          resources\": [\"油漆工\"], \"work_type\": \"饰面工程\"},\n    \"门窗框\": {\"resources\"\
+          : [\"安装工\", \"普工\"], \"work_type\": \"门窗工程\"},\n    \"门窗扇\": {\"resources\"\
+          : [\"安装工\", \"普工\"], \"work_type\": \"门窗工程\"},\n    \"精装修\": {\"resources\"\
+          : [\"装修工\"], \"work_type\": \"精装修\"},\n    \"栏杆\": {\"resources\": [\"普工\"\
+          ], \"work_type\": \"栏杆工程\"},\n\n    # ----- 室外工程 -----\n    \"室外管网\": {\"\
+          resources\": [\"管道工\"], \"work_type\": \"室外管网\"},\n    \"道路铺装\": {\"resources\"\
+          : [\"铺装工\", \"普工\"], \"work_type\": \"景观工程\"},\n    \"绿化种植\": {\"resources\"\
+          : [\"绿化工\"], \"work_type\": \"景观工程\"},\n\n    # ----- 验收/管理类 -----\n   \
+          \ \"专项验收\": {\"resources\": [], \"work_type\": \"验收管理\"},\n    \"竣工清理\"\
+          : {\"resources\": [\"普工\"], \"work_type\": \"清理调试\"},\n    \"资料归档\": {\"\
+          resources\": [], \"work_type\": \"资料管理\"},\n    \"档案移交\": {\"resources\"\
+          : [], \"work_type\": \"资料管理\"},\n    \"竣工备案\": {\"resources\": [], \"work_type\"\
+          : \"验收管理\"},\n    \"钥匙移交\": {\"resources\": [], \"work_type\": \"移交管理\"\
+          },\n    \"实体移交\": {\"resources\": [], \"work_type\": \"移交管理\"},\n\n    #\
+          \ ----- 通用 work_type 兜底 -----\n    \"土建临建\": {\"resources\": [\"普工\"], \"\
+          work_type\": \"土建临建\"},\n    \"测量工程\": {\"resources\": [\"测量工\"], \"work_type\"\
+          : \"测量工程\"},\n    \"行政管理\": {\"resources\": [], \"work_type\": \"行政管理\"\
+          },\n    \"地基处理\": {\"resources\": [\"注浆泵\", \"普工\"], \"work_type\": \"地基处理\"\
+          },\n    \"桩基工程\": {\"resources\": [\"静压桩机\", \"吊车\", \"桩机工\"], \"work_type\"\
+          : \"桩基工程\"},\n    \"检测工程\": {\"resources\": [\"普工\"], \"work_type\": \"\
+          检测工程\"},\n    \"支护工程\": {\"resources\": [\"钢筋工\", \"混凝土工\", \"普工\"], \"\
+          work_type\": \"支护工程\"},\n    \"止水工程\": {\"resources\": [\"搅拌桩机\", \"水泥工\"\
+          ], \"work_type\": \"止水工程\"},\n    \"土方工程\": {\"resources\": [\"挖掘机\", \"\
+          自卸汽车\", \"普工\"], \"work_type\": \"土方工程\"},\n    \"钢筋工程\": {\"resources\"\
+          : [\"钢筋工\"], \"work_type\": \"钢筋工程\"},\n    \"模板工程\": {\"resources\": [\"\
+          模板工\"], \"work_type\": \"模板工程\"},\n    \"混凝土工程\": {\"resources\": [\"混凝土工\"\
+          , \"泵车\"], \"work_type\": \"混凝土工程\"},\n    \"防水工程\": {\"resources\": [\"\
+          防水工\"], \"work_type\": \"防水工程\"},\n    \"养护工程\": {\"resources\": [\"普工\"\
+          ], \"work_type\": \"养护工程\"},\n    \"脚手架工程\": {\"resources\": [\"架子工\"],\
+          \ \"work_type\": \"脚手架工程\"},\n    \"吊装工程\": {\"resources\": [\"装配式安装工\"\
+          , \"塔吊\"], \"work_type\": \"吊装工程\"},\n    \"灌浆工程\": {\"resources\": [\"\
+          灌浆工\"], \"work_type\": \"灌浆工程\"},\n    \"砌筑工程\": {\"resources\": [\"瓦工\"\
+          ], \"work_type\": \"砌筑工程\"},\n    \"钢筋混凝土工程\": {\"resources\": [\"钢筋工\"\
+          , \"混凝土工\"], \"work_type\": \"钢筋混凝土工程\"},\n    \"机电安装\": {\"resources\"\
+          : [\"管道工\", \"电工\"], \"work_type\": \"机电安装\"},\n    \"电气安装\": {\"resources\"\
+          : [\"电工\"], \"work_type\": \"电气安装\"},\n    \"暖通安装\": {\"resources\": [\"\
+          通风工\"], \"work_type\": \"暖通安装\"},\n    \"粗装修\": {\"resources\": [\"抹灰工\"\
+          ], \"work_type\": \"粗装修\"},\n    \"精装修\": {\"resources\": [\"装修工\"], \"\
+          work_type\": \"精装修\"},\n    \"保温工程\": {\"resources\": [\"保温工\"], \"work_type\"\
+          : \"保温工程\"},\n    \"饰面工程\": {\"resources\": [\"油漆工\"], \"work_type\": \"\
+          饰面工程\"},\n    \"门窗工程\": {\"resources\": [\"安装工\", \"普工\"], \"work_type\"\
+          : \"门窗工程\"},\n    \"栏杆工程\": {\"resources\": [\"普工\"], \"work_type\": \"\
+          栏杆工程\"},\n    \"室外管网\": {\"resources\": [\"管道工\"], \"work_type\": \"室外管网\"\
+          },\n    \"景观工程\": {\"resources\": [\"绿化工\", \"铺装工\"], \"work_type\": \"\
+          景观工程\"},\n    \"清理调试\": {\"resources\": [\"普工\"], \"work_type\": \"清理调试\"\
+          },\n    \"验收管理\": {\"resources\": [], \"work_type\": \"验收管理\"},\n    \"\
+          资料管理\": {\"resources\": [], \"work_type\": \"资料管理\"},\n    \"移交管理\": {\"\
+          resources\": [], \"work_type\": \"移交管理\"},\n    \"保护措施\": {\"resources\"\
+          : [\"普工\"], \"work_type\": \"保护措施\"},\n    \"监测工程\": {\"resources\": [\"\
+          普工\"], \"work_type\": \"监测工程\"},\n}\n\n# ==================== 物理产能库 ====================\n\
+          PRODUCTIVITY = {\n    \"推土机\": 300, \"压路机\": 200, \"挖掘机\": 500, \"自卸汽车\"\
+          : 120,\n    \"钻机\": 150, \"注浆泵\": 120, \"静压桩机\": 200, \"成槽机\": 30,\n   \
+          \ \"旋挖钻机\": 80, \"搅拌桩机\": 200, \"泵车\": 80, \"塔吊\": 50,\n    \"装载机\": 300,\
+          \ \"履带吊\": 50, \"吊车\": 50,\n    \"钢筋工\": 1.5, \"模板工\": 15, \"混凝土工\": 20,\
+          \ \"抹灰工\": 40,\n    \"泥工\": 35, \"油漆工\": 50, \"保温工\": 40, \"装修工\": 20,\n\
+          \    \"绿化工\": 100, \"防水工\": 50, \"安装工\": 15, \"管道工\": 50,\n    \"电工\": 100,\
+          \ \"通风工\": 50, \"瓦工\": 50,   # 拉结筋植筋：50根/人/天（修正）\n    \"架子工\": 20, \"灌浆工\"\
+          : 50, \"装配式安装工\": 5,\n    \"桩机工\": 15, \"铺装工\": 40, \"水泥工\": 50,\n    \"\
+          测量工\": 20, \"普工\": 50,\n}\n\nTOWER_CRANE_PRODUCTIVITY = {\n    \"预制构件\"\
+          : 50,\n    \"预制叠合板\": 50,\n    \"预制楼梯\": 50,\n    \"预制阳台\": 50,\n}\n\n\n\
+          # ==================== 辅助函数 ====================\ndef to_obj(value, default=None):\n\
+          \    if value is None or value == \"\":\n        return default if default\
+          \ is not None else {}\n    if isinstance(value, (dict, list)):\n       \
+          \ return value\n    if isinstance(value, str):\n        try:\n         \
+          \   return json.loads(value)\n        except json.JSONDecodeError:\n   \
+          \         return default if default is not None else {}\n    return value\n\
+          \n\ndef collect_leaf_tasks(phases):\n    leaf_tasks = []\n    if not isinstance(phases,\
+          \ list):\n        return leaf_tasks\n    for phase in phases:\n        for\
+          \ wp in phase.get(\"work_packages\", []):\n            sub = wp.get(\"sub_packages\"\
+          , [])\n            if sub:\n                leaf_tasks.extend(sub)\n   \
+          \         else:\n                leaf_tasks.append(wp)\n    return leaf_tasks\n\
+          \n\ndef normalize_unit(quantity: float, unit: str, task_name: str = \"\"\
+          ) -> tuple:\n    if unit == \"kg\" and quantity >= 1000:\n        return\
+          \ quantity / 1000, \"吨\"\n    if \"注浆\" in task_name and unit == \"kg\"\
+          :\n        return quantity / 1000, \"吨\"\n    return quantity, unit\n\n\n\
+          def compute_resource_by_productivity(quantity, planned_days, resource_name,\
+          \ task_name=\"\", original_unit=\"\"):\n    if quantity <= 0 or planned_days\
+          \ <= 0:\n        return None\n\n    if quantity == 1 and original_unit in\
+          \ [\"项\", \"个\"]:\n        return None\n\n    # ===== 核心修正：混凝土养护任务特殊处理 =====\n\
+          \    if \"养护\" in task_name and resource_name == \"普工\":\n        return\
+          \ {\"per_day\": 2, \"total_days\": planned_days * 2}\n\n    if resource_name\
+          \ == \"塔吊\":\n        for keyword, prod in TOWER_CRANE_PRODUCTIVITY.items():\n\
+          \            if keyword in task_name:\n                daily_required =\
+          \ quantity / planned_days\n                required_count = math.ceil(daily_required\
+          \ / prod)\n                if required_count < 1:\n                    required_count\
+          \ = 1\n                total_days = required_count * planned_days\n    \
+          \            return {\"per_day\": required_count, \"total_days\": round(total_days,\
+          \ 2)}\n        productivity = 100\n    else:\n        productivity = PRODUCTIVITY.get(resource_name)\n\
+          \        if not productivity or productivity <= 0:\n            return None\n\
+          \n    daily_required = quantity / planned_days\n    required_count = math.ceil(daily_required\
+          \ / productivity)\n    if required_count < 1:\n        required_count =\
+          \ 1\n\n    total_days = required_count * planned_days\n    return {\"per_day\"\
+          : required_count, \"total_days\": round(total_days, 2)}\n\n\ndef compute_resource_by_quota(quantity,\
+          \ planned_days, resource_name, quota_dict):\n    per_unit = quota_dict.get(resource_name)\n\
+          \    if not per_unit:\n        return None\n    total_resource_days = quantity\
+          \ * per_unit\n    per_day = math.ceil(total_resource_days / planned_days)\
+          \ if planned_days > 0 else 0\n    if per_day > 0:\n        return {\"per_day\"\
+          : per_day, \"total_days\": round(total_resource_days, 2)}\n    return None\n\
+          \n\ndef parse_extracted_params(params_input: Any) -> Dict:\n    result =\
+          \ {}\n    if not params_input:\n        return result\n    if isinstance(params_input,\
+          \ str):\n        try:\n            params_input = json.loads(params_input)\n\
+          \        except:\n            return result\n    if not isinstance(params_input,\
+          \ dict):\n        return result\n    return params_input\n\n\ndef validate_quantity(task:\
+          \ Dict, params: Dict) -> tuple:\n    task_name = task.get(\"name\", \"\"\
+          )\n    work_type = task.get(\"work_type\", \"\")\n    quantity = task.get(\"\
+          quantity\", 0.0)\n    unit = task.get(\"unit\", \"\")\n\n    try:\n    \
+          \    quantity = float(quantity)\n    except (TypeError, ValueError):\n \
+          \       quantity = 0.0\n\n    construction_types = [\n        \"土方工程\",\
+          \ \"混凝土工程\", \"钢筋工程\", \"模板工程\", \"防水工程\",\n        \"桩基工程\", \"支护工程\",\
+          \ \"止水工程\", \"砌筑工程\", \"吊装工程\",\n        \"灌浆工程\", \"保温工程\", \"饰面工程\", \"\
+          门窗工程\", \"景观工程\",\n        \"室外管网\", \"粗装修\", \"精装修\", \"脚手架工程\", \"钢筋混凝土工程\"\
+          ,\n        \"地基处理\", \"养护工程\"\n    ]\n\n    if quantity == 1 and unit ==\
+          \ \"项\" and work_type in construction_types:\n        fallback_map = {\n\
+          \            \"混凝土\": \"total_concrete\",\n            \"钢筋\": \"total_rebar\"\
+          ,\n            \"土方\": \"total_earthwork\",\n            \"ALC\": \"total_area\"\
+          ,\n            \"抹灰\": \"total_area\",\n            \"PRC\": \"total_precast\"\
+          ,\n            \"管桩\": \"total_precast\",\n            \"预制\": \"total_precast\"\
+          ,\n            \"地下连续墙\": \"total_wall\",\n            \"咬合桩\": \"total_wall\"\
+          ,\n            \"搅拌桩\": \"total_wall\",\n        }\n        for keyword,\
+          \ param in fallback_map.items():\n            if keyword in task_name:\n\
+          \                total = params.get(param)\n                if total:\n\
+          \                    ratio = 1.0\n                    if \"混凝土\" in task_name:\n\
+          \                        if \"底板\" in task_name or \"地下室\" in task_name:\n\
+          \                            ratio = 0.3\n                        elif \"\
+          二次结构\" in task_name:\n                            ratio = 0.1\n        \
+          \                else:\n                            ratio = 0.6\n      \
+          \              elif \"钢筋\" in task_name:\n                        if \"\
+          底板\" in task_name or \"地下室\" in task_name:\n                           \
+          \ ratio = 0.2\n                        elif \"二次结构\" in task_name:\n   \
+          \                         ratio = 0.1\n                        else:\n \
+          \                           ratio = 0.7\n                    elif \"ALC\"\
+          \ in task_name:\n                        ratio = 0.6\n                 \
+          \   elif \"抹灰\" in task_name:\n                        ratio = 2.5\n   \
+          \                 elif \"土方\" in task_name:\n                        ratio\
+          \ = 1.0\n                    try:\n                        new_qty = float(total)\
+          \ * ratio\n                        if new_qty > 10:\n                  \
+          \          new_unit = \"m³\" if \"混凝土\" in task_name or \"土方\" in task_name\
+          \ else \"吨\" if \"钢筋\" in task_name or \"PRC\" in task_name else \"㎡\"\n\
+          \                            return new_qty, new_unit, f\"已从总量{param}×{ratio}推算\"\
+          \n                    except:\n                        pass\n        return\
+          \ quantity, unit, \"警告:施工类任务使用了'1项'，请检查WBS\"\n\n    return quantity, unit,\
+          \ None\n\n\ndef get_fallback_quantity(task_name: str, extracted_params:\
+          \ Dict) -> Optional[float]:\n    fallback_map = {\n        \"PRC管桩\": (\"\
+          total_precast\", 1.0),\n        \"管桩\": (\"total_precast\", 1.0),\n    \
+          \    \"地下连续墙\": (\"total_wall\", 1.0),\n        \"咬合桩\": (\"total_wall\"\
+          , 1.0),\n        \"灌注桩\": (\"total_wall\", 1.0),\n        \"搅拌桩\": (\"total_wall\"\
+          , 1.0),\n        \"止水帷幕\": (\"total_wall\", 1.0),\n        \"土方开挖\": (\"\
+          total_earthwork\", 1.0),\n        \"土方外运\": (\"total_earthwork\", 1.0),\n\
+          \        \"回填土\": (\"total_earthwork\", 1.0),\n        \"底板钢筋\": (\"total_rebar\"\
+          , 0.2),\n        \"墙柱钢筋\": (\"total_rebar\", 0.2),\n        \"顶板钢筋\": (\"\
+          total_rebar\", 0.2),\n        \"主体钢筋\": (\"total_rebar\", 0.7),\n      \
+          \  \"二次结构钢筋\": (\"total_rebar\", 0.1),\n        \"底板混凝土\": (\"total_concrete\"\
+          , 0.3),\n        \"墙柱混凝土\": (\"total_concrete\", 0.3),\n        \"顶板混凝土\"\
+          : (\"total_concrete\", 0.3),\n        \"主体混凝土\": (\"total_concrete\", 0.6),\n\
+          \        \"二次结构混凝土\": (\"total_concrete\", 0.1),\n        \"ALC墙板\": (\"\
+          total_area\", 0.6),\n        \"墙面抹灰\": (\"total_area\", 2.5),\n    }\n \
+          \   for keyword, (param_path, ratio) in fallback_map.items():\n        if\
+          \ keyword in task_name:\n            value = extracted_params.get(param_path)\n\
+          \            if value:\n                try:\n                    return\
+          \ float(value) * ratio\n                except:\n                    pass\n\
+          \    return None\n\n\ndef parse_boundary_conditions(boundary_input: Any)\
+          \ -> Dict:\n    boundaries = {\"equipment_peak\": {}, \"labor_peak\": None,\
+          \ \"trade_peak\": {}}\n    if not boundary_input:\n        return boundaries\n\
+          \n    if isinstance(boundary_input, str):\n        try:\n            boundary_input\
+          \ = json.loads(boundary_input)\n        except json.JSONDecodeError:\n \
+          \           return boundaries\n\n    if not isinstance(boundary_input, dict):\n\
+          \        return boundaries\n\n    eq = boundary_input.get(\"equipment_peak\"\
+          ) or boundary_input.get(\"equipment\")\n    if isinstance(eq, dict):\n \
+          \       for k, v in eq.items():\n            try:\n                boundaries[\"\
+          equipment_peak\"][k] = int(v)\n            except (ValueError, TypeError):\n\
+          \                pass\n    elif isinstance(eq, list):\n        for item\
+          \ in eq:\n            if isinstance(item, dict):\n                name =\
+          \ item.get(\"name\")\n                if name:\n                    try:\n\
+          \                        boundaries[\"equipment_peak\"][name] = int(item.get(\"\
+          quantity\", 0))\n                    except (ValueError, TypeError):\n \
+          \                       pass\n\n    labor = boundary_input.get(\"labor_peak\"\
+          ) or boundary_input.get(\"peak_manpower\")\n    if labor is not None:\n\
+          \        try:\n            boundaries[\"labor_peak\"] = int(labor)\n   \
+          \     except (ValueError, TypeError):\n            pass\n\n    trades =\
+          \ boundary_input.get(\"trade_peak\") or boundary_input.get(\"labor\", {}).get(\"\
+          by_trade\")\n    if isinstance(trades, dict):\n        for k, v in trades.items():\n\
+          \            try:\n                boundaries[\"trade_peak\"][k] = int(v)\n\
+          \            except (ValueError, TypeError):\n                pass\n   \
+          \ elif isinstance(trades, list):\n        for item in trades:\n        \
+          \    if isinstance(item, dict):\n                name = item.get(\"trade\"\
+          ) or item.get(\"name\")\n                if name:\n                    try:\n\
+          \                        boundaries[\"trade_peak\"][name] = int(item.get(\"\
+          quantity\", 0))\n                    except (ValueError, TypeError):\n \
+          \                       pass\n\n    return boundaries\n\n\ndef apply_peak_shaving(demand:\
+          \ Dict, boundaries: Dict) -> Dict:\n    if not boundaries:\n        return\
+          \ demand\n    if not boundaries.get(\"equipment_peak\") and not boundaries.get(\"\
+          trade_peak\"):\n        return demand\n\n    original_duration = demand.get(\"\
+          planned_duration_days\", 1)\n    new_duration = original_duration\n    adjusted\
+          \ = False\n    adjustment_details = []\n\n    for key in list(demand.keys()):\n\
+          \        if not key.endswith(\"_per_day\"):\n            continue\n\n  \
+          \      resource_name = key.replace(\"_per_day\", \"\")\n        per_day\
+          \ = demand.get(key, 0)\n        limit = None\n\n        for eq_name, eq_limit\
+          \ in boundaries.get(\"equipment_peak\", {}).items():\n            if eq_name\
+          \ in resource_name or resource_name in eq_name:\n                limit =\
+          \ eq_limit\n                break\n\n        if limit is None:\n       \
+          \     for trade_name, trade_limit in boundaries.get(\"trade_peak\", {}).items():\n\
+          \                if trade_name in resource_name or resource_name in trade_name:\n\
+          \                    limit = trade_limit\n                    break\n\n\
+          \        if limit is not None and per_day > limit:\n            total_key\
+          \ = key.replace(\"_per_day\", \"_total_days\")\n            total_days =\
+          \ demand.get(total_key, per_day * original_duration)\n            needed_days\
+          \ = math.ceil(total_days / limit)\n            if needed_days > new_duration:\n\
+          \                new_duration = needed_days\n            demand[key] = limit\n\
+          \            adjusted = True\n            adjustment_details.append({\n\
+          \                \"resource\": resource_name,\n                \"original_per_day\"\
+          : per_day,\n                \"new_per_day\": limit,\n                \"\
+          original_duration\": original_duration,\n                \"new_duration\"\
+          : needed_days\n            })\n\n    if adjusted:\n        demand[\"planned_duration_days\"\
+          ] = new_duration\n        demand[\"_original_duration\"] = original_duration\n\
+          \        demand[\"_adjusted\"] = True\n        demand[\"_adjustment_details\"\
+          ] = adjustment_details\n\n    return demand\n\n\n# ====================\
+          \ 主函数 ====================\ndef main(wbs: dict, extracted_params: dict =\
+          \ None, boundary_conditions: dict = None) -> dict:\n    try:\n        wbs_obj\
+          \ = to_obj(wbs, {})\n        if not wbs_obj:\n            return {\"resource_demand\"\
+          : {\"tasks\": []}}\n\n        params = parse_extracted_params(extracted_params)\n\
+          \        boundaries = parse_boundary_conditions(boundary_conditions)\n \
+          \       phases = wbs_obj.get(\"phases\", [])\n        leaf_tasks = collect_leaf_tasks(phases)\n\
+          \n        FALLBACK_QUOTAS = {\n            \"普工\": 0.05, \"钢筋工\": 0.08,\
+          \ \"模板工\": 0.12, \"混凝土工\": 0.1,\n            \"抹灰工\": 0.12, \"泥工\": 0.1,\
+          \ \"油漆工\": 0.1, \"电工\": 0.05,\n            \"管道工\": 0.08, \"防水工\": 0.06,\
+          \ \"瓦工\": 0.15, \"安装工\": 0.1,\n            \"绿化工\": 0.2, \"保温工\": 0.08,\
+          \ \"通风工\": 0.1, \"架子工\": 0.05,\n            \"灌浆工\": 0.02, \"装配式安装工\": 0.15,\
+          \ \"桩机工\": 0.2,\n            \"铺装工\": 0.1, \"水泥工\": 0.3, \"测量工\": 0.2,\n\
+          \            \"钻机\": 0.05, \"注浆泵\": 0.8, \"静压桩机\": 0.15, \"成槽机\": 0.1,\n\
+          \            \"旋挖钻机\": 0.4, \"搅拌桩机\": 0.2, \"挖掘机\": 0.012,\n           \
+          \ \"自卸汽车\": 0.025, \"泵车\": 0.02, \"装载机\": 0.01,\n            \"吊车\": 0.1,\
+          \ \"履带吊\": 0.08, \"塔吊\": 0.02,\n        }\n\n        result_tasks = []\n\
+          \        unmatched_tasks = []\n\n        for task in leaf_tasks:\n     \
+          \       task_id = task.get(\"id\") or task.get(\"task_id\") or \"\"\n  \
+          \          task_name = task.get(\"name\") or task.get(\"task_name\") or\
+          \ task_id\n            quantity = task.get(\"quantity\", 0.0)\n        \
+          \    try:\n                quantity = float(quantity)\n            except\
+          \ (TypeError, ValueError):\n                quantity = 0.0\n\n         \
+          \   planned_days = task.get(\"duration_days\", 1)\n            try:\n  \
+          \              planned_days = int(math.ceil(float(planned_days)))\n    \
+          \        except (TypeError, ValueError):\n                planned_days =\
+          \ 1\n\n            unit = task.get(\"unit\", \"\")\n\n            validated_qty,\
+          \ validated_unit, warning = validate_quantity(task, params)\n          \
+          \  if warning:\n                quantity = validated_qty\n             \
+          \   unit = validated_unit\n                if \"警告\" in warning:\n     \
+          \               result_tasks.append({\n                        \"task_id\"\
+          : task_id,\n                        \"task_name\": task_name,\n        \
+          \                \"quantity\": quantity,\n                        \"planned_duration_days\"\
+          : planned_days,\n                        \"_warning\": warning\n       \
+          \             })\n                    continue\n\n            quantity,\
+          \ unit = normalize_unit(quantity, unit, task_name)\n\n            if quantity\
+          \ <= 0:\n                fallback_qty = get_fallback_quantity(task_name,\
+          \ params)\n                if fallback_qty:\n                    quantity\
+          \ = fallback_qty\n\n            if quantity <= 0 or planned_days <= 0:\n\
+          \                continue\n\n            skip_keywords = [\"验收\", \"备案\"\
+          , \"许可\", \"报建\", \"图纸\", \"档案\", \"资料\", \"钥匙\", \"五方\", \"实体移交\"]\n  \
+          \          if quantity == 1 and any(kw in task_name for kw in skip_keywords):\n\
+          \                result_tasks.append({\n                    \"task_id\"\
+          : task_id,\n                    \"task_name\": task_name,\n            \
+          \        \"quantity\": quantity,\n                    \"planned_duration_days\"\
+          : planned_days\n                })\n                continue\n\n       \
+          \     if quantity == 1 and unit == \"项\":\n                result_tasks.append({\n\
+          \                    \"task_id\": task_id,\n                    \"task_name\"\
+          : task_name,\n                    \"quantity\": quantity,\n            \
+          \        \"planned_duration_days\": planned_days\n                })\n \
+          \               continue\n\n            # ---- 核心匹配逻辑 ----\n           \
+          \ matched_resources = []\n            work_type = None\n            matched_keyword\
+          \ = None\n\n            sorted_mappings = sorted(RESOURCE_MAPPING.items(),\
+          \ key=lambda x: len(x[0]), reverse=True)\n            for keyword, mapping\
+          \ in sorted_mappings:\n                if keyword in task_name:\n      \
+          \              matched_resources = mapping.get(\"resources\", [])\n    \
+          \                work_type = mapping.get(\"work_type\", task_name)\n   \
+          \                 matched_keyword = keyword\n                    break\n\
+          \n            if not matched_resources:\n                wt = task.get(\"\
+          work_type\", \"\")\n                if wt and wt in RESOURCE_MAPPING:\n\
+          \                    mapping = RESOURCE_MAPPING[wt]\n                  \
+          \  matched_resources = mapping.get(\"resources\", [])\n                \
+          \    work_type = mapping.get(\"work_type\", wt)\n                    matched_keyword\
+          \ = wt\n\n            if not matched_resources:\n                matched_resources\
+          \ = [\"普工\"]\n                work_type = task_name\n                unmatched_tasks.append({\n\
+          \                    \"task_id\": task_id,\n                    \"task_name\"\
+          : task_name,\n                    \"work_type\": task.get(\"work_type\"\
+          , \"\"),\n                    \"keyword\": \"无匹配\"\n                })\n\
+          \n            demand = {\n                \"task_id\": task_id,\n      \
+          \          \"task_name\": task_name,\n                \"quantity\": quantity,\n\
+          \                \"planned_duration_days\": planned_days\n            }\n\
+          \n            if matched_keyword:\n                demand[\"_matched_keyword\"\
+          ] = matched_keyword\n\n            for resource_name in matched_resources:\n\
+          \                result = compute_resource_by_productivity(quantity, planned_days,\
+          \ resource_name, task_name, unit)\n\n                if result is None:\n\
+          \                    result = compute_resource_by_quota(quantity, planned_days,\
+          \ resource_name, FALLBACK_QUOTAS)\n\n                if result is None:\n\
+          \                    if resource_name != \"普工\":\n                     \
+          \   result = compute_resource_by_quota(quantity, planned_days, \"普工\", FALLBACK_QUOTAS)\n\
+          \                        if result:\n                            demand[\"\
+          普工_per_day\"] = result[\"per_day\"]\n                            demand[\"\
+          普工_total_days\"] = result[\"total_days\"]\n                    continue\n\
+          \n                demand[f\"{resource_name}_per_day\"] = result[\"per_day\"\
+          ]\n                demand[f\"{resource_name}_total_days\"] = result[\"total_days\"\
+          ]\n\n            if boundaries:\n                demand = apply_peak_shaving(demand,\
+          \ boundaries)\n\n            result_tasks.append(demand)\n\n        result\
+          \ = {\"resource_demand\": {\"tasks\": result_tasks}}\n\n        if unmatched_tasks:\n\
+          \            result[\"resource_demand\"][\"_warnings\"] = {\n          \
+          \      \"unmatched_tasks\": unmatched_tasks,\n                \"count\"\
+          : len(unmatched_tasks),\n                \"message\": f\"有 {len(unmatched_tasks)}\
+          \ 个任务未匹配到关键词，已使用普工作为兜底\"\n            }\n\n        return result\n\n   \
+          \ except Exception as e:\n        return {\"resource_demand\": {\"tasks\"\
+          : [], \"_error\": str(e)}}"
+        code_language: python3
+        outputs:
+          resource_demand:
+            children: null
+            type: object
+        selected: false
+        title: 2.3资源定额计算
+        type: code
+        variables:
+        - value_selector:
+          - '1781618792912'
+          - structured_output
+          value_type: object
+          variable: wbs
+        - value_selector:
+          - '1781066487130'
+          - usage
+          value_type: object
+          variable: boundary_conditions
+      height: 51
+      id: '1781059908414'
+      position:
+        x: -93.84986705386251
+        y: 320.3214012708722
+      positionAbsolute:
+        x: -93.84986705386251
+        y: 320.3214012708722
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1781057854868'
+          - text
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 1e13118d-aa41-4ad2-9d14-55fd71603f07
+          role: system
+          text: "text\n你是一位专业的建筑工程项目信息提取助手。你的任务是从用户提供的项目文档中，提取出与**边界条件**相关的关键数据。\n\
+            这是文档：\n{{#1781057854868.text#}}\n### 文档结构说明\n用户文档通常包含多个表格，例如：\n- “项目基本边界”表格：包含总工期、质量目标、安全目标等。\n\
+            - “资源约束边界”表格：包含人力资源（工种人数）、材料资源（钢筋、混凝土等）、机械设备（挖掘机、塔吊等）。\n- “组织与管理边界”、“外部约束边界”等（可选）。\n\
+            \n### 提取规则\n1. 仅提取文档中**明确写出的数值**，不要编造。\n2. 对于**人力资源**：\n   - 查找“资源约束边界”表格中的“人力资源”行。\n\
+            \   - 提取“总劳动力峰值”后的数字（例如“929人” → peak_total = 929）。\n   - 提取“主要工种”后的各项：工种名称和人数（例如“钢筋工165人”\
+            \ → trade: \"钢筋工\", quantity: 165）。\n3. 对于**机械设备**：\n   - 查找“资源约束边界”表格中的“机械设备”行。\n\
+            \   - 提取所有设备名称及其数量（例如“PC200挖掘机18台” → name: \"PC200挖掘机\", quantity: 18,\
+            \ unit: \"台\"）。\n4. 对于**材料**：\n   - 查找“资源约束边界”表格中的“材料资源”行。\n   - 提取材料名称、总量和单位（例如“钢筋：总需求量约7.5万吨”\
+            \ → name: \"钢筋\", total_quantity: 75000, unit: \"吨\"）。\n5. 对于**工期、质量目标、安全目标**：\n\
+            \   - 查找“项目基本边界”表格中的“总工期”、“质量目标”、“安全目标”行。\n\n### 单位处理\n- 设备单位统一为“台”，人力单位统一为“人”，材料单位保留原文（“吨”、“m³”等）。\n\
+            - 数字去除中文单位（如“7.5万吨” → 75000）。\n\n### 输出格式（必须严格遵循）\n```json\n{\n  \"equipment\"\
+            : [\n    { \"name\": \"设备名称\", \"quantity\": 数字, \"unit\": \"台\" }\n \
+            \ ],\n  \"labor\": {\n    \"peak_total\": 数字,\n    \"by_trade\": [\n \
+            \     { \"trade\": \"工种名称\", \"quantity\": 数字, \"unit\": \"人\" }\n   \
+            \ ]\n  },\n  \"materials\": [\n    { \"name\": \"材料名称\", \"total_quantity\"\
+            : 数字, \"unit\": \"单位\" }\n  ],\n  \"project_duration_days\": 数字,\n  \"\
+            quality_target\": \"字符串\",\n  \"safety_target\": \"字符串\"\n}\n示例\n若文档中写：\n\
+            总劳动力峰值：929人\n主要工种：钢筋工165人，模板工220人\n机械设备：PC200挖掘机18台，塔吊7台\n材料资源：钢筋总需求量约7.5万吨\n\
+            输出应为：\njson\n{\n  \"equipment\": [\n    { \"name\": \"PC200挖掘机\", \"quantity\"\
+            : 18, \"unit\": \"台\" },\n    { \"name\": \"塔吊\", \"quantity\": 7, \"\
+            unit\": \"台\" }\n  ],\n  \"labor\": {\n    \"peak_total\": 929,\n    \"\
+            by_trade\": [\n      { \"trade\": \"钢筋工\", \"quantity\": 165, \"unit\"\
+            : \"人\" },\n      { \"trade\": \"模板工\", \"quantity\": 220, \"unit\": \"\
+            人\" }\n    ]\n  },\n  \"materials\": [\n    { \"name\": \"钢筋\", \"total_quantity\"\
+            : 75000, \"unit\": \"吨\" }\n  ],\n  \"project_duration_days\": 900,\n\
+            \  \"quality_target\": \"合格，确保获得广州市建设工程优质奖\",\n  \"safety_target\": \"\
+            无重伤和死亡事故...\"\n}\n现在请根据用户提供的文档内容，严格按照上述规则提取并输出 JSON。"
+        selected: false
+        structured_output:
+          schema:
+            additionalProperties: false
+            properties: {}
+            required: []
+            type: object
+        structured_output_enabled: false
+        title: 1.2边界条件补充
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1781066487130'
+      position:
+        x: -382.6096833036394
+        y: 119.04212367897873
+      positionAbsolute:
+        x: -382.6096833036394
+        y: 119.04212367897873
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params:
+            temperature: 0.3
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 91cc90d8-723d-4599-aa51-bbbfe0243de1
+          role: system
+          text: "你是一位资深的建筑工程项目管理与资源优化专家。你的任务是根据给定的项目边界条件（可用资源总量）、关键路径分析结果（CPM）以及每个任务的资源需求，提出合理的资源调优方案，**缩短项目总工期**。\n\
+            \n### 输入说明\n{{#llm.text#}}项目起始和终止时间，你的任务是将总工期缩短到与终止时间一致，你的调优优先级从高到低是：1.设备资源调至边界条件上限2.劳动力调至边界条件上限3.串行工作改为部分并行（交叉施工务必保证必要时间，如混凝土养护要求3-7天就不能要求间隔1天浇筑）4.非关键路径借用资源5.延长作业时间（增加班次）6.资源平滑。若高优先级调优已满足工期要求，则无需继续调优缩短工期（即你的调优任务终止时工期符合总工期要求，不要超出也不要缩短）\n\
+            1. **边界条件**：包含设备清单（种类+数量）、劳动力峰值及各工种人数、材料总量等。\n{{#conversation.blackboard#}}\n\
+            2. **CPM结果**：包含总工期、关键路径任务列表、每个任务的 ES/EF\n{{#1781068964519.aggregated_string#}}\n\
+            3. **资源定额计算结果**：每个任务每日所需的各类资源（如挖掘机_per_day、钢筋工_per_day 等）。\n{{#1781068964519.aggregated_string#}}\n\
+            ### 调优策略（优先按顺序尝试）\n1. **增加关键路径上任务的资源投入**（如增加设备、劳动力），但不可超过边界条件中的可用资源上限。\n\
+            2. **将关键路径上的串行工作改为部分并行**（如果工艺允许）。\n3. **在非关键路径上借用资源**（将资源从富余的非关键任务调到关键任务）。\n\
+            4. **优化施工顺序**（如调整工序逻辑，减少等待时间）。\n5. **资源平滑**：对资源需求超出可用量的时段进行平移，避免资源冲突。\n\
+            \n### 约束条件\n- 不能修改技术逻辑（如混凝土养护时间、工艺顺序等强制间歇）。\n- 资源增加量不得超过边界条件中提供的最大数量（例如边界条件中塔吊只有7台，不能输出8台）边界条件为{{#1781066487130.text#}}。\n\
+            - 工期缩短的目标是**合理可行**，不要求达到不可能的理论值。\n\n### 输出要求\n输出一个 JSON 对象，包含以下字段：\n-\
+            \ `original_duration_days`：原始总工期（从CPM中获取）。\n- `optimized_duration_days`：优化后的总工期。\n\
+            - `optimization_actions`：数组，每项为一个具体的调整措施，包含：\n  - `action`：调整动作描述（如“增加关键任务T02的挖掘机数量”）。\n\
+            \  - `target_task_id`：受影响的任务ID。\n  - `resource_name`：资源名称（如“挖掘机”）。\n \
+            \ - `original_amount`：原每日需求量。\n  - `new_amount`：调整后的每日需求量。\n  - `reason`：调整理由。\n\
+            - `new_critical_path`：预计优化后的关键路径任务ID列表（可根据逻辑推断）。\n- `feasibility`：优化方案的可行性评估（\"\
+            可行\" / \"部分可行\" / \"不可行\"）。\n- `warnings`：如有风险或需要现场确认的事项，在此说明。\n\n###\
+            \ 注意事项\n- 只输出 JSON，不要有任何额外文字。\n- 如果无法有效缩短工期（例如资源已饱和），请将 `optimized_duration_days`\
+            \ 设为与原工期相同，并在 `warnings` 中说明。\n- 所有数值保留整数（天数、台数、人数）。\n\n现在开始处理输入数据。"
+        selected: false
+        structured_output:
+          schema:
+            properties:
+              feasibility:
+                enum:
+                - 可行
+                - 部分可行
+                - 不可行
+                type: string
+              new_critical_path:
+                items:
+                  type: string
+                type: array
+              optimization_actions:
+                items:
+                  properties:
+                    action:
+                      type: string
+                    new_amount:
+                      type: number
+                    original_amount:
+                      type: number
+                    reason:
+                      type: string
+                    resource_name:
+                      type: string
+                    target_task_id:
+                      type: string
+                  required:
+                  - action
+                  - target_task_id
+                  - resource_name
+                  - original_amount
+                  - new_amount
+                  - reason
+                  type: object
+                type: array
+              optimized_duration_days:
+                type: integer
+              original_duration_days:
+                type: integer
+              warnings:
+                type: string
+            required:
+            - original_duration_days
+            - optimized_duration_days
+            - optimization_actions
+            - new_critical_path
+            - feasibility
+            - warnings
+            type: object
+        structured_output_enabled: true
+        title: 3.1资源调优
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1781067140466'
+      position:
+        x: 460.6248778886088
+        y: 181.6394768845018
+      positionAbsolute:
+        x: 460.6248778886088
+        y: 181.6394768845018
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        code: "\"\"\"\n节点名称：关键路径计算 CPM（兼容 WBS phases 结构 + 二级依赖映射）\n输入变量：\n  - wbs（Object）：WBS\
+          \ 对象，支持 phases[].work_packages[].sub_packages[] 结构\n  - dependencies（Object）：依赖关系列表，支持二级\
+          \ ID（如 1.1）作为 predecessor/successor\n输出变量：\n  - cpm_result（Object）：包含 total_duration_days,\
+          \ critical_path, schedule\n\"\"\"\n\nimport json\nfrom typing import List,\
+          \ Dict, Any, Optional\n\n\ndef flatten_wbs_phases(wbs_input: Dict) -> Dict[str,\
+          \ Dict]:\n    \"\"\"\n    从 WBS 的 phases 结构中提取所有叶子任务（sub_packages）。\n  \
+          \  返回: { task_id: { \"name\": ..., \"duration\": ... } }\n    同时建立 二级ID\
+          \ -> 第一个叶子ID 的映射，用于依赖匹配。\n    \"\"\"\n    task_info = {}\n    id_mapping\
+          \ = {}  # 二级ID -> 第一个叶子ID\n\n    phases = wbs_input.get(\"phases\", [])\n\
+          \    if not isinstance(phases, list):\n        phases = []\n\n    for phase\
+          \ in phases:\n        work_packages = phase.get(\"work_packages\", [])\n\
+          \        if not isinstance(work_packages, list):\n            continue\n\
+          \        for wp in work_packages:\n            sub_packages = wp.get(\"\
+          sub_packages\", [])\n            if not isinstance(sub_packages, list):\n\
+          \                continue\n            # 如果父 ID 还没有映射到子 ID，记录第一个\n     \
+          \       parent_id = wp.get(\"id\", \"\")\n            if parent_id and parent_id\
+          \ not in id_mapping and sub_packages:\n                first_child = sub_packages[0]\n\
+          \                id_mapping[parent_id] = first_child.get(\"id\", parent_id)\n\
+          \n            for sub in sub_packages:\n                task_id = sub.get(\"\
+          id\")\n                if not task_id:\n                    continue\n \
+          \               duration = sub.get(\"duration_days\") or sub.get(\"planned_duration_days\"\
+          ) or 1\n                try:\n                    duration = int(duration)\n\
+          \                except (TypeError, ValueError):\n                    duration\
+          \ = 1\n                task_info[task_id] = {\n                    \"name\"\
+          : sub.get(\"name\") or task_id,\n                    \"duration\": duration,\n\
+          \                    \"es\": 0,\n                    \"ef\": 0,\n      \
+          \              \"ls\": 0,\n                    \"lf\": 0\n             \
+          \   }\n\n    return task_info, id_mapping\n\n\ndef parse_dependencies_with_mapping(deps_input:\
+          \ Dict, id_mapping: Dict) -> tuple:\n    \"\"\"\n    解析依赖关系，支持二级ID映射到叶子ID。\n\
+          \    如果 predecessor 或 successor 是二级ID，则尝试映射到第一个叶子ID。\n    \"\"\"\n    deps_list\
+          \ = deps_input.get(\"dependencies\", [])\n    if not isinstance(deps_list,\
+          \ list):\n        deps_list = []\n\n    predecessors = {}\n    successors\
+          \ = {}\n\n    for dep in deps_list:\n        pred = dep.get(\"predecessor\"\
+          )\n        succ = dep.get(\"successor\")\n        if not pred or not succ:\n\
+          \            continue\n\n        # 尝试映射二级ID -> 叶子ID\n        pred = id_mapping.get(pred,\
+          \ pred)\n        succ = id_mapping.get(succ, succ)\n\n        # 如果映射后仍为空，跳过\n\
+          \        if not pred or not succ:\n            continue\n\n        lag =\
+          \ dep.get(\"lag_days\", 0)\n        dep_type = dep.get(\"type\", \"FS\"\
+          )\n\n        # 目前只支持 FS 和 SS，其他类型按 FS 处理\n        if dep_type not in [\"\
+          FS\", \"SS\"]:\n            dep_type = \"FS\"\n\n        predecessors.setdefault(succ,\
+          \ []).append({\"task_id\": pred, \"lag\": lag, \"type\": dep_type})\n  \
+          \      successors.setdefault(pred, []).append({\"task_id\": succ, \"lag\"\
+          : lag, \"type\": dep_type})\n\n    return predecessors, successors\n\n\n\
+          def topological_sort(task_ids: List[str], predecessors: Dict, successors:\
+          \ Dict) -> List[str]:\n    \"\"\"拓扑排序\"\"\"\n    in_degree = {tid: len(predecessors.get(tid,\
+          \ [])) for tid in task_ids}\n    queue = [tid for tid, deg in in_degree.items()\
+          \ if deg == 0]\n    sorted_list = []\n    while queue:\n        queue.sort()\n\
+          \        current = queue.pop(0)\n        sorted_list.append(current)\n \
+          \       for succ_info in successors.get(current, []):\n            succ\
+          \ = succ_info[\"task_id\"]\n            if succ in in_degree:\n        \
+          \        in_degree[succ] -= 1\n                if in_degree[succ] == 0:\n\
+          \                    queue.append(succ)\n    return sorted_list\n\n\ndef\
+          \ calculate_cpm(wbs: Dict, dependencies: Dict) -> Dict[str, Any]:\n    \"\
+          \"\"关键路径计算主函数\"\"\"\n    # 1. 提取任务信息，同时建立二级ID映射\n    task_info, id_mapping\
+          \ = flatten_wbs_phases(wbs)\n\n    if not task_info:\n        return {\"\
+          total_duration_days\": 0, \"critical_path\": [], \"schedule\": []}\n\n \
+          \   # 2. 解析依赖关系（含映射）\n    predecessors, successors = parse_dependencies_with_mapping(dependencies,\
+          \ id_mapping)\n\n    # 3. 确保所有任务都有前驱后继字典\n    for tid in task_info:\n  \
+          \      predecessors.setdefault(tid, [])\n        successors.setdefault(tid,\
+          \ [])\n\n    # 4. 拓扑排序\n    sorted_tasks = topological_sort(list(task_info.keys()),\
+          \ predecessors, successors)\n\n    # 5. 正向计算 ES / EF\n    for tid in sorted_tasks:\n\
+          \        es = 0\n        for pred_info in predecessors.get(tid, []):\n \
+          \           pred_id = pred_info[\"task_id\"]\n            lag = pred_info[\"\
+          lag\"]\n            dep_type = pred_info.get(\"type\", \"FS\")\n       \
+          \     if pred_id in task_info:\n                if dep_type == \"FS\":\n\
+          \                    es = max(es, task_info[pred_id][\"ef\"] + lag)\n  \
+          \              elif dep_type == \"SS\":\n                    es = max(es,\
+          \ task_info[pred_id][\"es\"] + lag)\n        task_info[tid][\"es\"] = es\n\
+          \        task_info[tid][\"ef\"] = es + task_info[tid][\"duration\"]\n\n\
+          \    total_duration = max(info[\"ef\"] for info in task_info.values()) if\
+          \ task_info else 0\n\n    # 6. 反向计算 LS / LF\n    for tid in reversed(sorted_tasks):\n\
+          \        lf = total_duration\n        has_successor = False\n        for\
+          \ succ_info in successors.get(tid, []):\n            succ_id = succ_info[\"\
+          task_id\"]\n            lag = succ_info[\"lag\"]\n            dep_type =\
+          \ succ_info.get(\"type\", \"FS\")\n            if succ_id in task_info:\n\
+          \                if dep_type == \"FS\":\n                    lf = min(lf,\
+          \ task_info[succ_id][\"ls\"] - lag)\n                elif dep_type == \"\
+          SS\":\n                    lf = min(lf, task_info[succ_id][\"es\"] + task_info[succ_id][\"\
+          duration\"] - lag)\n                has_successor = True\n        if not\
+          \ has_successor:\n            lf = total_duration\n        task_info[tid][\"\
+          ls\"] = lf - task_info[tid][\"duration\"]\n        task_info[tid][\"lf\"\
+          ] = lf\n\n    # 7. 识别关键路径（总时差为0的任务）\n    critical_tasks = [tid for tid in\
+          \ sorted_tasks if abs(task_info[tid][\"ls\"] - task_info[tid][\"es\"]) <\
+          \ 1e-9]\n\n    # 8. 对关键路径排序\n    def sort_critical_path(path):\n       \
+          \ if not path:\n            return path\n        sorted_path = []\n    \
+          \    remaining = set(path)\n        while remaining:\n            for tid\
+          \ in list(remaining):\n                preds = [p[\"task_id\"] for p in\
+          \ predecessors.get(tid, [])]\n                if all(p not in remaining\
+          \ for p in preds):\n                    sorted_path.append(tid)\n      \
+          \              remaining.remove(tid)\n                    break\n      \
+          \  return sorted_path\n\n    critical_path = sort_critical_path(critical_tasks)\n\
+          \n    # 9. 构建 schedule\n    schedule = []\n    for tid in sorted_tasks:\n\
+          \        schedule.append({\n            \"task_id\": tid,\n            \"\
+          es\": task_info[tid][\"es\"],\n            \"ef\": task_info[tid][\"ef\"\
+          ],\n            \"ls\": task_info[tid][\"ls\"],\n            \"lf\": task_info[tid][\"\
+          lf\"]\n        })\n\n    return {\n        \"total_duration_days\": total_duration,\n\
+          \        \"critical_path\": critical_path,\n        \"schedule\": schedule\n\
+          \    }\n\n\ndef main(wbs: dict, dependencies: dict) -> dict:\n    \"\"\"\
+          Dify Python 节点入口函数\"\"\"\n    try:\n        result = calculate_cpm(wbs,\
+          \ dependencies)\n        return {\"cpm_result\": result}\n    except Exception\
+          \ as e:\n        return {\"cpm_result\": {\"error\": str(e), \"total_duration_days\"\
+          : 0, \"critical_path\": [], \"schedule\": []}}"
+        code_language: python3
+        outputs:
+          cpm_result:
+            children: null
+            type: object
+        selected: false
+        title: 2.2CPM
+        type: code
+        variables:
+        - value_selector:
+          - '1781618792912'
+          - structured_output
+          value_type: object
+          variable: wbs
+        - value_selector:
+          - '1781059779423'
+          - structured_output
+          value_type: object
+          variable: dependencies
+      height: 51
+      id: '1781067264708'
+      position:
+        x: -93.84986705386251
+        y: 476.05342430326294
+      positionAbsolute:
+        x: -93.84986705386251
+        y: 476.05342430326294
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.3
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: e71f44d5-e242-4c3d-b0c8-032aa43c37c4
+          role: system
+          text: "你是一位资深的建筑工程项目计划与控制专家。你的任务是根据已经得到的项目各项分析结果，生成一份**完整、可执行的项目进度方案**，用于指导施工和资源安排。\n\
+            \n### 输入信息说明\n起始日期{{#llm.text#}}\n1. **边界条件**：项目总工期目标、质量安全目标、劳动力峰值、主要设备清单及数量、主要材料总量等。\n\
+            {{#1781066487130.text#}}\n2. **WBS**：工作分解结构（含各层级的任务、工期、工程量等）。\n{{#1781090555030.structured_output#}}\n\
+            3. **依赖关系**：任务之间的逻辑关系及滞后时间。\n{{#1781059779423.reasoning_content#}}\n4.\
+            \ **CPM 结果**：原始总工期、关键路径、每个任务的 ES/EF/LS{{#1781068964519.aggregated_string#}}\n\
+            5. **资源定额计算结果**：每个任务每日所需各类资源的数量（例如“挖掘机_per_day”、“钢筋工_per_day”等）。\n{{#1781068964519.aggregated_string#}}\n\
+            6. **资源调优建议**（可选）：针对关键任务的资源增加或工序调整建议，以及优化后的总工期。\n{{#1781067140466.structured_output#}}\n\
+            全局参数{{#conversation.blackboard#}}\n\n### 输出要求\n请根据上述输入，生成一个结构化的进度方案，以\
+            \ JSON 格式输出。方案必须包含以下部分：\n\n#### 1. 总体概述\n- `project_name`：项目名称\n- `total_duration_days`：最终确定的总工期（若资源调优有效则用优化后工期，否则用\
+            \ CPM 原始工期）\n- `planned_start_date`：计划开工日期（可从输入中提取）\n- `planned_end_date`：计划竣工日期（根据总工期推算）\n\
+            - `critical_path_length`：关键路径上的任务数量\n\n#### 2. 关键里程碑\n- `key_milestones`：数组，至少包含\
+            \ 5 个里程碑（如“溶洞处理完成”、“桩基完成”、“地下室封顶”、“主体封顶”、“竣工”）及其预计日期、关联任务ID、描述。\n\n####\
+            \ 3. 关键工序（关键路径明细）\n- `critical_path_tasks`：数组，按顺序列出关键路径上的每个任务，包含：\n  -\
+            \ `task_id`：任务ID\n  - `task_name`：任务名称\n  - `start_date`：计划开始日期（根据 CPM\
+            \ 的 ES 推算）\n  - `finish_date`：计划完成日期（根据 CPM 的 EF 推算）\n  - `duration_days`：工期\n\
+            \  - `assigned_resources`：从资源定额计算结果中提取的该任务每日所需的主要设备和人员（例如 `{\"挖掘机\": 2,\
+            \ \"钢筋工\": 5}`）\n\n#### 4. 所有工序的起点终点及资源调配\n- `all_tasks_schedule`：数组，包含\
+            \ **WBS 中所有叶子任务**（不包含父节点）的详细计划，每个任务包含：\n  - `task_id`：任务ID\n  - `task_name`：任务名称\n\
+            \  - `start_date`：计划开始日期（根据 CPM 的 ES 推算）\n  - `finish_date`：计划完成日期（根据\
+            \ CPM 的 EF 推算）\n  - `duration_days`：工期\n  - `assigned_resources`：对象，键为资源名称（如“挖掘机”、“钢筋工”），值为该资源每日需求量（从资源定额计算结果中提取\
+            \ `{资源名}_per_day` 字段，若无则省略或填 0）\n\n#### 5. 资源总需求计划\n- `resource_plan`：包含：\n\
+            \  - `total_manpower_days`：总人·日（各工种总工日之和）\n  - `peak_manpower`：峰值人数\n\
+            \  - `equipment_peak`：设备峰值需求（按类型列出最大日需量）\n  - `material_summary`：主要材料总用量（复用边界条件中的总量）\n\
+            \n#### 6.流水组织与施工措施\n#### 流水施工组织说明\n- 描述各阶段的流水段划分（如地下室按后浇带分为 2 段，标准层按 3\
+            \ 段流水）\n- 说明各工种的流水步距和穿插逻辑\n\n#### 7.季节性施工保障措施\n- 雨季施工措施：排水系统、防雨覆盖、混凝土配合比调整\n\
+            - 高温施工措施：养护方案、作业时间调整\n- 台风施工措施：设备加固、应急预案\n\n### 格式约束\n- 输出必须是合法的 JSON\
+            \ 对象。\n- 日期格式统一为 `YYYY-MM-DD`。\n- 数值保留整数。\n- 如果某些输入信息缺失，请用 `null` 表示，不要编造。\n\
+            \n现在开始生成进度方案。"
+        selected: false
+        structured_output:
+          schema:
+            properties:
+              all_tasks_schedule:
+                items:
+                  properties:
+                    assigned_resources:
+                      additionalProperties:
+                        type: integer
+                      type: object
+                    duration_days:
+                      type: integer
+                    finish_date:
+                      format: date
+                      type: string
+                    start_date:
+                      format: date
+                      type: string
+                    task_id:
+                      type: string
+                    task_name:
+                      type: string
+                  required:
+                  - task_id
+                  - task_name
+                  - start_date
+                  - finish_date
+                  - duration_days
+                  - assigned_resources
+                  type: object
+                type: array
+              critical_path_tasks:
+                items:
+                  properties:
+                    assigned_resources:
+                      additionalProperties:
+                        type: integer
+                      type: object
+                    duration_days:
+                      type: integer
+                    finish_date:
+                      format: date
+                      type: string
+                    start_date:
+                      format: date
+                      type: string
+                    task_id:
+                      type: string
+                    task_name:
+                      type: string
+                  required:
+                  - task_id
+                  - task_name
+                  - start_date
+                  - finish_date
+                  - duration_days
+                  - assigned_resources
+                  type: object
+                type: array
+              key_milestones:
+                items:
+                  properties:
+                    date:
+                      format: date
+                      type: string
+                    description:
+                      type: string
+                    name:
+                      type: string
+                    task_id:
+                      type: string
+                  required:
+                  - name
+                  - date
+                  - task_id
+                  - description
+                  type: object
+                type: array
+              overview:
+                properties:
+                  critical_path_length:
+                    type: integer
+                  planned_end_date:
+                    format: date
+                    type: string
+                  planned_start_date:
+                    format: date
+                    type: string
+                  project_name:
+                    type: string
+                  total_duration_days:
+                    type: integer
+                required:
+                - project_name
+                - total_duration_days
+                - planned_start_date
+                - planned_end_date
+                - critical_path_length
+                type: object
+              resource_plan:
+                properties:
+                  equipment_peak:
+                    additionalProperties:
+                      type: integer
+                    type: object
+                  material_summary:
+                    items:
+                      properties:
+                        name:
+                          type: string
+                        total_quantity:
+                          type: number
+                        unit:
+                          type: string
+                      type: object
+                    type: array
+                  peak_manpower:
+                    type: integer
+                  total_manpower_days:
+                    type: number
+                type: object
+              risks:
+                items:
+                  properties:
+                    mitigation:
+                      type: string
+                    risk_name:
+                      type: string
+                  type: object
+                type: array
+            required:
+            - overview
+            - key_milestones
+            - critical_path_tasks
+            - all_tasks_schedule
+            - resource_plan
+            type: object
+        structured_output_enabled: true
+        title: 3.2进度方案生成
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1781067625341'
+      position:
+        x: 740.6958119071109
+        y: 181.6394768845018
+      positionAbsolute:
+        x: 740.6958119071109
+        y: 181.6394768845018
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        code: "\n\"\"\"\n节点名称：变量聚合器（CPM + 资源定额计算结果）\n输入变量：\n  - cpm_result (Object)：关键路径计算节点的输出\n\
+          \  - resource_demand (Object)：资源定额计算节点的输出\n输出变量：\n  - aggregated_string\
+          \ (String)：合并后的 JSON 字符串\n\"\"\"\n\nimport json\n\ndef main(cpm_result:\
+          \ dict, resource_demand: dict) -> dict:\n    \"\"\"合并两个对象为一个 JSON 字符串\"\"\
+          \"\n    # 确保输入为字典类型（Dify 传入的可能已经是 dict 或字符串）\n    cpm_data = cpm_result\
+          \ if isinstance(cpm_result, dict) else {}\n    res_data = resource_demand\
+          \ if isinstance(resource_demand, dict) else {}\n    \n    # 构建聚合对象\n   \
+          \ aggregated = {\n        \"cpm\": cpm_data,\n        \"resource_demand\"\
+          : res_data\n    }\n    \n    # 转为 JSON 字符串（紧凑格式，也可用 indent=2 格式化）\n    aggregated_string\
+          \ = json.dumps(aggregated, ensure_ascii=False)\n    \n    return {\"aggregated_string\"\
+          : aggregated_string}\n"
+        code_language: python3
+        outputs:
+          aggregated_string:
+            children: null
+            type: string
+        selected: false
+        title: 变量聚合器
+        type: code
+        variables:
+        - value_selector:
+          - '1781067264708'
+          - cpm_result
+          value_type: object
+          variable: cpm_result
+        - value_selector:
+          - '1781059908414'
+          - resource_demand
+          value_type: object
+          variable: resource_demand
+      height: 51
+      id: '1781068964519'
+      position:
+        x: 167.68554841866523
+        y: 397.5486389779305
+      positionAbsolute:
+        x: 167.68554841866523
+        y: 397.5486389779305
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1781057854868'
+          - text
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 3012b959-7f2f-4dff-b485-3db1fb528044
+          role: system
+          text: '你是一个意图识别助手。用户会输入一段文字，可能包含项目文档、问题或指令。
+
+            信息为：{{#1781057854868.text#}}
+
+            {{#sys.query#}}请判断用户的意图属于以下哪一类：
+
+
+            - 类别 "one"：用户输入“生成首次进度计划”或类似字眼，文档内为项目的完整具体资料
+
+
+            - 类别 "two"：用户希望调整计划，输入“某设备人员材料参数更改”等少部分资料，包括但不限于“台风导致全面停工”等突发事件
+
+
+            - 类别“three”： 用户希望了解关于本助手的功能和信息，如输入“你能帮我做什么”或此类字眼
+
+
+            输出规则：
+
+            - 只输出一个单词：one 、 two或者three（小写，不带引号、空格或标点）。
+
+            - 不要输出任何其他解释或文字。
+
+
+
+            现在请对以下用户输入进行判断：'
+        selected: false
+        title: 0.1对话意图识别
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1781071824120'
+      position:
+        x: -765.0229302422058
+        y: -45.82065337579607
+      positionAbsolute:
+        x: -765.0229302422058
+        y: -45.82065337579607
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: cd1164b0-fa80-48c7-8d63-f331d02ff8d5
+          role: system
+          text: '你是一个施工扰动事件解析专家。用户输入了一段描述施工计划扰动情况的文本，你的任务是从中提取出结构化的扰动事件信息。
+
+            信息来自：
+
+            {{#sys.query#}}
+
+            {{#1781057854868.text#}}
+
+            {{#conversation.plan#}}/
+
+            {{#llm.text#}}
+
+            扰动类型包括：
+
+            - delay：工序延误（如停工、机械损坏、材料延迟等）
+
+            - resource_change：资源变化（如人员减少、机械故障导致不可用）
+
+            - change_order：设计变更或新增工程量
+
+            - weather：天气影响（如暴雨、高温导致停工）
+
+            - other：其他影响进度的事件
+
+
+            提取要求：
+
+            1. 识别出受影响的工序ID（task_id）。如果用户提到了工序名称而非编号，请根据常识推断可能的工序ID，如“地下室底板施工”可能对应
+            2.2.1 或 2.2.2 等。若无法确定，保留 null 并在 reason 中说明。
+
+            2. 确定扰动类型（type）。
+
+            3. 确定延误天数（delay_days）。如果是资源变化或变更，可能在后续节点才量化为天数，此处可填 0，但需在 reason 中描述影响。
+
+            4. 写清楚扰动原因（reason），以简短语句概括。
+
+
+            输出必须是纯 JSON，不要包含任何解释、注释或 markdown 代码块。所有属性名必须用英文双引号。
+
+
+            //'
+        selected: false
+        structured_output:
+          schema:
+            $schema: http://json-schema.org/draft-07/schema#
+            description: 从用户自然语言中提取的施工扰动事件结构化信息
+            properties:
+              perturbations:
+                description: 扰动事件列表，通常包含一个事件，但也可能有多个
+                items:
+                  properties:
+                    affected_task:
+                      description: 受影响的工序ID，如 2.2.1。若无法确定则为 null
+                      type:
+                      - string
+                      - 'null'
+                    delay_days:
+                      description: 预计造成的延误天数，若暂时无法量化为0
+                      minimum: 0
+                      type: integer
+                    detail:
+                      description: 补充说明（可选）
+                      type: string
+                    reason:
+                      description: 扰动原因简述，如‘泵车损坏导致停工’
+                      type: string
+                    type:
+                      description: 扰动类型
+                      enum:
+                      - delay
+                      - resource_change
+                      - change_order
+                      - weather
+                      - other
+                      type: string
+                  required:
+                  - affected_task
+                  - type
+                  - delay_days
+                  - reason
+                  type: object
+                type: array
+            required:
+            - perturbations
+            title: 扰动事件解析结果
+            type: object
+        structured_output_enabled: true
+        title: 6.1扰动事件解析
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1781072408989'
+      position:
+        x: -382.6096833036394
+        y: -191.47180710742816
+      positionAbsolute:
+        x: -382.6096833036394
+        y: -191.47180710742816
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 645658dd-2ccc-4462-8eaf-df4142fa9339
+          role: system
+          text: "你是一位建筑工程项目进度控制专家。你的任务是根据当前进度方案和发生的扰动事件，判断哪些工序会受到影响，并生成更新后的进度方案（JSON\
+            \ 格式）。\n信息如下：\n{{#1781072408989.text#}} 此为扰动事件\n{{#conversation.plan#}}此为原计划\n\
+            {{#llm.text#}}此为边界条件\n\n输入说明\ncurrent_plan：包含以下字段的 JSON 对象：\nall_tasks_schedule：所有任务列表（task_id,\
+            \ name, start_date, finish_date, duration_days, assigned_resources, 以及\
+            \ CPM 参数 es, ef, ls, lf, total_float 可选）\ncritical_path_tasks：当前关键路径任务\
+            \ ID 列表\ntotal_duration_days：原总工期\n其他字段（如 resource_plan）\ndisturbance：扰动事件描述，例如\
+            \ “溶洞处理工期增加18天”。\n追回要求：用户是否要求追回工期（如 “尽量追回”）。无特殊说明时，默认要求全力追回总工期，必须保证最终总工期与原工期一致\n\
+            \n核心逻辑规则（必须遵循）\n1. 判断影响范围：\n找到扰动直接作用的任务（根据任务名称或 ID 匹配）。\n如果该任务在关键路径上，其延误将直接导致总工期延长。\n\
+            如果该任务在非关键路径上，比较其总时差（total_float = LS - ES）。如果延误天数 ≤ 总时差，则不影响总工期；否则超出部分会延长总工期。\n\
+            \n2. 工期传播与赶工要求：\n后续任务的开始时间可能被推迟，但如果有浮动时间，可以吸收部分延误。\n无特殊指令时，必须全力追回全部延误工期，最终总工期严格等于原始总工期。优先顺序：①优化作业班次、错峰调度、多工作面施工（不新增设备/人员）→②在峰值上限内小幅增补人员、机械设备；禁止单纯顺延总工期。\n\
+            \n3. 工艺约束：\n严禁压缩混凝土养护、预制构件灌浆、防水闭水等法定技术间歇。\n\n4. 资源硬性约束（新增强化）：\n所有人员、机械设备调整后数量，**必须严格小于或等于边界条件中明确的该类资源峰值上限**，逐一核对数值，绝对不允许出现资源超限。\n\
+            优先通过作业组织优化赶工，确需增补资源时，严控增量，严禁突破额定峰值。\n\n资源调整（强制要求）：\n出现工期延误时，必须输出对应的资源、作业方式调整方案，禁止\
+            \ resource_adjustments 为空。\n对于未受影响的任务，保持原资源分配。\n\n输出内容：\n列出受影响的任务（task_id,\
+            \ name, 原工期，新工期，受影响原因）\n更新后的总工期（必须与原始总工期保持一致）\n更新后的关键路径（任务 ID 列表）\n必须填写资源调整明细，不可为空\n\
+            \n输出格式：\n{\n  \"affected_tasks\": [\n    {\n      \"task_id\": \"2.1.2\"\
+            ,\n      \"task_name\": \"水泥-水玻璃双液注浆\",\n      \"original_duration\":\
+            \ 30,\n      \"new_duration\": 48,\n      \"reason\": \"溶洞处理工作量增加35%，导致工期增加18天\"\
+            ,\n      \"on_critical_path\": true\n    }\n  ],\n  \"new_total_duration_days\"\
+            : 318,\n  \"new_critical_path\": [\"2.1.2\", \"2.2.2\", \"3.1.2\", \"\
+            4.2.2\"],\n  \"resource_adjustments\": [\n    {\n      \"task_id\": \"\
+            2.1.2\",\n      \"resource_name\": \"注浆工\",\n      \"original_per_day\"\
+            : 240,\n      \"new_per_day\": 300,\n      \"reason\": \"为追赶工期，增加注浆班组，两班倒\"\
+            \n    }\n  ]\n}/"
+        selected: false
+        structured_output:
+          schema:
+            properties:
+              affected_tasks:
+                items:
+                  properties:
+                    new_duration:
+                      type: integer
+                    on_critical_path:
+                      type: boolean
+                    original_duration:
+                      type: integer
+                    reason:
+                      type: string
+                    task_id:
+                      type: string
+                    task_name:
+                      type: string
+                  required:
+                  - task_id
+                  - task_name
+                  - original_duration
+                  - new_duration
+                  - reason
+                  - on_critical_path
+                  type: object
+                type: array
+              new_critical_path:
+                items:
+                  type: string
+                type: array
+              new_total_duration_days:
+                type: integer
+              resource_adjustments:
+                items:
+                  properties:
+                    new_per_day:
+                      type: number
+                    original_per_day:
+                      type: number
+                    reason:
+                      type: string
+                    resource_name:
+                      type: string
+                    task_id:
+                      type: string
+                  required:
+                  - task_id
+                  - resource_name
+                  - original_per_day
+                  - new_per_day
+                  - reason
+                  type: object
+                type: array
+            required:
+            - affected_tasks
+            - new_total_duration_days
+            - new_critical_path
+            type: object
+        structured_output_enabled: true
+        title: 6.2生成更新方案
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1781072794244'
+      position:
+        x: -382.6096833036394
+        y: -93.33257400929085
+      positionAbsolute:
+        x: -382.6096833036394
+        y: -93.33257400929085
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 06d05e61-68c6-451e-9834-1edc44782ffa
+            value: two
+            varType: string
+            variable_selector:
+            - '1781071824120'
+            - text
+          id: 'true'
+          logical_operator: and
+        - case_id: 42fbf1f3-2018-4e38-ad4e-d1fd4262a24b
+          conditions:
+          - comparison_operator: contains
+            id: f398ad92-a3de-4761-8ac2-a78b041fecc7
+            value: three
+            varType: string
+            variable_selector:
+            - '1781071824120'
+            - text
+          id: 42fbf1f3-2018-4e38-ad4e-d1fd4262a24b
+          logical_operator: and
+        selected: false
+        title: 条件分支
+        type: if-else
+      height: 171
+      id: '1781073113751'
+      position:
+        x: -765.0229302422058
+        y: 167.65732057210116
+      positionAbsolute:
+        x: -765.0229302422058
+        y: 167.65732057210116
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        isInIteration: false
+        isInLoop: false
+        model:
+          completion_params:
+            temperature: 0.3
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: e71f44d5-e242-4c3d-b0c8-032aa43c37c4
+          role: system
+          text: "你是一位资深的建筑工程项目计划与控制专家。你的任务是根据已经得到的项目各项分析结果，生成一份**完整、可执行的项目进度方案**，用于指导施工和资源安排。\n\
+            \n### 输入信息说明\n现已有初步生成的进度方案{{#conversation.plan#}}\n你需要根据{{#1781072794244.structured_output#}}的信息作出调整\n\
+            此为原来的边界条件{{#llm.text#}}\n### 输出要求\n请根据上述输入，生成一个结构化的进度方案，以 JSON 格式输出。方案必须包含以下部分：\n\
+            \n#### 1. 总体概述\n- `project_name`：项目名称\n- `total_duration_days`：最终确定的总工期（若资源调优有效则用优化后工期，否则用\
+            \ CPM 原始工期）\n- `planned_start_date`：计划开工日期（可从输入中提取）\n- `planned_end_date`：计划竣工日期（根据总工期推算）\n\
+            - `critical_path_length`：关键路径上的任务数量\n\n#### 2. 关键里程碑\n- `key_milestones`：数组，至少包含\
+            \ 5 个里程碑（如“溶洞处理完成”、“桩基完成”、“地下室封顶”、“主体封顶”、“竣工”）及其预计日期、关联任务ID、描述。\n\n####\
+            \ 3. 关键工序（关键路径明细）\n- `critical_path_tasks`：数组，按顺序列出关键路径上的每个任务，包含：\n  -\
+            \ `task_id`：任务ID\n  - `task_name`：任务名称\n  - `start_date`：计划开始日期（根据 CPM\
+            \ 的 ES 推算）\n  - `finish_date`：计划完成日期（根据 CPM 的 EF 推算）\n  - `duration_days`：工期\n\
+            \  - `assigned_resources`：从资源定额计算结果中提取的该任务每日所需的主要设备和人员（例如 `{\"挖掘机\": 2,\
+            \ \"钢筋工\": 5}`）\n\n#### 4. 所有工序的起点终点及资源调配\n- `all_tasks_schedule`：数组，包含\
+            \ **WBS 中所有叶子任务**（不包含父节点）的详细计划，每个任务包含：\n  - `task_id`：任务ID\n  - `task_name`：任务名称\n\
+            \  - `start_date`：计划开始日期（根据 CPM 的 ES 推算）\n  - `finish_date`：计划完成日期（根据\
+            \ CPM 的 EF 推算）\n  - `duration_days`：工期\n  - `assigned_resources`：对象，键为资源名称（如“挖掘机”、“钢筋工”），值为该资源每日需求量（从资源定额计算结果中提取\
+            \ `{资源名}_per_day` 字段，若无则省略或填 0）\n\n#### 5. 资源总需求计划\n- `resource_plan`：包含：\n\
+            \  - `total_manpower_days`：总人·日（各工种总工日之和）\n  - `peak_manpower`：峰值人数\n\
+            \  - `equipment_peak`：设备峰值需求（按类型列出最大日需量）\n  - `material_summary`：主要材料总用量（复用边界条件中的总量）\n\
+            \n#### 6. 关键风险与应对措施（可选）\n- `risks`：数组，列出可能影响进度的风险及建议应对措施。\n\n### 格式约束\n\
+            - 输出必须是合法的 JSON 对象。\n- 日期格式统一为 `YYYY-MM-DD`。\n- 数值保留整数。\n- 如果某些输入信息缺失，请用\
+            \ `null` 表示，不要编造。\n\n现在开始生成进度方案。"
+        selected: false
+        structured_output:
+          schema:
+            properties:
+              all_tasks_schedule:
+                items:
+                  properties:
+                    assigned_resources:
+                      additionalProperties:
+                        type: integer
+                      type: object
+                    duration_days:
+                      type: integer
+                    finish_date:
+                      format: date
+                      type: string
+                    start_date:
+                      format: date
+                      type: string
+                    task_id:
+                      type: string
+                    task_name:
+                      type: string
+                  required:
+                  - task_id
+                  - task_name
+                  - start_date
+                  - finish_date
+                  - duration_days
+                  - assigned_resources
+                  type: object
+                type: array
+              critical_path_tasks:
+                items:
+                  properties:
+                    assigned_resources:
+                      additionalProperties:
+                        type: integer
+                      type: object
+                    duration_days:
+                      type: integer
+                    finish_date:
+                      format: date
+                      type: string
+                    start_date:
+                      format: date
+                      type: string
+                    task_id:
+                      type: string
+                    task_name:
+                      type: string
+                  required:
+                  - task_id
+                  - task_name
+                  - start_date
+                  - finish_date
+                  - duration_days
+                  - assigned_resources
+                  type: object
+                type: array
+              key_milestones:
+                items:
+                  properties:
+                    date:
+                      format: date
+                      type: string
+                    description:
+                      type: string
+                    name:
+                      type: string
+                    task_id:
+                      type: string
+                  required:
+                  - name
+                  - date
+                  - task_id
+                  - description
+                  type: object
+                type: array
+              overview:
+                properties:
+                  critical_path_length:
+                    type: integer
+                  planned_end_date:
+                    format: date
+                    type: string
+                  planned_start_date:
+                    format: date
+                    type: string
+                  project_name:
+                    type: string
+                  total_duration_days:
+                    type: integer
+                required:
+                - project_name
+                - total_duration_days
+                - planned_start_date
+                - planned_end_date
+                - critical_path_length
+                type: object
+              resource_plan:
+                properties:
+                  equipment_peak:
+                    additionalProperties:
+                      type: integer
+                    type: object
+                  material_summary:
+                    items:
+                      properties:
+                        name:
+                          type: string
+                        total_quantity:
+                          type: number
+                        unit:
+                          type: string
+                      type: object
+                    type: array
+                  peak_manpower:
+                    type: integer
+                  total_manpower_days:
+                    type: number
+                type: object
+              risks:
+                items:
+                  properties:
+                    mitigation:
+                      type: string
+                    risk_name:
+                      type: string
+                  type: object
+                type: array
+            required:
+            - overview
+            - key_milestones
+            - critical_path_tasks
+            - all_tasks_schedule
+            - resource_plan
+            type: object
+        structured_output_enabled: true
+        title: '6.3进度方案生成 '
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '17810879415940'
+      position:
+        x: -93.84986705386251
+        y: -93.33257400929085
+      positionAbsolute:
+        x: -93.84986705386251
+        y: -93.33257400929085
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        answer: '{{#1786695583542.final_text#}}
+
+          '
+        selected: false
+        title: 直接回复 2
+        type: answer
+        variables: []
+      height: 101
+      id: '1781087993120'
+      position:
+        x: 1501.940380935908
+        y: -76.9534003293383
+      positionAbsolute:
+        x: 1501.940380935908
+        y: -76.9534003293383
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        break_conditions: []
+        error_handle_mode: terminated
+        height: 425.9152804142189
+        logical_operator: and
+        loop_count: 3
+        loop_variables:
+        - id: dbd56733-f6d4-4d54-97ae-be30337d011a
+          label: revise
+          value:
+          - '1781067625341'
+          - text
+          value_type: variable
+          var_type: string
+        - id: 44f68e87-69e7-4d3e-9037-c4b0ce72ed40
+          label: revise_object
+          value:
+          - '1781067625341'
+          - structured_output
+          value_type: variable
+          var_type: object
+        selected: false
+        start_node_id: 1781088711155start
+        title: 循环
+        type: loop
+        width: 1321
+      height: 426
+      id: '1781088711155'
+      position:
+        x: 460.6248778886088
+        y: 302.3214012708722
+      positionAbsolute:
+        x: 460.6248778886088
+        y: 302.3214012708722
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 1321
+      zIndex: 0
+    - data:
+        desc: ''
+        isInLoop: true
+        selected: false
+        title: ''
+        type: loop-start
+      draggable: false
+      height: 48
+      id: 1781088711155start
+      parentId: '1781088711155'
+      position:
+        x: 24
+        y: 68
+      positionAbsolute:
+        x: 484.6248778886088
+        y: 370.3214012708722
+      selectable: false
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-loop-start
+      width: 44
+      zIndex: 1001
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1781088711155'
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 285c3bf0-7bb2-4c20-ba20-c60a3c8ca41d
+          role: system
+          text: '你是一位资深的建筑工程项目计划与控制专家。你的任务是根据已经得到的项目各项分析结果，以及一份**完整、可执行的项目进度方案**，检查方案是否存在工序逻辑错误（如：5.2.3
+            套筒灌浆连接施工 的完成日期（2027-07-31）晚于其下游任务 8.3.1 外墙真石漆 的开始日期（2026-09-07）和完成日期（2027-03-06），这是逻辑倒挂。）
+
+            和设备调配明显错误（如：在资源定额计算时，可能将“总台班数”误写为“每日台数”。例如旋挖钻机 120 台班如果分摊到 65 天工期，每日实际只需要
+            2 台（两班倒）。）并生成错误报告
+
+            你能用到的信息：
+
+            {{#1781067140466.structured_output#}}
+
+            {{#conversation.blackboard#}}
+
+            {{#1781088711155.revise#}}
+
+            同时你需要对比项目初始参数{{#1781057854868.text#}}与施工方案是否存在矛盾，若有也需指出修改。
+
+            最后，还需检查关键路径是否出现倒挂问题，若有需指出
+
+            若存在错误报告：
+
+            输出全小写单词：wrong
+
+            输出每项错误的位置、错误的原因
+
+
+            若不存在错误：
+
+            输出全小写单词：right
+
+            '
+        selected: false
+        title: 4.1方案审核
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1781088857843'
+      parentId: '1781088711155'
+      position:
+        x: 62.813412778167844
+        y: 126.89439709184848
+      positionAbsolute:
+        x: 523.4382906667767
+        y: 429.21579836272065
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 1001
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 931fc313-4db4-4085-a714-a5577b4bb9d3
+            value: right
+            varType: string
+            variable_selector:
+            - '1781088857843'
+            - text
+          id: 'true'
+          logical_operator: and
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1781088711155'
+        selected: false
+        title: 条件分支 2
+        type: if-else
+      height: 123
+      id: '1781089061233'
+      parentId: '1781088711155'
+      position:
+        x: 376.92005078168154
+        y: 98.08251262391383
+      positionAbsolute:
+        x: 837.5449286702903
+        y: 400.403913894786
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 1001
+    - data:
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1781088711155'
+        selected: false
+        title: 退出循环
+        type: loop-end
+      height: 53
+      id: '1781089120207'
+      parentId: '1781088711155'
+      position:
+        x: 654.360782331058
+        y: 85.67657038994611
+      positionAbsolute:
+        x: 1114.985660219667
+        y: 387.9979716608183
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-simple
+      width: 244
+      zIndex: 1001
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1781088711155'
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 8ec5768d-413d-46ee-ba3f-94f9ee50ac28
+          role: system
+          text: "你是一位资深的建筑工程项目计划与控制专家。你的任务是根据已经得到的项目各项分析结果和已有的施工方案，根据方案审核的修改意见进行修改，输出新的进度方案。\n\
+            ### 输入信息说明\n起始日期{{#llm.text#}}\n1. **边界条件**：项目总工期目标、质量安全目标、劳动力峰值、主要设备清单及数量、主要材料总量等。\n\
+            {{#1781066487130.text#}}\n2. **WBS**：工作分解结构（含各层级的任务、工期、工程量等）。\n{{#1781059078017.structured_output#}}\n\
+            3. **依赖关系**：任务之间的逻辑关系及滞后时间。\n{{#1781059779423.text#}}\n4. **CPM 结果**：原始总工期、关键路径、每个任务的\
+            \ ES/EF/LS{{#context#}}{{#1781068964519.aggregated_string#}}\n5. **资源定额计算结果**：每个任务每日所需各类资源的数量（例如“挖掘机_per_day”、“钢筋工_per_day”等）。\n\
+            {{#1781068964519.aggregated_string#}}\n6. **资源调优建议**（可选）：针对关键任务的资源增加或工序调整建议，以及优化后的总工期。\n\
+            {{#1781067140466.structured_output#}}\n7.已有方案{{#1781067140466.structured_output#}}\n\
+            8.方案审核意见{{#1781088857843.text#}}\n### 输出要求\n请根据上述输入，生成一个结构化的进度方案，以 JSON\
+            \ 格式输出。方案必须包含以下部分：\n\n#### 1. 总体概述\n- `project_name`：项目名称\n- `total_duration_days`：最终确定的总工期（若资源调优有效则用优化后工期，否则用\
+            \ CPM 原始工期）\n- `planned_start_date`：计划开工日期（可从输入中提取）\n- `planned_end_date`：计划竣工日期（根据总工期推算）\n\
+            - `critical_path_length`：关键路径上的任务数量\n\n#### 2. 关键里程碑\n- `key_milestones`：数组，至少包含\
+            \ 5 个里程碑（如“溶洞处理完成”、“桩基完成”、“地下室封顶”、“主体封顶”、“竣工”）及其预计日期、关联任务ID、描述。\n\n####\
+            \ 3. 关键工序（关键路径明细）\n- `critical_path_tasks`：数组，按顺序列出关键路径上的每个任务，包含：\n  -\
+            \ `task_id`：任务ID\n  - `task_name`：任务名称\n  - `start_date`：计划开始日期（根据 CPM\
+            \ 的 ES 推算）\n  - `finish_date`：计划完成日期（根据 CPM 的 EF 推算）\n  - `duration_days`：工期\n\
+            \  - `assigned_resources`：从资源定额计算结果中提取的该任务每日所需的主要设备和人员（例如 `{\"挖掘机\": 2,\
+            \ \"钢筋工\": 5}`）\n\n#### 4. 所有工序的起点终点及资源调配\n- `all_tasks_schedule`：数组，包含\
+            \ **WBS 中所有叶子任务**（不包含父节点）的详细计划，每个任务包含：\n  - `task_id`：任务ID\n  - `task_name`：任务名称\n\
+            \  - `start_date`：计划开始日期（根据 CPM 的 ES 推算）\n  - `finish_date`：计划完成日期（根据\
+            \ CPM 的 EF 推算）\n  - `duration_days`：工期\n  - `assigned_resources`：对象，键为资源名称（如“挖掘机”、“钢筋工”），值为该资源每日需求量（从资源定额计算结果中提取\
+            \ `{资源名}_per_day` 字段，若无则省略或填 0）\n\n#### 5. 资源总需求计划\n- `resource_plan`：包含：\n\
+            \  - `total_manpower_days`：总人·日（各工种总工日之和）\n  - `peak_manpower`：峰值人数\n\
+            \  - `equipment_peak`：设备峰值需求（按类型列出最大日需量）\n  - `material_summary`：主要材料总用量（复用边界条件中的总量）\n\
+            \n#### 6.流水组织与施工措施\n#### 流水施工组织说明\n- 描述各阶段的流水段划分（如地下室按后浇带分为 2 段，标准层按 3\
+            \ 段流水）\n- 说明各工种的流水步距和穿插逻辑\n\n#### 7.季节性施工保障措施\n- 雨季施工措施：排水系统、防雨覆盖、混凝土配合比调整\n\
+            - 高温施工措施：养护方案、作业时间调整\n- 台风施工措施：设备加固、应急预案\n\n### 格式约束\n- 输出必须是合法的 JSON\
+            \ 对象。\n- 日期格式统一为 `YYYY-MM-DD`。\n- 数值保留整数。\n- 如果某些输入信息缺失，请用 `null` 表示，不要编造。\n\
+            \n现在开始生成进度方案。"
+        selected: false
+        structured_output:
+          schema:
+            properties:
+              all_tasks_schedule:
+                items:
+                  properties:
+                    assigned_resources:
+                      additionalProperties:
+                        type: integer
+                      type: object
+                    duration_days:
+                      type: integer
+                    finish_date:
+                      format: date
+                      type: string
+                    start_date:
+                      format: date
+                      type: string
+                    task_id:
+                      type: string
+                    task_name:
+                      type: string
+                  required:
+                  - task_id
+                  - task_name
+                  - start_date
+                  - finish_date
+                  - duration_days
+                  - assigned_resources
+                  type: object
+                type: array
+              critical_path_tasks:
+                items:
+                  properties:
+                    assigned_resources:
+                      additionalProperties:
+                        type: integer
+                      type: object
+                    duration_days:
+                      type: integer
+                    finish_date:
+                      format: date
+                      type: string
+                    start_date:
+                      format: date
+                      type: string
+                    task_id:
+                      type: string
+                    task_name:
+                      type: string
+                  required:
+                  - task_id
+                  - task_name
+                  - start_date
+                  - finish_date
+                  - duration_days
+                  - assigned_resources
+                  type: object
+                type: array
+              key_milestones:
+                items:
+                  properties:
+                    date:
+                      format: date
+                      type: string
+                    description:
+                      type: string
+                    name:
+                      type: string
+                    task_id:
+                      type: string
+                  required:
+                  - name
+                  - date
+                  - task_id
+                  - description
+                  type: object
+                type: array
+              overview:
+                properties:
+                  critical_path_length:
+                    type: integer
+                  planned_end_date:
+                    format: date
+                    type: string
+                  planned_start_date:
+                    format: date
+                    type: string
+                  project_name:
+                    type: string
+                  total_duration_days:
+                    type: integer
+                required:
+                - project_name
+                - total_duration_days
+                - planned_start_date
+                - planned_end_date
+                - critical_path_length
+                type: object
+              resource_plan:
+                properties:
+                  equipment_peak:
+                    additionalProperties:
+                      type: integer
+                    type: object
+                  material_summary:
+                    items:
+                      properties:
+                        name:
+                          type: string
+                        total_quantity:
+                          type: number
+                        unit:
+                          type: string
+                      type: object
+                    type: array
+                  peak_manpower:
+                    type: integer
+                  total_manpower_days:
+                    type: number
+                type: object
+              risks:
+                items:
+                  properties:
+                    mitigation:
+                      type: string
+                    risk_name:
+                      type: string
+                  type: object
+                type: array
+            required:
+            - overview
+            - key_milestones
+            - critical_path_tasks
+            - all_tasks_schedule
+            - resource_plan
+            type: object
+        structured_output_enabled: true
+        title: 4.2方案重生成
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1781089126044'
+      parentId: '1781088711155'
+      position:
+        x: 658.6219184177319
+        y: 198.09122937440634
+      positionAbsolute:
+        x: 1119.2467963063407
+        y: 500.4126306452785
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 1001
+    - data:
+        isInIteration: false
+        isInLoop: true
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1781089126044'
+          - text
+          variable_selector:
+          - '1781088711155'
+          - revise
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1781089126044'
+          - structured_output
+          variable_selector:
+          - '1781088711155'
+          - revise_object
+        loop_id: '1781088711155'
+        selected: false
+        title: 变量赋值 3
+        type: assigner
+        version: '2'
+      height: 109
+      id: '1781089424209'
+      parentId: '1781088711155'
+      position:
+        x: 937.8245293886757
+        y: 195.31317128470602
+      positionAbsolute:
+        x: 1398.4494072772845
+        y: 497.6345725555782
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 1001
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: e0efc3a4-cf1f-4f38-8542-67b17df22986
+          role: system
+          text: '你是一位建筑工程项目 WBS 分解与工程量估算专家。任务是根据项目参数生成**完整的三级 WBS（叶子任务）**，并为每个三级任务分配合理的工程量、工期和资源。
+
+
+            ### 输入说明
+
+            - `wbs_level2`：一级阶段和二级工作包列表（由上游节点提供）。{{#1781059078017.structured_output#}}
+
+            - `extracted_params`：包含总建筑面积、各材料总用量、工期目标等。{{#1781057854868.text#}}{{#llm.reasoning_content#}}{{#1781066487130.reasoning_content#}}
+
+
+            你是一位建筑工程项目 WBS 分解与工程量估算专家。任务是根据项目参数生成**完整的三级 WBS（叶子任务）**，并为每个三级任务分配合理的工程量、工期和资源。
+
+
+            ### 输入说明
+
+            - `wbs_level2`：一级阶段和二级工作包列表。
+
+            - `extracted_params`：包含总建筑面积、各材料总用量、工期目标等。
+
+
+
+            ### 核心原则
+
+            1. **WBS 必须遵循“100%原则”**：下一层所有工作包之和必须完整覆盖其父级任务。
+
+            2. **每个叶子节点必须是可交付成果**，而非施工动作。
+
+            3. **工序逻辑顺序必须正确**：先地下后地上，先结构后装修，先主体后机电。
+
+
+
+            ### 案例库：标准施工逻辑顺序
+
+
+            #### 阶段1：施工准备
+
+            场地平整 → 临时设施搭建 → 测量放线 → 管线探测保护 → 手续办理
+
+
+            #### 阶段2：地基处理与桩基
+
+            溶洞/地基处理 → 支护桩施工 → 工程桩施工 → 桩基检测
+
+
+            #### 阶段3：基坑支护与土方
+
+            内支撑/锚索施工 → 土方开挖 → 基坑监测
+
+
+            #### 阶段4：地下室结构（钢筋→模板→混凝土→防水）
+
+            地下室底板钢筋 → 地下室底板模板 → 地下室底板混凝土 → 地下室底板防水
+
+            地下室墙柱钢筋 → 地下室墙柱模板 → 地下室墙柱混凝土
+
+            地下室顶板梁板钢筋 → 地下室顶板梁板模板 → 地下室顶板梁板混凝土
+
+
+            #### 阶段5：地上主体结构（必须拆分为6个独立子任务）
+
+            1. 铝模安装、加固及拆除（5.1.x）
+
+            2. 爬架提升及维护（5.2.x）
+
+            3. 预制构件吊装就位（5.3.x）
+
+            4. 套筒灌浆及养护（5.4.x）
+
+            5. 主体钢筋工程（5.5.x）
+
+            6. 主体混凝土工程（5.6.x）
+
+
+            > **约束**：钢筋工程 ≥ 铝模安装；混凝土工程 ≥ 钢筋工程
+
+
+            #### 阶段6：二次结构与砌体
+
+            ALC墙板安装 → 砌体砌筑 → 拉结筋植筋 → 构造柱施工
+
+
+            > **约束**：拉结筋植筋的 work_type 必须为“砌筑工程”，而非“钢筋工程”
+
+
+            #### 阶段7：机电安装
+
+            预留预埋 → 管道安装 → 电气安装 → 设备安装 → 调试
+
+
+            #### 阶段8：装饰装修
+
+            室内抹灰 → 地面找平 → 外墙保温 → 外墙饰面 → 门窗安装 → 精装修
+
+
+            > **约束**：外墙保温施工必须在二次结构混凝土完成后进行
+
+
+            #### 阶段9：室外工程
+
+            室外管网 → 道路铺装 → 绿化
+
+
+            #### 阶段10：竣工验收
+
+            专项验收 → 清理调试 → 资料归档 → 备案移交
+
+
+
+            ### 工程量填写规则（核心约束，必须遵守）
+
+
+            #### 规则1：明确哪些任务可以使用“项”（白名单）
+
+            **只有以下类别的任务可以使用 `1` 和 `"项"` 作为单位：**
+
+
+            | 类别 | 任务名称示例 | 原因 |
+
+            |------|-------------|------|
+
+            | 测量放线 | 平面控制网建立、高程控制网建立、建筑物定位放线 | 技术工作，按项计费 |
+
+            | 手续办理 | 施工许可证办理、夜间施工证办理、环保备案 | 行政工作，按项计费 |
+
+            | 专项验收 | 规划验收、消防验收、人防验收、竣工联合验收 | 验收工作，按项计费 |
+
+            | 资料管理 | 竣工图纸编制、资料归档、档案移交 | 文档工作，按项计费 |
+
+            | 移交管理 | 工程实体移交、钥匙移交 | 移交工作，按项计费 |
+
+            | 清理调试 | 机电系统调试 | 系统工作，按项计费 |
+
+
+            **除此之外，所有施工类任务必须使用具体的工程量单位和数值，禁止使用“项”。**
+
+
+            #### 规则2：施工类任务的工程量和单位（必须遵守）
+
+
+            | 任务类型 | 正确单位 | 正确工程量示例 | 错误写法 |
+
+            |----------|----------|---------------|----------|
+
+            | 场地平整 | ㎡ | 51980.3 | ❌ 1项 |
+
+            | 土方开挖 | m³ | 200000 / 550000 | ❌ 1项 |
+
+            | 混凝土浇筑 | m³ | 45000 / 135000 | ❌ 1项 |
+
+            | 钢筋绑扎 | 吨 | 5000 / 15000 | ❌ 1项 |
+
+            | 模板安装 | ㎡ | 45000 / 120000 | ❌ 1项 |
+
+            | PRC管桩 | m | 85000 | ❌ 1项 |
+
+            | 地下连续墙 | m³ | 15000 | ❌ 1项 |
+
+            | 咬合桩 | m³ | 22000 | ❌ 1项 |
+
+            | 水泥搅拌桩 | m | 25000 | ❌ 1项 |
+
+            | ALC墙板 | ㎡ | 180000 | ❌ 1项 |
+
+            | 抹灰 | ㎡ | 753000 | ❌ 1项 |
+
+            | 防水 | ㎡ | 52000 / 30000 | ❌ 1项 |
+
+            | 预制构件 | m³ | 120000 | ❌ 1项 |
+
+            | 灌浆 | 吨 | 5000 | ❌ 1项 |
+
+            | 砌体砌筑 | m³ | 50000 | ❌ 1项 |
+
+            | 构造柱 | m³ | 45000 | ❌ 1项 |
+
+
+            #### 规则3：工期必须与工程量匹配
+
+            - 混凝土工程：工期 ≥ 工程量 / 300（m³/天），建议 30~90 天
+
+            - 钢筋工程：工期 ≥ 工程量 / 5（吨/天），建议 20~60 天
+
+            - 土方工程：工期 ≥ 工程量 / 5000（m³/天），建议 30~80 天
+
+
+            #### 规则4：禁止的 work_type 组合
+
+            以下组合被严格禁止：
+
+            - ❌ `钢筋工程` + `quantity: 1` + `unit: "项"`
+
+            - ❌ `混凝土工程` + `quantity: 1` + `unit: "项"`
+
+            - ❌ `土方工程` + `quantity: 1` + `unit: "项"`
+
+            - ❌ `模板工程` + `quantity: 1` + `unit: "项"`
+
+            - ❌ `防水工程` + `quantity: 1` + `unit: "项"`
+
+            - ❌ `砌筑工程` + `拉结筋植筋`（植筋必须用“砌筑工程”，不能是“钢筋工程”）
+
+
+            #### 规则5：输出前自查
+
+            在输出WBS之前，逐项检查每个叶子节点：
+
+            - 如果 `work_type` 属于施工类，`quantity` 必须 ≥ 10，`unit` 不能是“项”
+
+            - 如果 `quantity` 为 1 且 `unit` 为“项”，则该任务必须属于白名单类别
+
+
+            **违反此规则将导致下游资源计算失败，请严格遵守。**
+
+
+
+            ### 工程量标准取值表
+
+
+            | 任务 | quantity | 计算方式 | 单位 |
+
+            |------|----------|----------|------|
+
+            | PRC管桩 | 85000 | extracted_params.total_precast | m |
+
+            | 地下连续墙 | 15000 | extracted_params.total_wall | m³ |
+
+            | 咬合桩 | 22000 | extracted_params.total_wall | m³ |
+
+            | 水泥搅拌桩 | 25000 | extracted_params.total_wall | m |
+
+            | 地块1土方 | 200000 | total_earthwork × 27% | m³ |
+
+            | 地块2土方 | 550000 | total_earthwork × 73% | m³ |
+
+            | 地下室钢筋 | 15000 | total_rebar × 20% | 吨 |
+
+            | 主体钢筋 | 52500 | total_rebar × 70% | 吨 |
+
+            | 二次结构钢筋 | 7500 | total_rebar × 10% | 吨 |
+
+            | 地下室混凝土 | 135000 | total_concrete × 30% | m³ |
+
+            | 主体混凝土 | 270000 | total_concrete × 60% | m³ |
+
+            | 二次结构混凝土 | 45000 | total_concrete × 10% | m³ |
+
+            | 预制构件 | 120000 | extracted_params.total_precast | m³ |
+
+            | ALC墙板 | 180000 | total_area × 0.6 | ㎡ |
+
+            | 抹灰 | 753000 | total_area × 2.5 | ㎡ |
+
+
+            ### 输出要求
+
+            1. 所有 `assigned_resources` 必须为空对象 `{}`。
+
+            2. 每个叶子节点必须包含 `work_type` 字段。
+
+            3. 主体结构阶段必须包含 6 个独立子任务（5.1~5.6）。
+
+            4. 地下室结构必须按 钢筋→模板→混凝土→防水 顺序。
+
+            5. 拉结筋植筋的 work_type 必须为“砌筑工程”。
+
+            6. 施工类任务禁止使用“1项”，必须使用具体数值。
+
+
+            现在请根据输入生成三级 WBS。'
+        selected: false
+        structured_output:
+          schema:
+            $schema: http://json-schema.org/draft-07/schema#
+            properties:
+              phases:
+                items:
+                  properties:
+                    duration_days:
+                      minimum: 1
+                      type: integer
+                    phase_id:
+                      pattern: ^[1-9][0-9]*$
+                      type: string
+                    phase_name:
+                      type: string
+                    work_packages:
+                      items:
+                        properties:
+                          id:
+                            pattern: ^\d+\.\d+$
+                            type: string
+                          name:
+                            type: string
+                          sub_packages:
+                            items:
+                              properties:
+                                assigned_resources:
+                                  description: 必须为空对象
+                                  maxProperties: 0
+                                  type: object
+                                duration_days:
+                                  minimum: 1
+                                  type: integer
+                                id:
+                                  pattern: ^\d+\.\d+\.\d+$
+                                  type: string
+                                name:
+                                  type: string
+                                quantity:
+                                  description: 工程量，必须为具体数值。例外：测量放线、手续办理、验收管理等可为1
+                                  minimum: 1
+                                  type: number
+                                unit:
+                                  enum:
+                                  - ㎡
+                                  - m³
+                                  - m
+                                  - 吨
+                                  - kg
+                                  - 根
+                                  - 个
+                                  - 套
+                                  - 台
+                                  - 点
+                                  - 项
+                                  - 口
+                                  - 座
+                                  type: string
+                                work_type:
+                                  enum:
+                                  - 土建临建
+                                  - 测量工程
+                                  - 行政管理
+                                  - 地基处理
+                                  - 桩基工程
+                                  - 检测工程
+                                  - 支护工程
+                                  - 止水工程
+                                  - 土方工程
+                                  - 钢筋工程
+                                  - 模板工程
+                                  - 混凝土工程
+                                  - 防水工程
+                                  - 养护工程
+                                  - 脚手架工程
+                                  - 吊装工程
+                                  - 灌浆工程
+                                  - 砌筑工程
+                                  - 钢筋混凝土工程
+                                  - 机电安装
+                                  - 电气安装
+                                  - 暖通安装
+                                  - 粗装修
+                                  - 精装修
+                                  - 保温工程
+                                  - 饰面工程
+                                  - 门窗工程
+                                  - 栏杆工程
+                                  - 室外管网
+                                  - 景观工程
+                                  - 清理调试
+                                  - 验收管理
+                                  - 资料管理
+                                  - 移交管理
+                                  - 保护措施
+                                  - 监测工程
+                                  type: string
+                              required:
+                              - id
+                              - name
+                              - quantity
+                              - unit
+                              - duration_days
+                              - work_type
+                              - assigned_resources
+                              type: object
+                            type: array
+                        required:
+                        - id
+                        - name
+                        - sub_packages
+                        type: object
+                      type: array
+                  required:
+                  - phase_id
+                  - phase_name
+                  - duration_days
+                  - work_packages
+                  type: object
+                type: array
+              total_duration_days:
+                type: integer
+              wbs_name:
+                type: string
+            required:
+            - wbs_name
+            - total_duration_days
+            - phases
+            type: object
+        structured_output_enabled: true
+        title: 1.4WBS三级生成
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1781090555030'
+      position:
+        x: -382.6096833036394
+        y: 320.3214012708722
+      positionAbsolute:
+        x: -382.6096833036394
+        y: 320.3214012708722
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1781630160444'
+          - combined_string
+          variable_selector:
+          - conversation
+          - blackboard
+        selected: false
+        title: 参数黑板
+        type: assigner
+        version: '2'
+      height: 83
+      id: '1781090682877'
+      position:
+        x: 167.68554841866523
+        y: 181.6394768845018
+      positionAbsolute:
+        x: 167.68554841866523
+        y: 181.6394768845018
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.3
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 0731a267-6e3c-4c71-9068-490bef845336
+          role: system
+          text: "你是一位建筑工程项目 WBS 审核专家。你的任务是对用户提供的 WBS 进行全面审查，重点检查**施工类任务是否使用了“1项”作为工程量**，并自动修正为合理的数值。\n\
+            \n### 输入说明\n输入是一个 JSON 格式的 WBS 对象，包含 `phases[].work_packages[].sub_packages[]`\
+            \ 结构。\n{{#1781090555030.structured_output#}}\n\n\n\n\n### 审查规则\n\n####\
+            \ 规则1：施工类任务禁止使用“项”\n以下 work_type 属于施工类任务，**严禁使用 `1` 和 `\"项\"`**：\n土方工程、混凝土工程、钢筋工程、模板工程、防水工程、\n\
+            桩基工程、支护工程、止水工程、砌筑工程、吊装工程、\n灌浆工程、保温工程、饰面工程、门窗工程、景观工程、\n室外管网、粗装修、精装修、脚手架工程、钢筋混凝土工程、\n\
+            地基处理、养护工程、土建临建、机电安装、电气安装、暖通安装\ntext\n\n#### 规则2：施工类任务的正确单位和工程量\n\n| work_type\
+            \ | 正确单位 | 工程量来源 |\n|-----------|----------|------------|\n| 土方工程 | m³\
+            \ | 从 extracted_params.total_earthwork 按比例拆分 |\n| 混凝土工程 | m³ | 从 extracted_params.total_concrete\
+            \ 按比例拆分 |\n| 钢筋工程 | 吨 | 从 extracted_params.total_rebar 按比例拆分 |\n| 模板工程\
+            \ | ㎡ | 按混凝土方量 × 系数估算（地下室 1.5，主体 3.0） |\n| 防水工程 | ㎡ | 按对应结构面积估算 |\n| 桩基工程\
+            \ | m | 从 extracted_params.total_precast 或定额估算 |\n| 支护工程 | m³ | 从 extracted_params.total_wall\
+            \ 估算 |\n| 止水工程 | m | 从 extracted_params.total_wall 估算 |\n| 砌筑工程 | m³ 或\
+            \ ㎡ | ALC用㎡，砌体用m³ |\n| 吊装工程 | m³ | 从 extracted_params.total_precast 估算\
+            \ |\n| 灌浆工程 | 吨 | 从预制构件量的 5%~10% 估算 |\n| 保温工程 | ㎡ | 外墙面积的 60%~80% |\n\
+            | 饰面工程 | ㎡ | 外墙面积的 60%~80% |\n| 门窗工程 | ㎡ | 建筑面积的 8%~12% |\n| 景观工程 | ㎡\
+            \ | 从 extracted_params.total_area 按比例估算 |\n| 室外管网 | m | 从总平面图中估算 |\n|\
+            \ 粗装修 | ㎡ | 从 extracted_params.total_area 按比例估算 |\n| 精装修 | ㎡ | 公共区域面积（约建筑面积的\
+            \ 5%~10%） |\n| 脚手架工程 | ㎡ | 外墙投影面积 |\n| 机电安装 | m 或 台 | 根据系统类型估算 |\n| 电气安装\
+            \ | m | 根据建筑面积估算 |\n| 暖通安装 | ㎡ 或 台 | 根据建筑面积估算 |\n\n#### 规则3：允许使用“项”的白名单\n\
+            以下任务可以使用 `1` 和 `\"项\"`：\n- 测量工程（控制网、定位放线）\n- 行政管理（许可证办理、报批）\n- 验收管理（专项验收）\n\
+            - 资料管理（资料编制、归档）\n- 移交管理（实体移交、钥匙移交）\n- 监测工程（基坑监测、扬尘监测）\n- 保护措施（管线保护）\n\
+            - 清理调试\n\n#### 规则4：自动修正逻辑\n当发现施工类任务使用“1项”时：\n1. 从 `extracted_params` 中查找对应的总量\n\
+            {{#1781066487130.reasoning_content#}}{{#1781057854868.text#}}{{#llm.text#}}\n\
+            2. 按任务名称中的关键词（如“底板”、“墙柱”、“顶板”）匹配合理的拆分比例\n3. 计算修正后的工程量\n4. 更新 `unit` 为正确的单位\n\
+            \n**修正优先级**：\n1. 如果任务名称包含具体位置（如“底板”、“墙柱”、“顶板”），按比例拆分总量\n2. 如果任务名称包含具体材料（如“混凝土”、“钢筋”），按对应总量拆分\n\
+            3. 如果无法确定拆分比例，按同类任务的平均值估算\n4. 如果完全无法估算，保留原值但添加 `_needs_review: true` 标记\n\
+            \n### 输出格式\n\n```json\n{\n  \"audit_summary\": {\n    \"total_tasks\"\
+            : 数字,\n    \"tasks_with_issue\": 数字,\n    \"tasks_fixed\": 数字,\n    \"\
+            tasks_needs_review\": 数字,\n    \"overall_status\": \"PASS | WARNING |\
+            \ FAIL\"\n  },\n  \"issues\": [\n    {\n      \"task_id\": \"任务ID\",\n\
+            \      \"task_name\": \"任务名称\",\n      \"work_type\": \"work_type\",\n\
+            \      \"original_quantity\": 1,\n      \"original_unit\": \"项\",\n  \
+            \    \"fixed_quantity\": 修正后的数值,\n      \"fixed_unit\": \"修正后的单位\",\n\
+            \      \"reason\": \"修正说明\"\n    }\n  ],\n  \"fixed_wbs\": { 修正后的完整 WBS\
+            \ },\n  \"needs_review\": [ 需要人工审核的任务列表 ]\n}\n注意事项\n只修改施工类任务的“1项”问题，不修改其他内容\n\
+            如果任务本身在“白名单”中（如验收、资料管理），跳过检查\n确保修正后的 WBS 格式与原 WBS 完全一致\n输出必须是合法的 JSON\n"
+        selected: false
+        structured_output:
+          schema:
+            $schema: http://json-schema.org/draft-07/schema#
+            properties:
+              phases:
+                items:
+                  properties:
+                    duration_days:
+                      minimum: 1
+                      type: integer
+                    phase_id:
+                      pattern: ^[1-9][0-9]*$
+                      type: string
+                    phase_name:
+                      type: string
+                    work_packages:
+                      items:
+                        properties:
+                          id:
+                            pattern: ^\d+\.\d+$
+                            type: string
+                          name:
+                            type: string
+                          sub_packages:
+                            items:
+                              properties:
+                                assigned_resources:
+                                  description: 必须为空对象
+                                  maxProperties: 0
+                                  type: object
+                                duration_days:
+                                  minimum: 1
+                                  type: integer
+                                id:
+                                  pattern: ^\d+\.\d+\.\d+$
+                                  type: string
+                                name:
+                                  type: string
+                                quantity:
+                                  description: 工程量，必须为具体数值。例外：测量放线、手续办理、验收管理等可为1
+                                  minimum: 1
+                                  type: number
+                                unit:
+                                  enum:
+                                  - ㎡
+                                  - m³
+                                  - m
+                                  - 吨
+                                  - kg
+                                  - 根
+                                  - 个
+                                  - 套
+                                  - 台
+                                  - 点
+                                  - 项
+                                  - 口
+                                  - 座
+                                  type: string
+                                work_type:
+                                  enum:
+                                  - 土建临建
+                                  - 测量工程
+                                  - 行政管理
+                                  - 地基处理
+                                  - 桩基工程
+                                  - 检测工程
+                                  - 支护工程
+                                  - 止水工程
+                                  - 土方工程
+                                  - 钢筋工程
+                                  - 模板工程
+                                  - 混凝土工程
+                                  - 防水工程
+                                  - 养护工程
+                                  - 脚手架工程
+                                  - 吊装工程
+                                  - 灌浆工程
+                                  - 砌筑工程
+                                  - 钢筋混凝土工程
+                                  - 机电安装
+                                  - 电气安装
+                                  - 暖通安装
+                                  - 粗装修
+                                  - 精装修
+                                  - 保温工程
+                                  - 饰面工程
+                                  - 门窗工程
+                                  - 栏杆工程
+                                  - 室外管网
+                                  - 景观工程
+                                  - 清理调试
+                                  - 验收管理
+                                  - 资料管理
+                                  - 移交管理
+                                  - 保护措施
+                                  - 监测工程
+                                  type: string
+                              required:
+                              - id
+                              - name
+                              - quantity
+                              - unit
+                              - duration_days
+                              - work_type
+                              - assigned_resources
+                              type: object
+                            type: array
+                        required:
+                        - id
+                        - name
+                        - sub_packages
+                        type: object
+                      type: array
+                  required:
+                  - phase_id
+                  - phase_name
+                  - duration_days
+                  - work_packages
+                  type: object
+                type: array
+              total_duration_days:
+                type: integer
+              wbs_name:
+                type: string
+            required:
+            - wbs_name
+            - total_duration_days
+            - phases
+            type: object
+        structured_output_enabled: true
+        title: 1.5WBS审查
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1781618792912'
+      position:
+        x: -382.6096833036394
+        y: 415.21562009957654
+      positionAbsolute:
+        x: -382.6096833036394
+        y: 415.21562009957654
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        code: "\"\"\"\n节点名称：边界条件与依赖关系合并器\n输入变量：\n  - boundary_conditions（Object 或\
+          \ String）：边界条件数据（设备峰值、工种峰值等）\n  - dependencies（Object 或 String）：依赖关系数据（dependencies\
+          \ 数组）\n输出变量：\n  - combined_string（String）：合并后的 JSON 字符串\n\"\"\"\n\nimport\
+          \ json\n\ndef main(boundary_conditions: dict, dependencies: dict) -> dict:\n\
+          \    # 如果输入是字符串，尝试解析为 JSON\n    if isinstance(boundary_conditions, str):\n\
+          \        try:\n            boundary_conditions = json.loads(boundary_conditions)\n\
+          \        except json.JSONDecodeError:\n            # 如果解析失败，保持原字符串（但后续可能出错）\n\
+          \            pass\n\n    if isinstance(dependencies, str):\n        try:\n\
+          \            dependencies = json.loads(dependencies)\n        except json.JSONDecodeError:\n\
+          \            pass\n\n    # 确保是字典类型\n    if not isinstance(boundary_conditions,\
+          \ dict):\n        boundary_conditions = {\"raw\": boundary_conditions}\n\
+          \    if not isinstance(dependencies, dict):\n        dependencies = {\"\
+          raw\": dependencies}\n\n    # 合并\n    combined = {\n        \"boundary_conditions\"\
+          : boundary_conditions,\n        \"dependencies\": dependencies\n    }\n\n\
+          \    # 转为 JSON 字符串\n    combined_string = json.dumps(combined, ensure_ascii=False,\
+          \ indent=2)\n\n    return {\"combined_string\": combined_string}"
+        code_language: python3
+        outputs:
+          combined_string:
+            children: null
+            type: string
+        selected: false
+        title: 合并
+        type: code
+        variables:
+        - value_selector:
+          - '1781066487130'
+          - text
+          value_type: string
+          variable: boundary_conditions
+        - value_selector:
+          - '1781059779423'
+          - structured_output
+          value_type: object
+          variable: dependencies
+      height: 51
+      id: '1781630160444'
+      position:
+        x: -93.84986705386251
+        y: 181.6394768845018
+      positionAbsolute:
+        x: -93.84986705386251
+        y: 181.6394768845018
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        answer: '{{#1786696840788.final_text#}}
+
+          '
+        selected: false
+        title: 直接回复 5
+        type: answer
+        variables: []
+      height: 101
+      id: '1784370286297'
+      position:
+        x: 1931.181006717873
+        y: 167.65732057210116
+      positionAbsolute:
+        x: 1931.181006717873
+        y: 167.65732057210116
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1787474532338'
+          - result
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: bf5b4e93-d3c9-429e-a204-f129346447c3
+          role: system
+          text: '###角色定位
+
+            你是土木施工 AI 进度管理系统的讲解顾问，不要以客服身份自居，所有回答均围绕这套进度生成系统本身展开；严格根据用户提问范围作答：宽泛提问概述整体能力，单点问题精准截取对应内容，严禁完整堆砌全部知识库文本。
+
+            ###输入信息说明
+
+            用户输入的文本内容：{{#sys.query#}}
+
+            用户输入的文件：{{#sys.files#}}
+
+            知识库检索结果：{{#context#}}
+
+            ###输出要求
+
+            请根据用户输入的问题和检索结果，进行回答。基础宽泛类问题（系统主要功能、整体介绍、核心作用、能做什么）必须直接给出完整精简答案，禁止反问用户、禁止引导细分提问；仅当用户提问极度模糊、缺少必要信息无法作答时，才可以少量追问补充条件；全程围绕进度系统本身讲解，不以客服身份自居'
+        selected: false
+        title: 功能介绍助手
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1786242898627'
+      position:
+        x: -81.55987297486047
+        y: 9.154491253766494
+      positionAbsolute:
+        x: -81.55987297486047
+        y: 9.154491253766494
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        answer: '{{#1786242898627.text#}}'
+        selected: false
+        title: 直接回复 6
+        type: answer
+        variables: []
+      height: 101
+      id: '1786244582900'
+      position:
+        x: 206.1501329461375
+        y: 9.154491253766494
+      positionAbsolute:
+        x: 206.1501329461375
+        y: 9.154491253766494
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        code: "\"\"\"输出整理：final_text 只输出中文。plan 解析仅用于内部判断（决定用完整中文还是兜底摘要）。\"\"\"\n\n\
+          import json\n\n\ndef main(upstream_text: str = \"\", upstream_structured=None)\
+          \ -> dict:\n    text = (upstream_text or \"\").strip()\n    structured =\
+          \ upstream_structured or {}\n\n    # conversation.plan 是 JSON 字符串，解析成 dict（仅供内部判断用）\n\
+          \    if isinstance(structured, str):\n        raw = structured.strip()\n\
+          \        try:\n            structured = json.loads(raw)\n        except\
+          \ Exception:\n            extracted = _try_extract_plan(raw)\n         \
+          \   structured = extracted or {}\n\n    if not isinstance(structured, dict):\n\
+          \        structured = {}\n\n    # 兜底：把模型漏进文字里的 JSON 剥掉，保证对话框只显示中文\n    text\
+          \ = _strip_all_json(text)\n\n    if not text and _has_plan(structured):\n\
+          \        text = _build_summary(structured)\n\n    if not text:\n       \
+          \ text = \"进度方案已生成\"\n\n    return {\"final_text\": text}\n\n\ndef _has_plan(d:\
+          \ dict) -> bool:\n    if not isinstance(d, dict):\n        return False\n\
+          \    if isinstance(d.get(\"structured_output\"), dict):\n        s = d[\"\
+          structured_output\"]\n        return \"overview\" in s and \"all_tasks_schedule\"\
+          \ in s\n    return \"overview\" in d and \"all_tasks_schedule\" in d\n\n\
+          \ndef _build_summary(structured: dict) -> str:\n    inner = structured.get(\"\
+          structured_output\", structured)\n    overview = inner.get(\"overview\"\
+          , {})\n    name = overview.get(\"project_name\", \"该项目\")\n    days = overview.get(\"\
+          total_duration_days\", \"?\")\n    start = overview.get(\"planned_start_date\"\
+          , \"?\")\n    end = overview.get(\"planned_end_date\", \"?\")\n    tasks\
+          \ = inner.get(\"all_tasks_schedule\", [])\n    critical = overview.get(\"\
+          critical_path_length\", len(inner.get(\"critical_path_tasks\", [])))\n \
+          \   milestones = inner.get(\"key_milestones\", [])\n    summary = (\n  \
+          \      f\"✅ 已为您生成《{name}》的施工进度计划：\\n\"\n        f\"• 总工期：{days} 天（{start}\
+          \ → {end}）\\n\"\n        f\"• 工序总数：{len(tasks)} 道，其中关键路径 {critical} 道\\\
+          n\"\n    )\n    if milestones:\n        summary += \"• 关键里程碑：\\n\"\n   \
+          \     for m in milestones[:5]:\n            summary += f\"   - {m.get('name',\
+          \ '')}（{m.get('date', '')}）\\n\"\n    summary += \"\\n\U0001F4CA 网页下方已自动渲染甘特图、资源曲线等图表，您可以直接查看。\"\
+          \n    return summary\n\n\ndef _strip_all_json(s: str) -> str:\n    import\
+          \ re\n\n    if not s:\n        return s\n\n    # 1) 删除各种 ```json ... ```\
+          \ 代码块\n    s = re.sub(r\"```(?:json|JSON|structured_output)?\\s*\\{[\\s\\\
+          S]*?\\}\\s*```\", \"\", s, flags=re.IGNORECASE)\n    s = re.sub(r\"```[\\\
+          w\\s-]*\\s*[\\s\\S]*?\\s*```\", \"\", s, flags=re.IGNORECASE)\n    s = re.sub(r\"\
+          ```(?:json)?\\s*[\\s\\S]*$\", \"\", s, flags=re.IGNORECASE)\n\n    # 2)\
+          \ 全文扫描删除大型 JSON 对象\n    out = []\n    i = 0\n    n = len(s)\n    while i\
+          \ < n:\n        c = s[i]\n        if c != \"{\":\n            out.append(c)\n\
+          \            i += 1\n            continue\n        depth = 0\n        end\
+          \ = -1\n        in_str = False\n        esc = False\n        for j in range(i,\
+          \ n):\n            ch = s[j]\n            if esc:\n                esc =\
+          \ False\n                continue\n            if ch == \"\\\\\":\n    \
+          \            esc = True\n                continue\n            if ch ==\
+          \ '\"':\n                in_str = not in_str\n                continue\n\
+          \            if in_str:\n                continue\n            if ch ==\
+          \ \"{\":\n                depth += 1\n            elif ch == \"}\":\n  \
+          \              depth -= 1\n                if depth == 0:\n            \
+          \        end = j\n                    break\n        if end != -1:\n   \
+          \         candidate = s[i:end + 1]\n            if len(candidate) > 200\
+          \ and _looks_like_plan_json(candidate):\n                i = end + 1\n \
+          \               while i < n and s[i] in \" \\t\\r\\n,，;；\":\n          \
+          \          i += 1\n                while out and out[-1] in \" \\t\\r\\\
+          n\":\n                    out.pop()\n                if out:\n         \
+          \           out.append(\"\\n\")\n                continue\n        out.append(c)\n\
+          \        i += 1\n\n    # 3) 兜底清理 structured_output 包裹碎片\n    s = \"\".join(out)\n\
+          \    s = re.sub(r'\"structured_output\"\\s*:\\s*\\{[\\s\\S]*\\}\\s*', \"\
+          \", s, flags=re.DOTALL)\n    return s.strip()\n\n\ndef _looks_like_plan_json(text:\
+          \ str) -> bool:\n    keywords = (\n        \"overview\", \"all_tasks_schedule\"\
+          , \"structured_output\", \"project_name\",\n        \"planned_start_date\"\
+          , \"planned_end_date\", \"critical_path_tasks\",\n        \"key_milestones\"\
+          , \"resource_plan\", \"assigned_resources\",\n    )\n    return sum(1 for\
+          \ kw in keywords if kw in text) >= 2\n\n\ndef _try_extract_plan(text: str)\
+          \ -> dict:\n    import re\n\n    if not text:\n        return None\n   \
+          \ m = re.search(r\"```(?:json)?\\s*(\\{.*?\\})\\s*```\", text, re.DOTALL\
+          \ | re.IGNORECASE)\n    if m:\n        try:\n            d = json.loads(m.group(1))\n\
+          \            if _has_plan(d):\n                return d\n        except\
+          \ Exception:\n            pass\n    start = text.find(\"{\")\n    while\
+          \ start != -1:\n        depth = 0\n        end = -1\n        in_str = False\n\
+          \        esc = False\n        for i in range(start, len(text)):\n      \
+          \      c = text[i]\n            if esc:\n                esc = False\n \
+          \               continue\n            if c == \"\\\\\":\n              \
+          \  esc = True\n                continue\n            if c == '\"':\n   \
+          \             in_str = not in_str\n                continue\n          \
+          \  if in_str:\n                continue\n            if c == \"{\":\n  \
+          \              depth += 1\n            elif c == \"}\":\n              \
+          \  depth -= 1\n                if depth == 0:\n                    end =\
+          \ i\n                    break\n        if end != -1:\n            try:\n\
+          \                d = json.loads(text[start:end + 1])\n                if\
+          \ _has_plan(d):\n                    return d\n            except Exception:\n\
+          \                pass\n            start = text.find(\"{\", end + 1)\n \
+          \       else:\n            break\n    return None"
+        code_language: python3
+        outputs:
+          final_text:
+            children: null
+            type: string
+        selected: false
+        title: 输出整理2
+        type: code
+        variables:
+        - value_selector:
+          - '1787000000002'
+          - text
+          value_type: string
+          variable: upstream_text
+        - value_selector:
+          - conversation
+          - plan
+          value_type: string
+          variable: upstream_structured
+      height: 51
+      id: '1786695583542'
+      position:
+        x: 1076.6857895338594
+        y: -125.4961279492077
+      positionAbsolute:
+        x: 1076.6857895338594
+        y: -125.4961279492077
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        code: "\"\"\"输出整理：final_text 只输出中文。plan 解析仅用于内部判断（决定用完整中文还是兜底摘要）。\"\"\"\n\n\
+          import json\n\n\ndef main(upstream_text: str = \"\", upstream_structured=None)\
+          \ -> dict:\n    text = (upstream_text or \"\").strip()\n    structured =\
+          \ upstream_structured or {}\n\n    # conversation.plan 是 JSON 字符串，解析成 dict（仅供内部判断用）\n\
+          \    if isinstance(structured, str):\n        raw = structured.strip()\n\
+          \        try:\n            structured = json.loads(raw)\n        except\
+          \ Exception:\n            extracted = _try_extract_plan(raw)\n         \
+          \   structured = extracted or {}\n\n    if not isinstance(structured, dict):\n\
+          \        structured = {}\n\n    # 兜底：把模型漏进文字里的 JSON 剥掉，保证对话框只显示中文\n    text\
+          \ = _strip_all_json(text)\n\n    if not text and _has_plan(structured):\n\
+          \        text = _build_summary(structured)\n\n    if not text:\n       \
+          \ text = \"进度方案已生成\"\n\n    return {\"final_text\": text}\n\n\ndef _has_plan(d:\
+          \ dict) -> bool:\n    if not isinstance(d, dict):\n        return False\n\
+          \    if isinstance(d.get(\"structured_output\"), dict):\n        s = d[\"\
+          structured_output\"]\n        return \"overview\" in s and \"all_tasks_schedule\"\
+          \ in s\n    return \"overview\" in d and \"all_tasks_schedule\" in d\n\n\
+          \ndef _build_summary(structured: dict) -> str:\n    inner = structured.get(\"\
+          structured_output\", structured)\n    overview = inner.get(\"overview\"\
+          , {})\n    name = overview.get(\"project_name\", \"该项目\")\n    days = overview.get(\"\
+          total_duration_days\", \"?\")\n    start = overview.get(\"planned_start_date\"\
+          , \"?\")\n    end = overview.get(\"planned_end_date\", \"?\")\n    tasks\
+          \ = inner.get(\"all_tasks_schedule\", [])\n    critical = overview.get(\"\
+          critical_path_length\", len(inner.get(\"critical_path_tasks\", [])))\n \
+          \   milestones = inner.get(\"key_milestones\", [])\n    summary = (\n  \
+          \      f\"✅ 已为您生成《{name}》的施工进度计划：\\n\"\n        f\"• 总工期：{days} 天（{start}\
+          \ → {end}）\\n\"\n        f\"• 工序总数：{len(tasks)} 道，其中关键路径 {critical} 道\\\
+          n\"\n    )\n    if milestones:\n        summary += \"• 关键里程碑：\\n\"\n   \
+          \     for m in milestones[:5]:\n            summary += f\"   - {m.get('name',\
+          \ '')}（{m.get('date', '')}）\\n\"\n    summary += \"\\n\U0001F4CA 网页下方已自动渲染甘特图、资源曲线等图表，您可以直接查看。\"\
+          \n    return summary\n\n\ndef _strip_all_json(s: str) -> str:\n    import\
+          \ re\n\n    if not s:\n        return s\n\n    # 1) 删除各种 ```json ... ```\
+          \ 代码块\n    s = re.sub(r\"```(?:json|JSON|structured_output)?\\s*\\{[\\s\\\
+          S]*?\\}\\s*```\", \"\", s, flags=re.IGNORECASE)\n    s = re.sub(r\"```[\\\
+          w\\s-]*\\s*[\\s\\S]*?\\s*```\", \"\", s, flags=re.IGNORECASE)\n    s = re.sub(r\"\
+          ```(?:json)?\\s*[\\s\\S]*$\", \"\", s, flags=re.IGNORECASE)\n\n    # 2)\
+          \ 全文扫描删除大型 JSON 对象\n    out = []\n    i = 0\n    n = len(s)\n    while i\
+          \ < n:\n        c = s[i]\n        if c != \"{\":\n            out.append(c)\n\
+          \            i += 1\n            continue\n        depth = 0\n        end\
+          \ = -1\n        in_str = False\n        esc = False\n        for j in range(i,\
+          \ n):\n            ch = s[j]\n            if esc:\n                esc =\
+          \ False\n                continue\n            if ch == \"\\\\\":\n    \
+          \            esc = True\n                continue\n            if ch ==\
+          \ '\"':\n                in_str = not in_str\n                continue\n\
+          \            if in_str:\n                continue\n            if ch ==\
+          \ \"{\":\n                depth += 1\n            elif ch == \"}\":\n  \
+          \              depth -= 1\n                if depth == 0:\n            \
+          \        end = j\n                    break\n        if end != -1:\n   \
+          \         candidate = s[i:end + 1]\n            if len(candidate) > 200\
+          \ and _looks_like_plan_json(candidate):\n                i = end + 1\n \
+          \               while i < n and s[i] in \" \\t\\r\\n,，;；\":\n          \
+          \          i += 1\n                while out and out[-1] in \" \\t\\r\\\
+          n\":\n                    out.pop()\n                if out:\n         \
+          \           out.append(\"\\n\")\n                continue\n        out.append(c)\n\
+          \        i += 1\n\n    # 3) 兜底清理 structured_output 包裹碎片\n    s = \"\".join(out)\n\
+          \    s = re.sub(r'\"structured_output\"\\s*:\\s*\\{[\\s\\S]*\\}\\s*', \"\
+          \", s, flags=re.DOTALL)\n    return s.strip()\n\n\ndef _looks_like_plan_json(text:\
+          \ str) -> bool:\n    keywords = (\n        \"overview\", \"all_tasks_schedule\"\
+          , \"structured_output\", \"project_name\",\n        \"planned_start_date\"\
+          , \"planned_end_date\", \"critical_path_tasks\",\n        \"key_milestones\"\
+          , \"resource_plan\", \"assigned_resources\",\n    )\n    return sum(1 for\
+          \ kw in keywords if kw in text) >= 2\n\n\ndef _try_extract_plan(text: str)\
+          \ -> dict:\n    import re\n\n    if not text:\n        return None\n   \
+          \ m = re.search(r\"```(?:json)?\\s*(\\{.*?\\})\\s*```\", text, re.DOTALL\
+          \ | re.IGNORECASE)\n    if m:\n        try:\n            d = json.loads(m.group(1))\n\
+          \            if _has_plan(d):\n                return d\n        except\
+          \ Exception:\n            pass\n    start = text.find(\"{\")\n    while\
+          \ start != -1:\n        depth = 0\n        end = -1\n        in_str = False\n\
+          \        esc = False\n        for i in range(start, len(text)):\n      \
+          \      c = text[i]\n            if esc:\n                esc = False\n \
+          \               continue\n            if c == \"\\\\\":\n              \
+          \  esc = True\n                continue\n            if c == '\"':\n   \
+          \             in_str = not in_str\n                continue\n          \
+          \  if in_str:\n                continue\n            if c == \"{\":\n  \
+          \              depth += 1\n            elif c == \"}\":\n              \
+          \  depth -= 1\n                if depth == 0:\n                    end =\
+          \ i\n                    break\n        if end != -1:\n            try:\n\
+          \                d = json.loads(text[start:end + 1])\n                if\
+          \ _has_plan(d):\n                    return d\n            except Exception:\n\
+          \                pass\n            start = text.find(\"{\", end + 1)\n \
+          \       else:\n            break\n    return None"
+        code_language: python3
+        outputs:
+          final_text:
+            children: null
+            type: string
+        selected: true
+        title: 输出整理5
+        type: code
+        variables:
+        - value_selector:
+          - '1787000000001'
+          - text
+          value_type: string
+          variable: upstream_text
+        - value_selector:
+          - conversation
+          - plan
+          value_type: string
+          variable: upstream_structured
+      height: 51
+      id: '1786696840788'
+      position:
+        x: 1838.8154529637713
+        y: 9.154491253766494
+      positionAbsolute:
+        x: 1838.8154529637713
+        y: 9.154491253766494
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1781088711155'
+          - revise
+          variable_selector:
+          - conversation
+          - plan
+        selected: false
+        title: 赋值plan
+        type: assigner
+        version: '2'
+      height: 83
+      id: '1787109691037'
+      position:
+        x: 1247.7479657384674
+        y: 167.65732057210116
+      positionAbsolute:
+        x: 1247.7479657384674
+        y: 167.65732057210116
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 8f3c1e2a-5b4d-4e6f-9a7b-0c1d2e3f4a5b
+          role: system
+          text: '你是一位建筑工程项目进度管理专家。请把下方给出的 JSON 格式施工进度计划，完整地转述成一份中文、可读的《施工进度计划说明书》。
+
+
+            要求：
+
+            1. 先写项目概览：项目名称、总工期、计划开工日期与计划竣工日期。
+
+            2. 按施工分部（按 task_id 第一段数字分组）逐条列出每道工序：工序编号、工序名称、开始日期、完成日期、工期（天）、主要资源配置。
+
+            3. 单列【关键路径】：按顺序列出关键路径上的全部工序编号与名称。
+
+            4. 单列【关键里程碑】：逐条列出里程碑名称与日期。
+
+            5. 单列【资源计划】：峰值人数、主要设备峰值、主要材料汇总（如有）。
+
+            6. 单列【风险与应对】：逐条列出风险名称与应对措施（如有）。
+
+            7. 使用纯中文文字与项目符号，条理清晰，方便直接阅读和复制。
+
+            8. 严禁输出任何 JSON、代码块、Markdown 表格、ECharts 或 Mermaid 代码，也不要重复 JSON 原文。
+
+
+            待转述的 JSON 进度计划如下：
+
+            {{#conversation.plan#}}'
+        selected: false
+        title: 中文计划说明书
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1787000000001'
+      position:
+        x: 1594.0013929202041
+        y: 167.65732057210116
+      positionAbsolute:
+        x: 1594.0013929202041
+        y: 167.65732057210116
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 1d2e3f4a-5b6c-4d7e-8f90-a1b2c3d4e5f6
+          role: system
+          text: '你是一位建筑工程项目进度管理专家。请把下方给出的 JSON 格式施工进度计划，完整地转述成一份中文、可读的《施工进度计划说明书》。
+
+
+            要求：
+
+            1. 先写项目概览：项目名称、总工期、计划开工日期与计划竣工日期。
+
+            2. 按施工分部（按 task_id 第一段数字分组）逐条列出每道工序：工序编号、工序名称、开始日期、完成日期、工期（天）、主要资源配置。
+
+            3. 单列【关键路径】：按顺序列出关键路径上的全部工序编号与名称。
+
+            4. 单列【关键里程碑】：逐条列出里程碑名称与日期。
+
+            5. 单列【资源计划】：峰值人数、主要设备峰值、主要材料汇总（如有）。
+
+            6. 单列【风险与应对】：逐条列出风险名称与应对措施（如有）。
+
+            7. 使用纯中文文字与项目符号，条理清晰，方便直接阅读和复制。
+
+            8. 严禁输出任何 JSON、代码块、Markdown 表格、ECharts 或 Mermaid 代码，也不要重复 JSON 原文。
+
+
+            待转述的 JSON 进度计划如下：
+
+            {{#conversation.plan#}}'
+        selected: false
+        title: 中文计划说明书2
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1787000000002'
+      position:
+        x: 702.9870404030763
+        y: -45.82065337579607
+      positionAbsolute:
+        x: 702.9870404030763
+        y: -45.82065337579607
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '17810879415940'
+          - text
+          variable_selector:
+          - conversation
+          - plan
+        selected: false
+        title: 赋值plan2
+        type: assigner
+        version: '2'
+      height: 83
+      id: '1787109691038'
+      position:
+        x: 310.4836785789711
+        y: -118.60393781922555
+      positionAbsolute:
+        x: 310.4836785789711
+        y: -118.60393781922555
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        dataset_ids:
+        - J29ETC4IoRB1ST9+a73ZXRXBUaJEBsnwsoBw8T0PtDttRWey/UAb/P2kgABlX12F
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: qwen3-rerank
+            provider: langgenius/tongyi/tongyi
+          score_threshold: null
+          top_k: 5
+        query_attachment_selector: []
+        query_variable_selector:
+        - '1781057487990'
+        - sys.query
+        retrieval_mode: multiple
+        selected: false
+        title: 知识检索
+        type: knowledge-retrieval
+      height: 89
+      id: '1787474532338'
+      position:
+        x: -382.6096833036394
+        y: 9.154491253766494
+      positionAbsolute:
+        x: -382.6096833036394
+        y: 9.154491253766494
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    viewport:
+      x: -20.99684338293946
+      y: 272.7708027674613
+      zoom: 0.5000000000000003
+  rag_pipeline_variables: []
