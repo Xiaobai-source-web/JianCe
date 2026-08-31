@@ -135,11 +135,22 @@ JianCe/
 │   └── main.py
 ├── dify/              # Dify 多智能体工作流 DSL
 ├── examples/          # 示例施工计划
-├── tests/             # 测试输入
+├── test_inputs/       # 测试输入（施工组织设计文档）
+├── test_outputs/      # AI 生成的成品进度计划
 ├── assets/            # 项目图片
 ├── requirements.txt
 └── README.md
 ```
+
+### 测试示例说明
+
+| 输入文件 | 项目类型 | 输出文件 | 总工期 |
+|---------|---------|---------|-------|
+| `test_inputs/test_input_1_办公楼.txt` | 某市高新区科技创新中心办公楼（12层） | `test_outputs/test_output_1.txt` | 305天 |
+| `test_inputs/test_input_2_仓库.txt` | 某物流园区3号仓库（钢结构） | `test_outputs/test_output_2.txt` | 95天 |
+| `test_inputs/test_input_3_住宅楼.txt` | 佛山市顺德区某住宅小区二期5号楼 | 待生成 | - |
+
+> 📌 **评委提示**：`test_outputs/` 文件夹中包含 AI 自动生成的两份完整进度计划成品，分别对应 `test_inputs/` 中的参数1（办公楼）和参数2（仓库），可直接查看 AI 生成结果的质量与完整性。
 
 ---
 
