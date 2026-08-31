@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<!-- ============================================================
+     部署前【只改下面这一行】：
+     把引号里的内容换成你的 FC 函数公网地址（不要带结尾斜杠）
+     例：https://progress-plan-api-abc123.cn-hangzhou.fcapp.run
+
+     如果以后绑定了自定义域名、前后端同源，把引号里的内容清空即可，
+     页面会自动退回相对路径调用。
+     ============================================================ -->
+<script>
+  window.API_BASE = "https://progresplan-api-jbmavylupd.cn-shenzhen.fcapp.run";
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>施工进度计划智能助手 · 多智能体协同</title>
+<script src="./vendor/echarts.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1420;
+    --panel: #171e2e;
+    --panel2: #1e2740;
+    --border: #2a3550;
+    --text: #e5e7eb;
+    --muted: #94a3b8;
+    --accent: #3b82f6;
+    --green: #22c55e;
+    --amber: #f59e0b;
+    --red: #ee6666;
+    --blue: #5470c6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Microsoft YaHei", system-ui, sans-serif;
+    background: var(--bg); color: var(--text);
+    height: 100vh; display: flex; flex-direction: column; overflow: hidden;
+  }
+  header { display: flex; align-items: center; gap: 14px; padding: 12px 20px; background: linear-gradient(90deg,#141b2c,#1a2b4a); border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+  header h1 { font-size: 17px; font-weight: 600; }
+  header h1 small { color: var(--muted); font-weight: 400; font-size: 12px; margin-left: 8px; }
+  .spacer { flex: 1; }
+  .chip { font-size: 12px; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); background: var(--panel); }
+  .chip.ok { color: var(--green); border-color: #1d6b3a; }
+  .chip.warn { color: var(--amber); border-color: #6b541d; }
+  .seg { display: flex; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .seg button { border: 0; background: transparent; color: var(--muted); font-size: 13px; padding: 6px 14px; cursor: pointer; }
+  .seg button.active { background: var(--accent); color: #fff; }
+  .toggle { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); cursor: pointer; user-select: none; }
+
+  .tabs { display: flex; gap: 6px; padding: 10px 20px 0; }
+  .tabs button { padding: 8px 22px; border: 1px solid var(--border); border-bottom: 0; background: var(--panel); color: var(--muted); font-size: 14px; border-radius: 10px 10px 0 0; cursor: pointer; }
+  .tabs button.active { background: var(--panel2); color: var(--text); border-color: var(--accent); border-bottom: 2px solid var(--accent); }
+
+  #banner { display: none; margin: 10px 20px 0; padding: 10px 14px; border-radius: 8px; font-size: 13px; }
+  #banner.warning { background: #3a2f10; color: var(--amber); border: 1px solid #6b541d; }
+  #banner.error { background: #3a1616; color: var(--red); border: 1px solid #6b1d1d; }
+  #banner.msg { background: #13273f; color: #7dd3fc; border: 1px solid #1d4a6b; }
+
+  main { flex: 1; display: flex; min-height: 0; }
+  .view { display: none; }
+  .view.active { display: flex; flex: 1; min-height: 0; }
+
+  /* ---- 对话视图 ---- */
+  #view-chat.active { display: flex; }
+  .chat-col { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  #messages { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+  .msg { max-width: 80%; padding: 12px 16px; border-radius: 12px; line-height: 1.7; font-size: 14px; white-space: pre-wrap; word-break: break-word; }
+  .msg.user { align-self: flex-end; background: var(--accent); color: #fff; border-bottom-right-radius: 4px; }
+  .msg.assistant { align-self: flex-start; background: var(--panel); border: 1px solid var(--border); border-bottom-left-radius: 4px; }
+  .msg .meta { display: block; font-size: 11px; color: var(--muted); margin-bottom: 6px; }
+  .msg .cursor { display: inline-block; width: 8px; height: 16px; background: var(--accent); margin-left: 2px; animation: blink 1s infinite; vertical-align: text-bottom; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .input-row { display: flex; gap: 10px; padding: 14px 20px; border-top: 1px solid var(--border); background: var(--panel); }
+  textarea { flex: 1; resize: none; height: 52px; padding: 12px 14px; border-radius: 10px; background: var(--bg); color: var(--text); border: 1px solid var(--border); font-size: 14px; font-family: inherit; outline: none; }
+  textarea:focus { border-color: var(--accent); }
+  .send-btn { width: 88px; border: 0; border-radius: 10px; background: var(--accent); color: #fff; font-size: 15px; cursor: pointer; font-weight: 600; }
+  .send-btn:disabled { background: #33456b; color: #7d8fb0; cursor: not-allowed; }
+  aside { width: 330px; border-left: 1px solid var(--border); background: var(--bg); display: flex; flex-direction: column; overflow-y: auto; }
+  .panel { padding: 16px 18px; border-bottom: 1px solid var(--border); }
+  .panel h2 { font-size: 13px; color: var(--muted); font-weight: 600; margin-bottom: 12px; letter-spacing: 1px; }
+  #nodeList { display: flex; flex-direction: column; gap: 6px; }
+  .node { display: flex; align-items: center; gap: 10px; font-size: 13px; padding: 8px 10px; border-radius: 8px; background: var(--panel); border: 1px solid var(--border); }
+  .node .dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+  .node.running .dot { background: var(--accent); animation: pulse 1s infinite; }
+  .node.done .dot { background: var(--green); }
+  .node.failed .dot { background: var(--red); }
+  @keyframes pulse { 50% { opacity: .35; } }
+  .node .name { flex: 1; }
+  .node .type { font-size: 10px; color: var(--muted); background: var(--panel2); padding: 1px 7px; border-radius: 999px; }
+  .node .time { font-size: 11px; color: var(--muted); }
+  .empty { color: #55607a; font-size: 13px; padding: 8px 0; }
+  #supPanel { display: none; }
+  .sup-conf { display: inline-block; font-weight: 700; padding: 2px 10px; border-radius: 999px; font-size: 13px; }
+  .sup-conf.A { background: #164e2e; color: var(--green); }
+  .sup-conf.B { background: #4a3a12; color: var(--amber); }
+  .sup-conf.C { background: #4a1a1a; color: var(--red); }
+  .sup-row { margin-bottom: 10px; font-size: 13px; }
+  .sup-row b { display: block; color: var(--muted); font-size: 12px; margin-bottom: 4px; }
+  .sup-summary { line-height: 1.6; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip2 { background: var(--panel2); border: 1px solid var(--border); font-size: 12px; padding: 2px 9px; border-radius: 999px; }
+  .hallu.yes { color: var(--amber); } .hallu.no { color: var(--green); }
+  #resourcesNote { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+  /* ---- 进度看板视图 ---- */
+  #view-board.active { display: flex; flex-direction: column; overflow-y: auto; padding: 18px 20px; gap: 16px; }
+  .ctrl { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; }
+  .ctrl label { font-size: 13px; color: var(--muted); white-space: nowrap; }
+  .ctrl select, .ctrl button { padding: 7px 14px; border-radius: 6px; border: 1px solid var(--border); font-size: 13px; background: var(--panel2); color: var(--text); }
+  .ctrl button.primary { background: var(--accent); color: #fff; border: none; cursor: pointer; }
+  .ctrl input[type="file"] { display: none; }
+  .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 18px; text-align: center; }
+  .card h3 { font-size: 13px; color: var(--muted); font-weight: 400; margin-bottom: 8px; }
+  .card .value { font-size: 26px; font-weight: 700; color: var(--accent); }
+  .filters { display: flex; gap: 10px; flex-wrap: wrap; }
+  .filters button { padding: 7px 18px; border: 1px solid var(--border); border-radius: 6px; background: var(--panel); color: var(--muted); font-size: 13px; cursor: pointer; }
+  .filters button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .box { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+  .box h3 { font-size: 14px; color: var(--muted); margin-bottom: 10px; font-weight: 600; }
+  #ganttSingle { width: 100%; height: 560px; }
+  .gantt-compare { display: flex; gap: 14px; }
+  .gantt-compare .half { flex: 1; height: 560px; }
+  .legend { display: flex; justify-content: center; gap: 24px; margin-top: 6px; font-size: 13px; color: var(--muted); }
+  .legend .dot { width: 12px; height: 12px; border-radius: 2px; display: inline-block; vertical-align: -1px; margin-right: 4px; }
+  .row2 { display: flex; gap: 14px; }
+  .row2 .box { flex: 1; }
+  .chart2 { width: 100%; height: 320px; }
+  .table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .table th { background: var(--panel2); padding: 10px 12px; text-align: left; color: var(--muted); font-weight: 600; }
+  .table td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+  .risk-list { list-style: none; }
+  .risk-list li { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; line-height: 1.6; }
+  .risk-list li strong { color: var(--amber); }
+  .no-data { text-align: center; color: #55607a; padding: 60px 20px; font-size: 14px; }
+
+  /* Toast */
+  #toast { position: fixed; top: 60px; right: 20px; background: var(--accent); color: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px; opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 99; }
+  #toast.show { opacity: 1; }
+  /* 问答模式消息 */
+  .msg.ask { align-self: flex-start; background: #1a2744; border: 1px solid #2563eb; border-bottom-left-radius: 4px; }
+  #uploadLabel:hover { background: #2563eb; border-color: #3b82f6; }
+  #uploadLabel.has-file { background: #1d4a2e; border-color: #22c55e; color: #22c55e; }
+  /* 文件上传拖拽区 */
+  #dropZone { transition: all .2s; }
+
+  #uploadLabel:hover { background: #2563eb; border-color: #3b82f6; }
+  #uploadLabel.has-file { background: #1d4a2e; border-color: #22c55e; color: #22c55e; }
+  .file-tag { display:inline-flex;align-items:center;gap:6px;padding:4px 10px;background:#1e2740;border:1px solid #2a3550;border-radius:6px;font-size:12px;color:#cbd5e1;max-width:200px; }
+  .file-tag .fname { overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1; }
+  .file-tag .fsize { color:#64748b;font-size:11px;flex-shrink:0; }
+  .file-tag .fdel { cursor:pointer;color:#ef4444;font-weight:bold;padding:0 2px;border-radius:3px;flex-shrink:0; }
+  .file-tag .fdel:hover { background:#3a1616; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📐 施工进度计划智能助手 <small>多智能体协同 · FastAPI + Dify</small></h1>
+  <div class="spacer"></div>
+  <span class="chip" id="chipDify">Dify 检测中…</span>
+  <span class="chip" id="chipLLM">本地 QA</span>
+  <div class="seg" id="chatModeSeg">
+    <button data-mode="chat" class="active">💬 对话生成</button>
+    <button data-mode="ask">🤖 智能问答</button>
+  </div>
+</header>
+
+<div class="tabs">
+  <button id="tabChat" class="active">💬 对话</button>
+  <button id="tabBoard">📊 进度看板</button>
+</div>
+
+<div id="banner"></div>
+
+<main>
+  <!-- ============ 对话视图 ============ -->
+  <div class="view active" id="view-chat">
+    <div class="chat-col">
+      <div id="messages">
+        <div class="msg assistant"><span class="meta">👋 助手</span>
+          你好！输入施工组织设计或工程问题，我将调度多智能体工作流生成进度计划。
+          生成完成后，右侧会展示多智能体执行过程与监督报告，并可在「📊 进度看板」查看甘特图、资源曲线与多方案对比。
+        </div>
+      </div>
+      <div class="input-row" id="dropZone" style="position:relative;">
+        <div id="dropHint" style="display:none;position:absolute;inset:0;z-index:10;background:#1a2744;border:2px dashed #3b82f6;border-radius:12px;flex-direction:column;align-items:center;justify-content:center;gap:8px;">
+          <span style="font-size:32px;">📂</span>
+          <span style="color:#94a3b8;font-size:14px;">拖拽文件到这里上传（支持 .docx / .txt / .md）</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;width:100%;">
+          <div id="fileList" style="display:none;flex-wrap:wrap;gap:6px;padding:8px 10px;background:#171e2e;border:1px dashed #2a3550;border-radius:8px;"></div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <label for="chatFileInput" id="uploadLabel" style="flex-shrink:0;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:#1e2740;border:1px solid #2a3550;cursor:pointer;font-size:18px;transition:all .2s;" title="上传项目资料（支持拖拽，Word/TXT/MD）">📎</label>
+            <input type="file" id="chatFileInput" multiple accept=".docx,.txt,.md" style="display:none;">
+            <textarea id="input" placeholder="💬 对话模式：输入工程需求，自动生成施工进度计划…"></textarea>
+            <button class="send-btn" id="sendBtn">发送</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <aside>
+      <div class="panel"><h2>🧠 多智能体执行进度</h2>
+        <div id="nodeList"><div class="empty">等待提问…</div></div>
+        <div id="resourcesNote"></div>
+      </div>
+      <div class="panel" id="supPanel"><h2>✅ QA 检查报告</h2>
+        <div class="sup-row"><b>综合评分</b><span class="sup-conf" id="supConf">–</span></div>
+        <div class="sup-row"><b>总体评价</b><div class="sup-summary" id="supSummary"></div></div>
+        <div class="sup-row"><b>检查项</b><ul id="supItems" style="margin:0;padding-left:16px;font-size:12px;line-height:1.7;"></ul></div>
+        <div class="sup-row"><b>修改报告</b><div class="sup-summary" id="supReport" style="white-space:pre-wrap;"></div></div>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- ============ 进度看板视图 ============ -->
+  <div class="view" id="view-board">
+    <div id="projectNameBar" style="text-align:center;padding:16px 20px 8px;font-size:22px;font-weight:700;color:#e5e7eb;letter-spacing:1px;">
+      –
+    </div>
+    <div style="text-align:center;padding:0 20px 12px;font-size:13px;color:#64748b;line-height:1.8;">
+      本看板用于可视化展示施工进度计划。上方下拉框可切换不同方案；点击「导入计划 JSON」可将本地生成的进度计划文件加载到看板中进行查看；勾选「甘特图对比模式」可同时对比两个方案的进度横道图。
+    </div>
+    <div class="ctrl">
+      <label>当前方案：</label>
+      <select id="planSelector" style="min-width:220px;"></select>
+      <button class="primary" id="loadBtn">📂 导入计划 JSON</button>
+      <input type="file" id="fileInput" multiple accept=".json">
+      <span style="font-size:11px;color:#64748b;">（支持导入后端生成或 Dify 输出的 .json 计划文件）</span>
+      <label><input type="checkbox" id="compareCheck"> 甘特图对比模式</label>
+      <span style="font-size:11px;color:#64748b;">（需先导入或生成至少两个方案）</span>
+      <select id="comparePlanSelector" style="min-width:160px; display:none;" disabled></select>
+    </div>
+
+    <div class="cards">
+      <div class="card"><h3>总工期</h3><div class="value" id="totalDays">–</div></div>
+      <div class="card"><h3>关键任务</h3><div class="value" id="criticalCount">–</div></div>
+      <div class="card"><h3>高峰人数</h3><div class="value" id="peakManpower">–</div></div>
+      <div class="card"><h3>主要设备</h3><div class="value" id="equipCount">–</div></div>
+    </div>
+
+    <div class="filters">
+      <button id="btn-all" class="active">全部任务</button>
+      <button id="btn-critical">仅关键路径</button>
+      <button id="btn-structure">结构阶段</button>
+      <button id="btn-mep">机电与装修</button>
+      <button id="btn-close">收尾验收</button>
+    </div>
+
+    <div style="font-size:12px;color:#64748b;padding:4px 0 8px;">
+      💡 点击上方按钮可按阶段筛选甘特图中显示的任务范围。红色条为关键路径任务，蓝色条为非关键路径任务。
+    </div>
+
+    <div class="box" id="ganttContainer">
+      <div id="ganttSingle"></div>
+      <div class="gantt-compare" id="ganttCompare" style="display:none;">
+        <div class="half" id="ganttLeft"></div>
+        <div class="half" id="ganttRight"></div>
+      </div>
+    </div>
+    <div class="legend">
+      <span><span class="dot" style="background:#ee6666;"></span>关键路径</span>
+      <span><span class="dot" style="background:#5470c6;"></span>非关键路径</span>
+    </div>
+
+    <div class="row2">
+      <div class="box"><h3>主要工种人员配置曲线</h3><div class="chart2" id="manpowerChart"></div></div>
+      <div class="box"><h3>设备峰值需求统计</h3><div class="chart2" id="equipmentChart"></div></div>
+    </div>
+
+    <div class="box"><h3>📌 关键里程碑</h3><p style="font-size:12px;color:#64748b;margin:0 0 10px;">关键里程碑为施工进度计划中必须按时完成的重要节点，通常对应合同节点或验收节点。</p><table class="table" id="milestoneTable"></table></div>
+    <div class="box"><h3>🧾 资源计划摘要</h3><p style="font-size:12px;color:#64748b;margin:0 0 10px;">汇总显示项目所需总人工日、高峰人数及主要设备峰值需求，用于评估资源配置合理性。</p><div id="resourceSummary" style="font-size:13px; line-height:2;"></div></div>
+    <div class="box"><h3>⚠️ 主要风险与应对</h3><p style="font-size:12px;color:#64748b;margin:0 0 10px;">列出施工过程中可能出现的主要风险及对应的应对措施，帮助项目团队提前做好防范准备。</p><ul class="risk-list" id="riskList"></ul></div>
+  </div>
+</main>
+
+<div id="toast"></div>
+
+<footer style="text-align:center;padding:12px 20px;font-size:12px;color:#64748b;border-top:1px solid #2a3550;background:#0f1420;">
+  智建领航 · 华南理工大学 &nbsp;|&nbsp; 第一届"海之子"杯AI智能体挑战计划 &nbsp;|&nbsp; 主办：中国建筑国际集团 &nbsp;|&nbsp; <a href="https://aicampus.3311csci.com/" target="_blank" style="color:#3b82f6;">官网</a>
+</footer>
+
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+let streaming = false, abortCtrl = null, currentAssistant = null, nodeSeq = 0;
+
+/* ================= 通用 ================= */
+function toast(msg) { const t = $("toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("show"), 3500); }
+function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c])); }
+
+async function loadHealth() {
+  try {
+    const h = await (await fetch(API_BASE + "/health")).json();
+    const cd = $("chipDify"), cl = $("chipLLM");
+    cd.textContent = h.dify.configured ? "Dify 已配置" : "Dify 未配置";
+    cd.className = "chip " + (h.dify.configured ? "ok" : "warn");
+    cl.textContent = "本地 QA";
+    cl.className = "chip ok";
+  } catch (e) {}
+}
+
+/* ================= 对话 ================= */
+function addUserMsg(t) { const m = document.createElement("div"); m.className = "msg user"; m.textContent = t; $("messages").appendChild(m); scrollBottom(); }
+function addAssistantMsg(meta) {
+  const m = document.createElement("div"); m.className = "msg assistant";
+  const sp = document.createElement("span"); sp.className = "meta"; sp.textContent = meta || "🤖 智能体";
+  const body = document.createElement("span"); body.className = "body";
+  m.appendChild(sp); m.appendChild(body); $("messages").appendChild(m); scrollBottom(); return body;
+}
+function scrollBottom() { $("messages").scrollTop = $("messages").scrollHeight; }
+
+function resetNodes() { $("nodeList").innerHTML = ""; $("resourcesNote").textContent = ""; nodeSeq = 0; }
+function nodeStarted(title, type) {
+  const e = $("nodeList").querySelector(".empty"); if (e) e.remove();
+  const el = document.createElement("div");
+  el.className = "node running"; el.dataset.title = title;
+  el.innerHTML = `<span class="dot"></span><span class="name">${escapeHtml(title)}</span><span class="type">${escapeHtml(type)}</span><span class="time">执行中</span>`;
+  $("nodeList").appendChild(el); el.scrollIntoView({ block: "end", behavior: "smooth" });
+}
+function nodeFinished(title, status, elapsed) {
+  const items = [...$("nodeList").querySelectorAll(".node")];
+  const el = items.filter(n => n.dataset.title === title && n.classList.contains("running")).pop();
+  if (!el) return;
+  el.classList.remove("running"); el.classList.add(status === "failed" ? "failed" : "done");
+  el.querySelector(".time").textContent = elapsed != null ? (+elapsed).toFixed(1) + "s" : "完成";
+}
+function showResources(n) { $("resourcesNote").textContent = `📚 已检索 ${n} 条知识库资料`; }
+function showProgress(msg) {
+  const list = $("nodeList");
+  let el = list.querySelector(".node.running.progress");
+  if (!el) {
+    const e = list.querySelector(".empty"); if (e) e.remove();
+    el = document.createElement("div");
+    el.className = "node running progress";
+    el.innerHTML = `<span class="dot"></span><span class="name"></span><span class="type">progress</span><span class="time">执行中</span>`;
+    list.appendChild(el);
+  }
+  el.querySelector(".name").textContent = msg;
+  el.scrollIntoView({ block: "end", behavior: "smooth" });
+}
+function finishProgress() {
+  const el = $("nodeList").querySelector(".node.running.progress");
+  if (el) { el.classList.remove("running"); el.classList.add("done"); el.querySelector(".time").textContent = "完成"; }
+}
+function showBanner(kind, text) { const b = $("banner"); b.className = kind; b.textContent = text; b.style.display = "block"; }
+function showSupervision(r) {
+  $("supPanel").style.display = "block";
+  const score = Math.max(0, Math.min(100, parseInt(r.overall_score, 10) || 0));
+  const grade = score >= 85 ? "A" : score >= 70 ? "B" : "C";
+  const c = $("supConf"); c.textContent = score + " 分（" + grade + "）"; c.className = "sup-conf " + grade;
+  $("supSummary").textContent = r.summary || "–";
+  const itemsEl = $("supItems"); itemsEl.innerHTML = "";
+  (r.items || []).forEach(it => {
+    const li = document.createElement("li");
+    const status = it.passed ? "✅" : "❌";
+    li.innerHTML = `${status} <strong>${escapeHtml(it.item)}</strong> ${it.score}分<br><span style="color:#94a3b8">${escapeHtml(it.reason || "")}</span>`;
+    itemsEl.appendChild(li);
+  });
+  $("supReport").textContent = r.modification_report || "–";
+}
+
+function handleEvent(ev) {
+  switch (ev.type) {
+    case "answer":
+      if (!currentAssistant) currentAssistant = addAssistantMsg("🤖 智能体 · 流式");
+      currentAssistant.textContent += ev.delta || ""; scrollBottom(); break;
+    case "progress":
+      showProgress(ev.message || "工作流执行中…");
+      break;
+    case "resources": showResources((ev.resources || []).length); break;
+    case "qa_report": showSupervision(ev || {}); break;
+    case "plan":
+      console.log("收到 plan 事件:", ev.plan);
+      addPlanFromDify(ev.plan);
+      break;
+    case "error": showBanner("error", "❌ " + (ev.message || "未知错误")); break;
+    case "done": finishProgress(); break;
+  }
+}
+
+async function send() {
+  if (streaming) return;
+  const text = $("input").value.trim(); if (!text) return;
+  // 显示用户消息（含文件附件）
+  let displayMsg = text;
+  if (chatFiles.length > 0) {
+    displayMsg += "\n\n📎 已上传文件：\n" + chatFiles.map(f => `• ${f.name} (${formatFileSize(f.size)})`).join("\n");
+  }
+  addUserMsg(displayMsg); $("input").value = "";
+  streaming = true; $("sendBtn").disabled = true; $("sendBtn").textContent = "停止";
+  abortCtrl = new AbortController(); currentAssistant = null; resetNodes();
+  $("supPanel").style.display = "none"; $("banner").style.display = "none";
+
+  // 问答模式：调用千问接口
+  if (chatMode === "ask") {
+    // 拼接文件内容
+    let askQuery = text;
+    if (chatFiles.length > 0) {
+      for (const fc of chatFiles) {
+        askQuery += `\n\n===== 文件 ${fc.name} 内容 =====\n${fc.content}\n`;
+      }
+    }
+    try {
+      const resp = await fetch(API_BASE + "/api/v1/chat/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: askQuery, history: [] }),
+        signal: abortCtrl.signal,
+      });
+      if (!resp.ok) { showBanner("error", `请求失败 HTTP ${resp.status}`); return; }
+      const data = await resp.json();
+      if (!currentAssistant) currentAssistant = addAssistantMsg("🤖 智能问答 · 千问");
+      currentAssistant.textContent = data.answer || "暂无回答";
+      scrollBottom();
+    } catch (e) {
+      if (e.name !== "AbortError") showBanner("error", "网络错误：" + e.message);
+    } finally {
+      streaming = false; $("sendBtn").disabled = false; $("sendBtn").textContent = "发送";
+      // 清空文件
+      chatFiles = [];
+      $("chatFileInput").value = "";
+      renderFileList();
+    }
+    return;
+  }
+
+  // 对话模式：走 Dify 工作流
+  // 测试模式：输入 #mock 使用模拟数据
+  const useMock = text.trim() === "#mock";
+  try {
+    // 拼接已上传文件内容
+    let fullQuery = text;
+    if (chatFiles.length > 0) {
+      for (const fc of chatFiles) {
+        fullQuery += `\n\n===== 文件 ${fc.name} 内容 =====\n${fc.content}\n`;
+      }
+    }
+    const streamUrl = useMock ? API_BASE + "/api/v1/chat/stream/mock" : API_BASE + "/api/v1/chat/stream?" + new URLSearchParams({ query: fullQuery, run_qa: "true" }).toString();
+    const resp = await fetch(streamUrl, { signal: abortCtrl.signal });
+    if (!resp.ok) { showBanner("error", `请求失败 HTTP ${resp.status}`); return; }
+    const reader = resp.body.getReader(); const decoder = new TextDecoder(); let buf = "";
+    while (true) {
+      const { done, value } = await reader.read(); if (done) break;
+      buf += decoder.decode(value, { stream: true });
+      const lines = buf.split("\n"); buf = lines.pop() || "";
+      let eventType = "message";
+      for (const line of lines) {
+        const t = line.replace(/\r$/, "").trim();
+        if (t.startsWith("event: ")) { eventType = t.slice(7); continue; }
+        if (!t.startsWith("data: ")) continue;
+        let data; try { data = JSON.parse(t.slice(6)); } catch (e) { continue; }
+        handleEvent(Object.assign(data, { type: eventType }));
+      }
+    }
+  } catch (e) { if (e.name !== "AbortError") showBanner("error", "网络错误：" + e.message); }
+  finally {
+    streaming = false; $("sendBtn").disabled = false; $("sendBtn").textContent = "发送";
+    // 清空文件
+    chatFiles = [];
+    $("chatFileInput").value = "";
+    renderFileList();
+  }
+}
+
+/* ================= 进度看板 ================= */
+let plans = [], currentPlanIndex = -1, comparePlanIndex = -1, currentFilter = "all";
+
+// 内置示例方案（名创优品基准计划），便于未生成前即可演示看板
+const samplePlan = {
+  overview: { project_name: "名创优品华南智能配送中心 1 号库房工程", total_duration_days: 210, planned_start_date: "2026-03-01", planned_end_date: "2026-09-27", critical_path_length: 13 },
+  key_milestones: [
+    { name: "桩基工程完工", date: "2026-04-20", description: "完成320根PHC管桩静压施工" },
+    { name: "基础及地下工程完工", date: "2026-05-15", description: "具备主体施工条件" },
+    { name: "钢结构主体封顶", date: "2026-06-20", description: "库房刚架吊装完成" },
+    { name: "地坪工程完工", date: "2026-07-30", description: "21000㎡耐磨地坪完成" },
+    { name: "工程竣工验收", date: "2026-09-27", description: "正式移交" }
+  ],
+  critical_path_tasks: ["1.1.1","1.2.1","2.1.1","2.1.2","2.2.1","3.4.3","3.4.1","3.4.2","4.1.1","4.1.2","4.1.3","5.1.1","5.3.1","6.1.1","6.1.2","6.2.1","6.2.2","6.2.3"],
+  all_tasks_schedule: [
+    { task_id:"1.1.1", task_name:"现场临时设施搭建与场地平整", start_date:"2026-03-01", finish_date:"2026-03-10", duration_days:10 },
+    { task_id:"1.1.2", task_name:"施工机械设备进场", start_date:"2026-03-11", finish_date:"2026-03-15", duration_days:5 },
+    { task_id:"1.1.3", task_name:"技术交底与材料采购", start_date:"2026-03-11", finish_date:"2026-03-20", duration_days:10 },
+    { task_id:"1.2.1", task_name:"PHC管桩静压施工", start_date:"2026-03-21", finish_date:"2026-04-10", duration_days:21 },
+    { task_id:"1.2.2", task_name:"基坑土方开挖与回填", start_date:"2026-04-11", finish_date:"2026-04-25", duration_days:15 },
+    { task_id:"2.1.1", task_name:"桩承台及基础梁施工", start_date:"2026-04-26", finish_date:"2026-05-15", duration_days:20 },
+    { task_id:"2.1.2", task_name:"库房门式刚架钢结构吊装", start_date:"2026-05-16", finish_date:"2026-06-10", duration_days:26 },
+    { task_id:"2.2.1", task_name:"钢结构檩条及支撑系统安装", start_date:"2026-06-05", finish_date:"2026-06-25", duration_days:21 },
+    { task_id:"2.3.1", task_name:"办公楼现浇框架结构施工", start_date:"2026-05-16", finish_date:"2026-06-25", duration_days:41 },
+    { task_id:"2.3.2", task_name:"砌体工程（加气混凝土砌块）", start_date:"2026-06-26", finish_date:"2026-07-15", duration_days:20 },
+    { task_id:"2.3.3", task_name:"外墙岩棉夹芯彩钢板安装", start_date:"2026-06-20", finish_date:"2026-07-20", duration_days:31 },
+    { task_id:"2.3.4", task_name:"室内装饰装修工程", start_date:"2026-07-16", finish_date:"2026-08-05", duration_days:21 },
+    { task_id:"3.4.3", task_name:"库房地面碎石基层铺设", start_date:"2026-07-01", finish_date:"2026-07-10", duration_days:10 },
+    { task_id:"3.4.1", task_name:"耐磨地坪钢筋网片铺设", start_date:"2026-07-11", finish_date:"2026-07-15", duration_days:5 },
+    { task_id:"3.4.2", task_name:"耐磨混凝土地坪浇筑与激光整平", start_date:"2026-07-16", finish_date:"2026-07-30", duration_days:15 },
+    { task_id:"4.1.1", task_name:"给排水及电气管线预埋与安装", start_date:"2026-07-01", finish_date:"2026-08-15", duration_days:46 },
+    { task_id:"4.1.2", task_name:"消防喷淋系统及防火卷帘安装", start_date:"2026-08-01", finish_date:"2026-09-10", duration_days:41 },
+    { task_id:"4.1.3", task_name:"机电设备调试与联动测试", start_date:"2026-09-11", finish_date:"2026-09-30", duration_days:20 },
+    { task_id:"5.1.1", task_name:"专项验收准备", start_date:"2026-10-01", finish_date:"2026-10-05", duration_days:5 },
+    { task_id:"5.3.1", task_name:"消防专项验收", start_date:"2026-10-06", finish_date:"2026-10-10", duration_days:5 },
+    { task_id:"6.1.1", task_name:"竣工清理与场地恢复", start_date:"2026-10-11", finish_date:"2026-10-15", duration_days:5 },
+    { task_id:"6.1.2", task_name:"竣工资料归档", start_date:"2026-10-11", finish_date:"2026-10-20", duration_days:10 },
+    { task_id:"6.2.1", task_name:"规划验收", start_date:"2026-10-16", finish_date:"2026-10-18", duration_days:3 },
+    { task_id:"6.2.2", task_name:"质量竣工验收", start_date:"2026-10-19", finish_date:"2026-10-22", duration_days:4 },
+    { task_id:"6.2.3", task_name:"项目移交", start_date:"2026-10-23", finish_date:"2026-10-27", duration_days:5 }
+  ],
+  resource_plan: { total_manpower_days: 18500, peak_manpower: 145, equipment_peak: { "静力压桩机":2, "汽车起重机":2, "塔式起重机":1, "混凝土输送泵":1, "激光整平机":1, "直流电焊机":8, "挖掘机":2 } },
+  risks: [
+    { risk_name:"塔吊资源冲突", mitigation:"制定详细的塔吊使用时间表，优先保障办公楼混凝土浇筑和钢结构辅助吊装的关键节点" },
+    { risk_name:"雨季影响地坪施工", mitigation:"搭建防雨棚，储备足量防雨布；调整混凝土配合比，添加早强剂" },
+    { risk_name:"钢结构供应滞后", mitigation:"驻厂监造，确保构件按吊装顺序分批进场；建立备用供应商名单" },
+    { risk_name:"桩基施工效率低下", mitigation:"投入2台静力压桩机实行两班倒；提前进行试桩确定最佳压桩参数" }
+  ],
+  personnel_data: {
+    dates: ["2026-03-01","2026-03-11","2026-04-10","2026-04-21","2026-05-01","2026-05-10","2026-05-16","2026-06-20","2026-06-21","2026-07-06","2026-07-16","2026-07-21","2026-07-31","2026-08-20","2026-08-31","2026-09-15","2026-09-26"],
+    series: { "普工":[10,10,10,8,8,18,10,10,10,20,5,0,0,0,0,0,20], "木工":[0,0,0,20,45,45,25,25,25,0,0,10,10,0,0,0,0], "钢筋工":[0,0,0,18,38,38,20,20,20,0,0,0,0,0,0,0,0], "混凝土工":[0,0,0,15,30,30,15,15,15,0,10,0,0,0,0,0,0], "钢结构安装工":[0,0,0,0,0,0,35,35,20,0,0,0,0,0,0,0,0], "装修工":[0,0,0,0,0,0,0,0,0,0,0,25,25,25,0,0,0], "机电安装工":[0,0,0,0,0,0,0,0,0,0,0,0,10,15,15,8,0] }
+  },
+  equipment_data: { categories:["挖掘机","静力压桩机","汽车起重机","塔式起重机","自卸车","压路机","激光整平机","混凝土输送泵"], values:[3,2,2,1,10,1,1,1] }
+};
+plans.push({ name: "示例：名创优品基准计划", data: samplePlan });
+currentPlanIndex = 0;
+
+function addPlanFromDify(plan) {
+  const name = "Dify 生成方案 " + (plans.length);
+  plans.push({ name, data: plan });
+  currentPlanIndex = plans.length - 1;
+  comparePlanIndex = -1;
+  populateSelectors();
+  refreshAllCharts();
+  toast("📊 已生成计划，可在进度看板查看");
+  $("tabBoard").style.boxShadow = "0 0 0 2px var(--accent)";
+}
+
+function getCurrentPlan() { return plans[currentPlanIndex]?.data; }
+function getComparePlan() { return comparePlanIndex >= 0 ? plans[comparePlanIndex]?.data : null; }
+function getCriticalSet(plan) {
+  const set = new Set();
+  (plan?.critical_path_tasks || []).forEach(t => set.add(typeof t === "string" ? t : t.task_id));
+  return set;
+}
+function fmt(d) { return (d.getMonth() + 1) + "-" + d.getDate(); }
+
+function renderSingleGantt(containerId, tasks, criticalSet, planName, plan) {
+  const dom = document.getElementById(containerId); if (!dom) return;
+  if (echarts.getInstanceByDom(dom)) echarts.getInstanceByDom(dom).dispose();
+  const chart = echarts.init(dom);
+  const ov = (plan && plan.overview) || {};
+  const startDate = new Date(ov.planned_start_date || ov.start_date || "2026-03-01");
+  const endDate = new Date(ov.planned_end_date || ov.end_date || "2026-10-01");
+  const totalMs = Math.max(endDate - startDate, 1);
+  const taskData = tasks.map((t, idx) => {
+    const s = new Date(t.start_date || t.start); const e = new Date(t.finish_date || t.end);
+    const startOff = (s - startDate) / totalMs * 100; const dur = Math.max((e - s) / totalMs * 100, 0.4);
+    return { idx, startOffset: startOff, duration: dur, name: t.task_name || t.name, critical: criticalSet.has(t.task_id || t.id) };
+  });
+  chart.setOption({
+    backgroundColor: "transparent",
+    title: { text: planName ? `${planName} · 进度横道图` : "进度横道图", left: "center", textStyle: { fontSize: 14, color: "#e5e7eb" } },
+    tooltip: { backgroundColor: "#1e2740", borderColor: "#2a3550", textStyle: { color: "#e5e7eb" }, formatter: p => {
+      if (!p.data) return "";
+      const idx = p.data[0], off = p.data[1], dur = p.data[2], name = p.data[3];
+      const s = new Date(startDate.getTime() + off / 100 * totalMs);
+      const e = new Date(startDate.getTime() + (off + dur) / 100 * totalMs);
+      return `<b>${name}</b><br/>${fmt(s)} ~ ${fmt(e)}`;
+    }},
+    grid: { left: "28%", right: "5%", top: 46, bottom: 30 },
+    xAxis: { type: "value", min: 0, max: 100, splitLine: { lineStyle: { color: "#202a44" } }, axisLabel: { formatter: v => fmt(new Date(startDate.getTime() + v / 100 * totalMs)), color: "#94a3b8" } },
+    yAxis: { type: "category", data: tasks.map(t => t.task_name || t.name), inverse: true, axisLabel: { width: 220, overflow: "truncate", fontSize: 12, color: "#cbd5e1" }, axisLine: { lineStyle: { color: "#2a3550" } } },
+    series: [{
+      type: "custom",
+      renderItem: (params, api) => {
+        const catIdx = api.value(0), startOff = api.value(1), dur = api.value(2), crit = api.value(6);
+        const y = api.coord([0, catIdx])[1], x1 = api.coord([startOff, 0])[0], x2 = api.coord([startOff + dur, 0])[0];
+        const h = api.size([0, 1])[1] * 0.6;
+        return { type: "rect", shape: { x: x1, y: y - h / 2, width: Math.max(x2 - x1, 2), height: h }, style: { fill: crit ? "#ee6666" : "#5470c6", borderRadius: 4 } };
+      },
+      encode: { x: [1, 2], y: 0 },
+      data: taskData.map(d => [d.idx, d.startOffset, d.duration, d.name, d.startOffset, d.duration, d.critical])
+    }]
+  });
+}
+
+function updateGantt() {
+  const plan = getCurrentPlan(); if (!plan) return;
+  const criticalSet = getCriticalSet(plan);
+  let tasks = plan.all_tasks_schedule || [];
+  if (currentFilter === "critical") tasks = tasks.filter(t => criticalSet.has(t.task_id || t.id));
+  else if (currentFilter === "structure") tasks = tasks.filter(t => /^[23]\./.test(t.task_id || t.id));
+  else if (currentFilter === "mep") tasks = tasks.filter(t => /^[45]\./.test(t.task_id || t.id));
+  else if (currentFilter === "close") tasks = tasks.filter(t => /^6\./.test(t.task_id || t.id));
+  const compareOn = $("compareCheck").checked && comparePlanIndex >= 0;
+  $("ganttSingle").style.display = compareOn ? "none" : "block";
+  $("ganttCompare").style.display = compareOn ? "flex" : "none";
+  if (compareOn) {
+    const b = getComparePlan();
+    renderSingleGantt("ganttLeft", plan.all_tasks_schedule || [], criticalSet, "方案一", plan);
+    renderSingleGantt("ganttRight", b.all_tasks_schedule || [], getCriticalSet(b), "方案二", b);
+  } else {
+    renderSingleGantt("ganttSingle", tasks, criticalSet, "", plan);
+  }
+}
+
+function renderManpower(plan) {
+  const dom = $("manpowerChart"); if (!dom) return;
+  if (echarts.getInstanceByDom(dom)) echarts.getInstanceByDom(dom).dispose();
+  const chart = echarts.init(dom);
+  const p = plan?.personnel_data;
+  if (!p || !p.dates || !p.series) { chart.setOption({ title: { text: "暂无人员配置数据", left: "center", top: "center", textStyle: { color: "#55607a", fontSize: 13 } } }); return; }
+  const series = Object.keys(p.series).map(name => ({ name, type: "line", data: p.series[name], smooth: true }));
+  chart.setOption({
+    backgroundColor: "transparent",
+    tooltip: { trigger: "axis", backgroundColor: "#1e2740", borderColor: "#2a3550", textStyle: { color: "#e5e7eb" }, formatter: function(params) {
+      const filtered = params.filter(p => p.value && p.value > 0);
+      if (!filtered.length) return '';
+      let html = `<b>${filtered[0].axisValue}</b><br/>`;
+      filtered.forEach(p => { html += `${p.marker} ${p.seriesName}：${p.value}人<br/>`; });
+      return html;
+    } },
+    legend: { data: Object.keys(p.series), bottom: 0, type: "scroll", textStyle: { color: "#94a3b8" } },
+    grid: { left: 50, right: 20, top: 30, bottom: 50 },
+    xAxis: { data: p.dates, axisLabel: { rotate: 45, fontSize: 9, color: "#94a3b8", interval: 1 }, axisLine: { lineStyle: { color: "#2a3550" } } },
+    yAxis: { name: "人数", nameTextStyle: { color: "#94a3b8" }, splitLine: { lineStyle: { color: "#202a44" } }, axisLabel: { color: "#94a3b8" } },
+    series
+  });
+}
+
+function renderEquipment(plan) {
+  const dom = $("equipmentChart"); if (!dom) return;
+  if (echarts.getInstanceByDom(dom)) echarts.getInstanceByDom(dom).dispose();
+  const chart = echarts.init(dom);
+  const e = plan?.equipment_data;
+  if (!e || !e.categories) { chart.setOption({ title: { text: "暂无设备负荷数据", left: "center", top: "center", textStyle: { color: "#55607a", fontSize: 13 } } }); return; }
+  chart.setOption({
+    backgroundColor: "transparent",
+    tooltip: { backgroundColor: "#1e2740", borderColor: "#2a3550", textStyle: { color: "#e5e7eb" } },
+    grid: { left: 80, right: 20, top: 30, bottom: 60 },
+    xAxis: { data: e.categories, axisLabel: { rotate: 30, fontSize: 11, color: "#94a3b8" }, axisLine: { lineStyle: { color: "#2a3550" } } },
+    yAxis: { name: "台数", nameTextStyle: { color: "#94a3b8" }, splitLine: { lineStyle: { color: "#202a44" } }, axisLabel: { color: "#94a3b8" } },
+    series: [{ type: "bar", data: e.values, itemStyle: { color: "#5470c6", borderRadius: [4, 4, 0, 0] }, label: { show: true, position: "top", color: "#94a3b8" } }]
+  });
+}
+
+function updateDashboard() {
+  const plan = getCurrentPlan(); if (!plan) return;
+  $("projectNameBar").textContent = (plan.overview || {}).project_name || "未命名项目";
+  const ov = plan.overview || {};
+  $("totalDays").textContent = (ov.total_duration_days || "?") + " 天";
+  $("criticalCount").textContent = (plan.critical_path_tasks?.length || "?") + " 项";
+  $("peakManpower").textContent = (plan.resource_plan?.peak_manpower || "?") + " 人";
+  const eq = plan.resource_plan?.equipment_peak;
+  $("equipCount").textContent = (eq ? Object.keys(eq).length : "?") + " 类";
+  let html = "<tr><th>里程碑名称</th><th>日期</th><th>说明</th></tr>";
+  (plan.key_milestones || []).forEach(m => { html += `<tr><td><strong>${escapeHtml(m.name || "")}</strong></td><td>${escapeHtml(m.date || "")}</td><td>${escapeHtml(m.description || "")}</td></tr>`; });
+  $("milestoneTable").innerHTML = html;
+  const rp = plan.resource_plan || {};
+  let equipStr = "";
+  if (rp.equipment_peak) equipStr = Object.entries(rp.equipment_peak).map(([k, v]) => `${k} ${v}台`).join("，");
+  $("resourceSummary").innerHTML = `<p><strong>总人工日：</strong>${rp.total_manpower_days || "?"} 人·日　|　<strong>峰值人数：</strong>${rp.peak_manpower || "?"} 人</p><p><strong>主要设备峰值：</strong>${equipStr || "无"}</p>`;
+  $("riskList").innerHTML = (plan.risks || []).map(r => `<li><strong>${escapeHtml(r.risk_name || "")}：</strong>${escapeHtml(r.mitigation || "")}</li>`).join("") || '<li class="empty">无</li>';
+}
+
+function refreshAllCharts() {
+  updateGantt();
+  const plan = getCurrentPlan();
+  renderManpower(plan);
+  renderEquipment(plan);
+  updateDashboard();
+}
+
+function populateSelectors() {
+  const sel = $("planSelector"), cs = $("comparePlanSelector");
+  sel.innerHTML = plans.map((p, i) => `<option value="${i}" ${i === currentPlanIndex ? "selected" : ""}>${escapeHtml(p.name)}</option>`).join("");
+  cs.innerHTML = plans.map((p, i) => `<option value="${i}">${escapeHtml(p.name)}</option>`).join("");
+  if (plans.length > 1) { cs.style.display = "inline-block"; cs.disabled = false; } else { cs.style.display = "none"; cs.disabled = true; }
+}
+
+/* ================= 看板交互 ================= */
+$("planSelector").addEventListener("change", e => {
+  currentPlanIndex = parseInt(e.target.value);
+  if (currentPlanIndex === comparePlanIndex) { comparePlanIndex = -1; $("compareCheck").checked = false; }
+  refreshAllCharts();
+});
+$("comparePlanSelector").addEventListener("change", e => { comparePlanIndex = parseInt(e.target.value); updateGantt(); });
+$("compareCheck").addEventListener("change", e => {
+  if (e.target.checked && plans.length < 2) { toast("需要至少两个方案才能对比！"); e.target.checked = false; return; }
+  if (e.target.checked && comparePlanIndex < 0) { comparePlanIndex = plans.findIndex((_, i) => i !== currentPlanIndex); $("comparePlanSelector").value = comparePlanIndex; }
+  if (!e.target.checked) comparePlanIndex = -1;
+  updateGantt();
+});
+$("loadBtn").addEventListener("click", () => $("fileInput").click());
+$("fileInput").addEventListener("change", function (e) {
+  const files = e.target.files; if (!files.length) return;
+  let loaded = 0;
+  Array.from(files).forEach(file => {
+    const reader = new FileReader();
+    reader.onload = ev => {
+      try {
+        const data = JSON.parse(ev.target.result);
+        plans.push({ name: file.name.replace(".json", ""), data });
+        loaded++;
+        if (loaded === files.length) { populateSelectors(); currentPlanIndex = plans.length - 1; refreshAllCharts(); toast(`成功导入 ${loaded} 个方案！`); }
+      } catch (ex) { toast(`文件 ${file.name} 解析失败：${ex.message}`); }
+    };
+    reader.readAsText(file);
+  });
+});
+document.querySelectorAll(".filters button").forEach(btn => {
+  btn.addEventListener("click", function () {
+    document.querySelectorAll(".filters button").forEach(b => b.classList.remove("active"));
+    this.classList.add("active");
+    currentFilter = this.id.replace("btn-", "");
+    updateGantt();
+  });
+});
+
+/* ================= 页签切换 ================= */
+$("tabChat").addEventListener("click", () => switchTab("chat"));
+$("tabBoard").addEventListener("click", () => { switchTab("board"); setTimeout(() => { ["ganttSingle","ganttLeft","ganttRight","manpowerChart","equipmentChart"].forEach(id => { const d = $(id); if (d && echarts.getInstanceByDom(d)) echarts.getInstanceByDom(d).resize(); }); }, 60); });
+function switchTab(name) {
+  $("tabChat").classList.toggle("active", name === "chat");
+  $("tabBoard").classList.toggle("active", name === "board");
+  $("view-chat").classList.toggle("active", name === "chat");
+  $("view-board").classList.toggle("active", name === "board");
+}
+
+/* ================= 其他绑定与初始化 ================= */
+document.querySelectorAll("#modeSeg button").forEach(b => b.addEventListener("click", () => { document.querySelectorAll("#modeSeg button").forEach(x => x.classList.remove("active")); b.classList.add("active"); }));
+$("sendBtn").addEventListener("click", () => streaming ? abortCtrl.abort() : send());
+$("input").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } });
+window.addEventListener("resize", () => ["ganttSingle","ganttLeft","ganttRight","manpowerChart","equipmentChart"].forEach(id => { const d = $(id); if (d && echarts.getInstanceByDom(d)) echarts.getInstanceByDom(d).resize(); }));
+
+populateSelectors();
+refreshAllCharts();
+loadHealth();
+
+
+
+/* ================= 文件上传 ================= */
+let chatFiles = []; // 存储待发送的文件内容 {name, content, size}
+
+function formatFileSize(bytes) {
+  if (bytes < 1024) return bytes + 'B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + 'KB';
+  return (bytes / (1024 * 1024)).toFixed(1) + 'MB';
+}
+
+function renderFileList() {
+  const el = $("fileList");
+  if (!chatFiles.length) { el.style.display = "none"; $("uploadLabel").classList.remove("has-file"); return; }
+  el.style.display = "flex";
+  el.innerHTML = "";
+  $("uploadLabel").classList.add("has-file");
+  chatFiles.forEach((f, i) => {
+    const tag = document.createElement("span");
+    tag.className = "file-tag";
+    tag.innerHTML = `<span class="fname" title="${escapeHtml(f.name)}">${escapeHtml(f.name)}</span><span class="fsize">${formatFileSize(f.size)}</span><span class="fdel" data-idx="${i}" title="移除">✕</span>`;
+    el.appendChild(tag);
+  });
+  el.querySelectorAll(".fdel").forEach(btn => {
+    btn.addEventListener("click", () => {
+      chatFiles.splice(parseInt(btn.dataset.idx), 1);
+      renderFileList();
+    });
+  });
+}
+
+async function uploadFiles(files) {
+  const formData = new FormData();
+  for (const f of files) { formData.append("files", f); }
+  try {
+    const resp = await fetch(API_BASE + "/api/v1/upload/files", { method: "POST", body: formData });
+    if (!resp.ok) { toast("文件上传失败"); return; }
+    const data = await resp.json();
+    const newFiles = (data.files || []).map((f, i) => ({
+      name: f.name,
+      content: f.content,
+      size: files[i] ? files[i].size : 0,
+    }));
+    chatFiles.push(...newFiles);
+    renderFileList();
+    toast(`✅ 已解析 ${newFiles.length} 个文件`);
+  } catch (err) { toast("文件上传失败：" + err.message); }
+}
+
+// 点击上传
+$("chatFileInput").addEventListener("change", function(e) {
+  if (e.target.files.length) uploadFiles(e.target.files);
+  e.target.value = "";
+});
+
+// 拖拽上传
+const dz = $("dropZone");
+const dh = $("dropHint");
+["dragenter", "dragover"].forEach(evt => dz.addEventListener(evt, e => { e.preventDefault(); dh.style.display = "flex"; }));
+["dragleave", "drop"].forEach(evt => dz.addEventListener(evt, e => { e.preventDefault(); dh.style.display = "none"; }));
+dz.addEventListener("drop", e => {
+  const files = e.dataTransfer.files;
+  if (files.length) uploadFiles(files);
+});
+
+/* ================= 对话/问答模式切换 ================= */
+let chatMode = "chat"; // 默认对话生成模式
+
+document.querySelectorAll("#chatModeSeg button").forEach(b => {
+  b.addEventListener("click", () => {
+    document.querySelectorAll("#chatModeSeg button").forEach(x => x.classList.remove("active"));
+    b.classList.add("active");
+    chatMode = b.dataset.mode;
+    const input = $("input");
+    if (chatMode === "ask") {
+      input.placeholder = "🤖 问答模式：问我任何问题，如什么是关键路径？工期怎么算？";
+    } else {
+      input.placeholder = "💬 对话模式：输入工程需求，自动生成施工进度计划…";
+    }
+    // 切换模式时清空对话
+    $("messages").innerHTML = "";
+    if (chatMode === "ask") {
+      addSystemMsg("你好！我是施工进度计划智能助手。\n\n我可以回答关于施工进度计划的所有问题，包括：\n• 本系统的功能介绍和使用方法\n• 生成进度计划需要提供哪些参数\n• 关键路径、资源配置、工期计算等专业知识\n• 施工管理相关的各种问题\n\n请问有什么可以帮你的？");
+    } else {
+      addSystemMsg("你好！输入施工组织设计或工程问题，我将调度多智能体工作流生成进度计划。\n生成完成后，右侧会展示多智能体执行过程与监督报告，并可在「📊 进度看板」查看甘特图、资源曲线与多方案对比。");
+    }
+  });
+});
+
+function addSystemMsg(text) {
+  const m = document.createElement("div");
+  m.className = "msg assistant";
+  const sp = document.createElement("span");
+  sp.className = "meta";
+  sp.textContent = "👋 助手";
+  const body = document.createElement("span");
+  body.className = "body";
+  body.textContent = text;
+  m.appendChild(sp);
+  m.appendChild(body);
+  $("messages").appendChild(m);
+  scrollBottom();
+}
+
+</script>
+</body>
+</html>
